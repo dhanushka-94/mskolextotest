@@ -5,19 +5,19 @@
 
 @section('content')
 <!-- Page Header -->
-<section class="bg-black py-12">
+<section class="bg-black py-8 md:py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Our Products</h1>
-            <p class="text-xl text-gray-300 max-w-3xl mx-auto">Discover premium computer hardware and solutions tailored for your needs</p>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4">Our Products</h1>
+            <p class="text-base md:text-xl text-gray-300 max-w-3xl mx-auto">Discover premium computer hardware and solutions tailored for your needs</p>
         </div>
     </div>
 </section>
 
 <!-- Filters and Products -->
-<section class="py-12 bg-black">
+<section class="py-8 md:py-12 bg-black">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col lg:flex-row gap-8">
+        <div class="flex flex-col lg:flex-row gap-6 md:gap-8">
             <!-- Sidebar Filters -->
             <div class="lg:w-1/4">
                 <div class="card p-6 sticky top-20">

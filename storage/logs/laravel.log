@@ -11204,3 +11204,600 @@ Did you mean one of these?
 [2025-09-21 08:06:58] local.INFO: Category route binding - Value: cart, Field: null  
 [2025-09-21 08:06:58] local.INFO: Category slug lookup - searching for: cart  
 [2025-09-21 08:06:58] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:03:36] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:03:36] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:03:36] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:03:39] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:04:03] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:04:05] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:04:05] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:04:05] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:04:19] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:04:21] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:04:21] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:04:21] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:05:12] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:05:12] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:05:12] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:05:26] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:05:28] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:05:28] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:05:28] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:05:29] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:05:29] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:05:29] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:05:43] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:05:44] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:05:44] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:05:44] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:05:45] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:05:45] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:05:45] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:05:57] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:05:59] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:05:59] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:05:59] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:05:59] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:05:59] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:05:59] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:06:18] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:06:20] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:06:20] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:06:20] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:06:20] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:06:20] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:06:20] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:06:33] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:06:36] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:06:36] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:06:36] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:06:36] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:06:36] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:06:36] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:07:09] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:07:11] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:07:11] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:07:11] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:07:11] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:07:11] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:07:11] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:07:26] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:07:28] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:07:28] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:07:28] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:07:28] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:07:28] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:07:28] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:07:47] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:07:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:07:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:07:48] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:07:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:07:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:07:48] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:08:25] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:08:25] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:08:25] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:08:25] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:08:25] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:08:25] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:08:25] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:08:39] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:08:39] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:08:39] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:08:39] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:08:39] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:08:39] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:08:39] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:09:53] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:09:53] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:09:53] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:09:53] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:09:53] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:09:53] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:09:53] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:10:09] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:10:10] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:10:10] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:10:10] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:10:10] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:10:10] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:10:10] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:10:39] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:10:40] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:10:40] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:10:40] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:10:41] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:10:41] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:10:41] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:10:56] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:10:56] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:10:57] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:10:57] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:10:57] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:10:57] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:10:57] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:11:12] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:11:12] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:11:12] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:11:12] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:11:13] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:11:13] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:11:13] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:11:29] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:11:29] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:11:29] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:11:29] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:11:29] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:11:29] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:11:29] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:11:46] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:11:47] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:11:47] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:11:47] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:11:47] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:11:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:11:48] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:12:02] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:12:03] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:12:03] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:12:03] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:12:03] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:12:03] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:12:03] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:12:46] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 17:12:46] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:12:46] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:12:46] local.INFO: Category slug lookup result: not found  
+[2025-09-23 17:12:47] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 17:12:47] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 17:12:47] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:38:50] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:38:52] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:38:52] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:38:52] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:38:52] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:38:52] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:38:52] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:39:04] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:39:06] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:39:06] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:39:06] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:39:06] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:39:06] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:39:06] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:39:19] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:39:21] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:39:21] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:39:21] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:39:21] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:39:21] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:39:21] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:39:35] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:39:37] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:39:37] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:39:37] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:39:37] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:39:37] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:39:37] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:40:21] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:40:23] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:40:23] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:40:23] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:40:23] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:40:23] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:40:23] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:40:47] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:40:47] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:40:47] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:40:47] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:40:47] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:40:47] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:40:47] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:45:20] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:45:23] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:45:23] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:45:23] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:45:25] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:45:26] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:45:26] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:45:26] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:47:47] local.INFO: Category route binding - Value: brand-new-cooler-fan-air-liquid, Field: null  
+[2025-09-23 18:47:47] local.INFO: Category slug lookup (stored) result: BRAND NEW COOLER (FAN,AIR,LIQUID)  
+[2025-09-23 18:47:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:47:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:47:48] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:47:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:47:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:47:50] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:53:43] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:53:43] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:53:43] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:53:44] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:53:44] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:53:44] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:53:44] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:54:12] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:54:14] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:54:14] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:54:14] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:54:14] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:54:14] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:54:14] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:54:28] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:54:30] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:54:30] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:54:30] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:54:30] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:54:30] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:54:30] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:54:50] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:54:52] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:54:52] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:54:52] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:54:52] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:54:52] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:54:52] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:55:07] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:55:09] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:55:09] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:55:09] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:55:09] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:55:09] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:55:09] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:55:24] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:55:26] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:55:26] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:55:26] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:55:26] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:55:26] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:55:26] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:55:49] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:55:49] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:55:49] local.INFO: Category slug lookup result: not found  
+[2025-09-23 18:55:50] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 18:55:51] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 18:55:51] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 18:55:51] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:08:41] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:08:42] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:08:42] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:08:42] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:08:55] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:08:55] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:08:55] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:08:55] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:09:07] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:09:08] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:09:08] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:09:08] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:09:44] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-23 19:09:44] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-23 19:09:45] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:09:45] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:09:45] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:09:46] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-23 19:09:46] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-23 19:09:46] local.INFO: Product route binding - Value: msi-geforce-rtx-5050-ventus-2x-oc-8gb-gddr7x-graphics-card, Field: null  
+[2025-09-23 19:09:46] local.INFO: Product slug lookup - searching for: msi geforce rtx 5050 ventus 2x oc 8gb gddr7x graphics card  
+[2025-09-23 19:09:46] local.INFO: Product slug lookup result: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD  
+[2025-09-23 19:09:46] local.INFO: ProductController@show - Category: BRAND NEW GRAPHIC CARD (VGA) (ID: 415), Product: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD (ID: 3222, Category: 385)  
+[2025-09-23 19:09:47] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:09:47] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:09:47] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:09:50] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-23 19:09:50] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-23 19:09:50] local.INFO: Product route binding - Value: msi-geforce-rtx-5050-ventus-2x-oc-8gb-gddr7x-graphics-card, Field: null  
+[2025-09-23 19:09:50] local.INFO: Product slug lookup - searching for: msi geforce rtx 5050 ventus 2x oc 8gb gddr7x graphics card  
+[2025-09-23 19:09:50] local.INFO: Product slug lookup result: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD  
+[2025-09-23 19:09:50] local.INFO: ProductController@show - Category: BRAND NEW GRAPHIC CARD (VGA) (ID: 415), Product: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD (ID: 3222, Category: 385)  
+[2025-09-23 19:09:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:09:51] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:09:51] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:10:01] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:10:01] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:10:01] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:11:30] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:11:30] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:11:30] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:11:30] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:12:40] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:12:40] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:12:40] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:12:40] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:12:46] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:12:46] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:12:46] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:12:46] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:12:46] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:12:46] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:13:14] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:13:14] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:13:14] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:13:16] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:13:16] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:13:16] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:13:16] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:13:16] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:13:16] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:13:29] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:13:29] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:13:29] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:13:31] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:13:31] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:13:31] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:13:31] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:13:31] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:13:31] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:13:53] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:13:53] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:13:53] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:13:55] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:13:55] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:13:55] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:13:55] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:13:55] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:13:55] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:14:48] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:14:48] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:14:48] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:14:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:14:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:14:50] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:14:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:14:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:14:50] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:15:04] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:15:04] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:15:04] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:15:06] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:15:06] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:15:06] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:15:06] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:15:06] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:15:06] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:15:20] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:15:20] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:15:20] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:15:22] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:15:22] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:15:22] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:15:22] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:15:22] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:15:22] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:15:35] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:15:35] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:15:35] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:15:37] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:15:37] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:15:37] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:15:37] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:15:37] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:15:37] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:15:50] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:15:50] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:15:50] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:15:52] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:15:52] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:15:52] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:15:52] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:15:52] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:15:52] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:16:06] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:16:06] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:16:06] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:16:08] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:16:08] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:16:08] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:16:08] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:16:08] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:16:08] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:16:39] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:16:39] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:16:40] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:16:40] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:16:40] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:16:40] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:16:40] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:16:40] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:16:40] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:19:16] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:19:16] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:19:16] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:19:16] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:19:38] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:19:38] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:19:38] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:19:38] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:19:48] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:19:49] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:19:49] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:19:49] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:23:07] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:23:09] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:23:09] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:23:09] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:23:09] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:23:09] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:23:09] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:23:30] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:23:32] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:23:32] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:23:32] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:23:32] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:23:32] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:23:32] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:23:51] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:23:53] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:23:53] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:23:53] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:23:53] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:23:53] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:23:53] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:24:08] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:24:09] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:24:09] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:24:09] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:24:09] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:24:09] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:24:09] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:24:36] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:24:36] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:24:36] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:24:36] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:24:36] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:24:36] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:24:36] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:27:21] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:27:21] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:27:21] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:27:21] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:27:55] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:27:55] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:27:56] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:27:56] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:27:56] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:27:56] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:28:33] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:28:33] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:28:34] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:28:36] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:28:36] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:28:36] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:28:36] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:28:36] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:28:36] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:28:47] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:28:47] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:28:49] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:28:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:28:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:28:50] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:28:51] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:28:51] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:28:51] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:29:05] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:29:05] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:29:06] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:29:08] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:29:08] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:29:08] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:29:08] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:29:08] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:29:08] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:29:19] local.INFO: Category route binding - Value: motherboard, Field: null  
+[2025-09-23 19:29:19] local.INFO: Category slug lookup (stored) result: MOTHERBOARD  
+[2025-09-23 19:29:19] local.INFO: Product route binding - Value: used-b85-4th-gen-2ram-slot-motherboard, Field: null  
+[2025-09-23 19:29:19] local.INFO: Product slug lookup - searching for: used b85 4th gen 2ram slot motherboard  
+[2025-09-23 19:29:19] local.INFO: Product slug lookup result: USED B85 4TH GEN 2RAM SLOT MOTHERBOARD  
+[2025-09-23 19:29:19] local.INFO: ProductController@show - Category: MOTHERBOARD (ID: 383), Product: USED B85 4TH GEN 2RAM SLOT MOTHERBOARD (ID: 508, Category: 383)  
+[2025-09-23 19:29:19] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:29:19] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:29:19] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:29:19] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:29:26] local.INFO: Category route binding - Value: motherboard, Field: null  
+[2025-09-23 19:29:26] local.INFO: Category slug lookup (stored) result: MOTHERBOARD  
+[2025-09-23 19:29:26] local.INFO: Product route binding - Value: used-b85-4th-gen-2ram-slot-motherboard, Field: null  
+[2025-09-23 19:29:26] local.INFO: Product slug lookup - searching for: used b85 4th gen 2ram slot motherboard  
+[2025-09-23 19:29:26] local.INFO: Product slug lookup result: USED B85 4TH GEN 2RAM SLOT MOTHERBOARD  
+[2025-09-23 19:29:26] local.INFO: ProductController@show - Category: MOTHERBOARD (ID: 383), Product: USED B85 4TH GEN 2RAM SLOT MOTHERBOARD (ID: 508, Category: 383)  
+[2025-09-23 19:29:27] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:29:27] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:29:27] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:29:27] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:29:27] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:29:27] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:29:27] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:29:40] local.INFO: Category route binding - Value: motherboard, Field: null  
+[2025-09-23 19:29:40] local.INFO: Category slug lookup (stored) result: MOTHERBOARD  
+[2025-09-23 19:29:40] local.INFO: Product route binding - Value: used-b85-4th-gen-2ram-slot-motherboard, Field: null  
+[2025-09-23 19:29:40] local.INFO: Product slug lookup - searching for: used b85 4th gen 2ram slot motherboard  
+[2025-09-23 19:29:40] local.INFO: Product slug lookup result: USED B85 4TH GEN 2RAM SLOT MOTHERBOARD  
+[2025-09-23 19:29:40] local.INFO: ProductController@show - Category: MOTHERBOARD (ID: 383), Product: USED B85 4TH GEN 2RAM SLOT MOTHERBOARD (ID: 508, Category: 383)  
+[2025-09-23 19:29:41] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:29:41] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:29:41] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:29:41] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:29:42] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:29:42] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:29:42] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:29:44] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:30:02] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:30:02] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:30:03] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:30:05] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:30:05] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:30:05] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:30:06] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:30:06] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:30:06] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:30:21] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:30:21] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:30:22] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:30:25] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:30:25] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:30:25] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:30:25] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:30:25] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:30:25] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:30:41] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:30:41] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:30:42] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:30:44] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:30:44] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:30:44] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:30:44] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:30:44] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:30:44] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:31:03] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-23 19:31:03] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-23 19:31:04] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:31:04] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:31:04] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:31:05] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-23 19:31:05] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-23 19:31:05] local.INFO: Product route binding - Value: msi-geforce-rtx-5050-ventus-2x-oc-8gb-gddr7x-graphics-card, Field: null  
+[2025-09-23 19:31:05] local.INFO: Product slug lookup - searching for: msi geforce rtx 5050 ventus 2x oc 8gb gddr7x graphics card  
+[2025-09-23 19:31:05] local.INFO: Product slug lookup result: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD  
+[2025-09-23 19:31:05] local.INFO: ProductController@show - Category: BRAND NEW GRAPHIC CARD (VGA) (ID: 415), Product: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD (ID: 3222, Category: 385)  
+[2025-09-23 19:31:05] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:31:06] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:31:06] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:31:07] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:31:07] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:31:07] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:32:00] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:32:00] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:32:01] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:32:02] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:32:03] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:32:03] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:32:03] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:32:03] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:32:03] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:32:03] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:32:03] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:32:04] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:32:04] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:32:04] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:32:04] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:32:15] local.INFO: Category route binding - Value: 383, Field: null  
+[2025-09-23 19:32:15] local.INFO: Category ID lookup result: MOTHERBOARD  
+[2025-09-23 19:32:16] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:32:18] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:32:18] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:32:18] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:32:18] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:32:18] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:32:18] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:32:30] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:32:30] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:32:30] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:32:30] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:32:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:32:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:32:48] local.INFO: Category slug lookup result: not found  
+[2025-09-23 19:32:48] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-23 19:32:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-23 19:32:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-23 19:32:48] local.INFO: Category slug lookup result: not found  

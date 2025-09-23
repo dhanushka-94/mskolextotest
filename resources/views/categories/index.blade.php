@@ -5,19 +5,19 @@
 
 @section('content')
 <!-- Compact Header -->
-<section class="bg-black py-8">
+<section class="bg-black py-6 md:py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Product Categories</h1>
-            <p class="text-lg text-gray-300">Explore our comprehensive range of computer hardware and technology solutions</p>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">Product Categories</h1>
+            <p class="text-base md:text-lg text-gray-300">Explore our comprehensive range of computer hardware and technology solutions</p>
         </div>
     </div>
 </section>
 
 <!-- Categories Grid -->
-<section class="py-12 bg-black">
+<section class="py-8 md:py-12 bg-black">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
             @foreach($categories as $category)
                 <div class="group">
                     <a href="{{ route('categories.show', $category->id) }}" class="block">

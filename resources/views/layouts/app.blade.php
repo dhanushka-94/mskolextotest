@@ -85,19 +85,19 @@
     <div class="bg-black border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col sm:flex-row justify-between items-center py-2 text-sm">
-                <div class="flex items-center space-x-4 text-gray-300">
-                    <div class="flex items-center space-x-2">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-gray-300 text-center sm:text-left">
+                    <div class="flex items-center justify-center sm:justify-start space-x-2 mb-1 sm:mb-0">
                         <svg class="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                         </svg>
-                        <span>0112 95 9005 / 0777 50 69 39 / 071 53 21 750</span>
+                        <span class="text-xs sm:text-sm">0112 95 9005 / 0777 50 69 39 / 071 53 21 750</span>
                     </div>
-                    <span class="hidden md:inline">|</span>
-                    <div class="flex items-center space-x-2">
+                    <span class="hidden sm:inline">|</span>
+                    <div class="flex items-center justify-center sm:justify-start space-x-2">
                         <svg class="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
-                        <span>info@mskcomputers.lk</span>
+                        <span class="text-xs sm:text-sm">info@mskcomputers.lk</span>
                     </div>
                 </div>
                 <div class="flex items-center space-x-2 text-primary-400 text-xs">
@@ -114,27 +114,45 @@
      <header class="bg-black border-b border-gray-800 sticky top-0 z-[9999] shadow-lg navigation-header">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Top Row: Logo, Search, Account -->
-            <div class="flex items-center justify-between h-24 border-b border-gray-800/50">
+            <div class="flex items-center justify-between h-16 md:h-24 border-b border-gray-800/50">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="{{ route('home') }}" class="flex items-center space-x-3">
+                    <a href="{{ route('home') }}" class="flex items-center space-x-2 md:space-x-3">
                         <div class="flex items-center">
                             <img src="{{ asset('msk-computers-logo-color.png') }}" 
                                  alt="MSK Computers Logo" 
-                                 class="w-28 h-28 object-contain">
+                                 class="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 object-contain">
                         </div>
-                        <div>
-                            <h1 class="text-xl font-bold text-primary-400">MSK COMPUTERS</h1>
-                            <p class="text-xs text-gray-400">Empowering Tech Solutions, Every Day.</p>
+                        <div class="hidden sm:block">
+                            <h1 class="text-sm md:text-xl font-bold text-primary-400">MSK COMPUTERS</h1>
+                            <p class="text-xs text-gray-400 hidden md:block">Empowering Tech Solutions, Every Day.</p>
                         </div>
                     </a>
                 </div>
 
-                <!-- Search Bar -->
-                <div class="flex-1 max-w-2xl mx-8 hidden md:block">
-                    <form action="{{ route('products.search') }}" method="GET" class="relative" id="search-form">
+                <!-- Search Bar - Mobile Search & Category Icons -->
+                <div class="flex-1 mx-2 md:mx-8">
+                    <!-- Mobile Action Buttons -->
+                    <div class="md:hidden flex items-center space-x-2">
+                        <!-- Mobile Categories Button -->
+                        <button class="p-2 text-gray-300 hover:text-primary-400 transition-colors" id="mobile-categories-toggle">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Mobile Search Button -->
+                        <button class="p-2 text-gray-300 hover:text-primary-400 transition-colors" id="mobile-search-toggle">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Desktop Search -->
+                    <form action="{{ route('products.search') }}" method="GET" class="relative hidden md:block" id="search-form">
                         <input type="text" name="q" placeholder="Search computers, parts, accessories..." 
-                               class="w-full bg-black border border-gray-800 text-white px-4 py-2.5 pl-12 pr-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" 
+                               class="w-full bg-black border border-gray-800 text-white px-4 py-2.5 pl-12 pr-16 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" 
                                value="{{ request('q') }}" 
                                id="search-input"
                                autocomplete="off">
@@ -278,20 +296,20 @@
             </div>
             
             <!-- Bottom Row: Navigation Menu -->
-            <div class="flex items-center justify-center space-x-4 lg:space-x-8 h-12">
+            <div class="hidden md:flex items-center justify-center space-x-4 lg:space-x-8 h-12">
                 <a href="{{ route('home') }}" class="text-gray-300 hover:text-primary-400 transition-colors text-sm font-medium whitespace-nowrap {{ request()->routeIs('home') ? 'text-primary-400' : '' }}">Home</a>
                 
                 <!-- Categories Dropdown -->
                 <div class="relative group">
-                    <a href="{{ route('categories.index') }}" class="text-gray-300 hover:text-primary-400 transition-colors text-sm font-medium flex items-center whitespace-nowrap {{ request()->routeIs('categories.*') ? 'text-primary-400' : '' }}">
+                    <button class="text-gray-300 hover:text-primary-400 transition-colors text-sm font-medium flex items-center whitespace-nowrap {{ request()->routeIs('categories.*') ? 'text-primary-400' : '' }}" id="categories-dropdown-trigger">
                         Categories
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 ml-1 transition-transform duration-200" id="categories-dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
-                    </a>
+                    </button>
                     
                     <!-- Categories Dropdown Menu -->
-                    <div class="absolute top-full left-0 w-80 bg-black border border-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[9999] dropdown-menu max-h-[70vh] overflow-hidden">
+                    <div class="absolute top-full left-0 w-80 md:w-96 bg-black border border-gray-800 rounded-lg shadow-xl opacity-0 invisible md:group-hover:opacity-100 md:group-hover:visible transition-all duration-200 z-[9999] dropdown-menu max-h-[70vh] overflow-hidden" id="categories-dropdown-menu">
                         <div class="py-3">
                             <!-- Dropdown Header -->
                             <div class="px-4 pb-3 border-b border-gray-800">
@@ -361,56 +379,171 @@
             </div>
         </div>
         
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden mobile-menu" id="mobile-menu">
-            <div class="px-4 pt-4 pb-3 space-y-3 bg-black border-t border-gray-800 max-h-96 overflow-y-auto">
-                <!-- Mobile Search -->
-                <div class="mb-4">
+        <!-- Mobile Categories Overlay -->
+        <div class="md:hidden hidden fixed inset-0 bg-black/95 z-[9998]" id="mobile-categories-overlay">
+            <div class="flex items-start pt-4 px-4">
+                <div class="flex-1">
+                    <div class="bg-gray-900 border border-gray-700 rounded-lg shadow-xl max-h-[80vh] overflow-y-auto">
+                        <div class="p-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-primary-400 font-semibold text-lg">Browse Categories</h3>
+                                <button class="p-1 text-gray-300 hover:text-white" id="mobile-categories-close">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Categories Grid -->
+                            <div class="grid grid-cols-2 gap-3">
+                                @foreach($menuCategories as $category)
+                                    <a href="{{ route('categories.show', $category->slug ?: $category->id) }}" 
+                                       class="flex flex-col items-center p-4 text-gray-300 hover:text-primary-400 hover:bg-gray-800/50 transition-colors rounded-lg text-center">
+                                        <svg class="w-8 h-8 mb-2 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+                                        </svg>
+                                        <span class="text-sm font-medium mb-1">{{ $category->name }}</span>
+                                        <span class="text-xs text-gray-500">{{ $category->products_count }} products</span>
+                                    </a>
+                                @endforeach
+                            </div>
+                            
+                            <!-- View All Categories Button -->
+                            <div class="mt-6 pt-4 border-t border-gray-700">
+                                <a href="{{ route('categories.index') }}" 
+                                   class="w-full flex items-center justify-center px-4 py-3 bg-primary-500 hover:bg-primary-600 text-black font-medium rounded-lg transition-colors">
+                                    <span>View All Categories</span>
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Search Overlay -->
+        <div class="md:hidden hidden fixed inset-0 bg-black/95 z-[9998]" id="mobile-search-overlay">
+            <div class="flex items-start pt-4 px-4">
+                <div class="flex-1">
                     <form action="{{ route('products.search') }}" method="GET" class="relative" id="mobile-search-form">
                         <input type="text" name="q" placeholder="Search computers, parts, accessories..." 
-                               class="w-full bg-black border border-gray-800 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" 
+                               class="w-full bg-gray-900 border border-gray-700 text-white px-4 py-3 pl-12 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" 
                                value="{{ request('q') }}" 
                                id="mobile-search-input"
                                autocomplete="off">
+                        <svg class="w-5 h-5 absolute left-4 top-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
                         
                         <!-- Mobile Search Suggestions -->
-                        <div id="mobile-search-suggestions" class="absolute top-full left-0 right-0 bg-black border border-gray-800 rounded-lg shadow-xl mt-1 hidden z-[9999] max-h-60 overflow-y-auto">
+                        <div id="mobile-search-suggestions" class="absolute top-full left-0 right-0 bg-gray-900 border border-gray-700 rounded-lg shadow-xl mt-1 hidden z-[9999] max-h-80 overflow-y-auto">
                             <!-- Suggestions will be populated here -->
                         </div>
                     </form>
                 </div>
+                <button class="ml-4 p-2 text-gray-300 hover:text-white" id="mobile-search-close">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden mobile-menu" id="mobile-menu">
+            <div class="px-4 pt-4 pb-3 space-y-4 bg-black border-t border-gray-800 max-h-screen overflow-y-auto">
                 
-                <!-- Main Navigation -->
-                <a href="{{ route('home') }}" class="block py-2 text-gray-300 hover:text-primary-400 {{ request()->routeIs('home') ? 'text-primary-400' : '' }}">Home</a>
-                
-                <!-- Mobile Categories -->
-                <div class="space-y-2">
-                    <div class="text-primary-400 font-semibold text-sm">Categories</div>
-                    @foreach($menuCategories as $category)
-                        <div class="ml-2 space-y-1">
-                            <a href="{{ route('categories.show', $category->slug ?: $category->id) }}" class="block py-1 text-gray-300 hover:text-primary-400 text-sm">
-                                {{ $category->name }} ({{ $category->products_count }})
-                            </a>
-                            @if($category->subcategories->count() > 0)
-                                <div class="ml-4 space-y-1">
-                                    @foreach($category->subcategories as $subcategory)
-                                        <a href="{{ route('categories.show', $subcategory->slug ?: $subcategory->id) }}" class="block py-1 text-gray-400 hover:text-primary-400 text-sm">
-                                            {{ $subcategory->name }} ({{ $subcategory->subcategory_products_count ?? 0 }})
-                                        </a>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
-                    @endforeach
+                <!-- Main Navigation Section -->
+                <div class="space-y-3">
+                    <h3 class="text-primary-400 font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2">Main Menu</h3>
+                    <a href="{{ route('home') }}" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors {{ request()->routeIs('home') ? 'text-primary-400 bg-primary-500/10' : '' }} rounded-lg px-3">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                        Home
+                    </a>
+                    
+                    <a href="{{ route('categories.index') }}" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors {{ request()->routeIs('categories.*') ? 'text-primary-400 bg-primary-500/10' : '' }} rounded-lg px-3">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                        All Categories
+                    </a>
+                    
+                    <a href="{{ route('promotions.index') }}" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors {{ request()->routeIs('promotions.*') ? 'text-primary-400 bg-primary-500/10' : '' }} rounded-lg px-3">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                        </svg>
+                        Promotions
+                    </a>
+                    
+                    <a href="{{ route('orders.track') }}" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors {{ request()->routeIs('orders.track') ? 'text-primary-400 bg-primary-500/10' : '' }} rounded-lg px-3">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                        </svg>
+                        Track Order
+                    </a>
                 </div>
-                
-                <a href="{{ route('promotions.index') }}" class="block py-2 text-gray-300 hover:text-primary-400 {{ request()->routeIs('promotions.*') ? 'text-primary-400' : '' }}">Promotions</a>
-                <a href="{{ route('orders.track') }}" class="block py-2 text-gray-300 hover:text-primary-400 {{ request()->routeIs('orders.track') ? 'text-primary-400' : '' }}">Track Order</a>
-                <a href="{{ route('services.index') }}" class="block py-2 text-gray-300 hover:text-primary-400 {{ request()->routeIs('services.*') ? 'text-primary-400' : '' }}">Service Center</a>
-                <a href="{{ route('bank-details.index') }}" class="block py-2 text-gray-300 hover:text-primary-400 {{ request()->routeIs('bank-details.*') ? 'text-primary-400' : '' }}">Bank Details</a>
-                <a href="{{ route('about-us.index') }}" class="block py-2 text-gray-300 hover:text-primary-400 {{ request()->routeIs('about-us.*') ? 'text-primary-400' : '' }}">About Us</a>
-                <a href="{{ route('contact-us.index') }}" class="block py-2 text-gray-300 hover:text-primary-400 {{ request()->routeIs('contact-us.*') ? 'text-primary-400' : '' }}">Contact Us</a>
-                <a href="{{ route('e-services.index') }}" class="block py-2 text-gray-300 hover:text-primary-400 {{ request()->routeIs('e-services.*') ? 'text-primary-400' : '' }}">E-Services</a>
+
+                <!-- Quick Categories -->
+                <div class="space-y-3">
+                    <h3 class="text-primary-400 font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2">Quick Categories</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        @foreach($menuCategories->take(6) as $category)
+                            <a href="{{ route('categories.show', $category->slug ?: $category->id) }}" 
+                               class="flex flex-col items-center p-3 text-gray-300 hover:text-primary-400 hover:bg-gray-800/50 transition-colors rounded-lg text-center">
+                                <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+                                </svg>
+                                <span class="text-xs font-medium">{{ $category->name }}</span>
+                                <span class="text-xs text-gray-500">{{ $category->products_count }}</span>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- Services & Support -->
+                <div class="space-y-3">
+                    <h3 class="text-primary-400 font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2">Services & Support</h3>
+                    <a href="{{ route('services.index') }}" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors {{ request()->routeIs('services.*') ? 'text-primary-400 bg-primary-500/10' : '' }} rounded-lg px-3">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Service Center
+                    </a>
+                    
+                    <a href="{{ route('bank-details.index') }}" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors {{ request()->routeIs('bank-details.*') ? 'text-primary-400 bg-primary-500/10' : '' }} rounded-lg px-3">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                        </svg>
+                        Bank Details
+                    </a>
+                    
+                    <a href="{{ route('about-us.index') }}" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors {{ request()->routeIs('about-us.*') ? 'text-primary-400 bg-primary-500/10' : '' }} rounded-lg px-3">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        About Us
+                    </a>
+                    
+                    <a href="{{ route('contact-us.index') }}" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors {{ request()->routeIs('contact-us.*') ? 'text-primary-400 bg-primary-500/10' : '' }} rounded-lg px-3">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Contact Us
+                    </a>
+                    
+                    <a href="{{ route('e-services.index') }}" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors {{ request()->routeIs('e-services.*') ? 'text-primary-400 bg-primary-500/10' : '' }} rounded-lg px-3">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                        </svg>
+                        E-Services
+                    </a>
+                </div>
                 
                 <!-- Mobile Account & Cart -->
                 <div class="border-t border-gray-800 pt-3 mt-3">
@@ -665,6 +798,13 @@
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary-500 hover:bg-primary-600 text-black p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 invisible z-50 group">
+        <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+
     @stack('scripts')
     
     <script>
@@ -672,6 +812,38 @@
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
+        });
+
+        // Mobile search toggle
+        document.getElementById('mobile-search-toggle').addEventListener('click', function() {
+            const mobileSearchOverlay = document.getElementById('mobile-search-overlay');
+            mobileSearchOverlay.classList.remove('hidden');
+            document.getElementById('mobile-search-input').focus();
+        });
+
+        // Mobile search close
+        document.getElementById('mobile-search-close').addEventListener('click', function() {
+            const mobileSearchOverlay = document.getElementById('mobile-search-overlay');
+            mobileSearchOverlay.classList.add('hidden');
+        });
+
+        // Mobile categories toggle
+        document.getElementById('mobile-categories-toggle').addEventListener('click', function() {
+            const mobileCategoriesOverlay = document.getElementById('mobile-categories-overlay');
+            mobileCategoriesOverlay.classList.remove('hidden');
+        });
+
+        // Mobile categories close
+        document.getElementById('mobile-categories-close').addEventListener('click', function() {
+            const mobileCategoriesOverlay = document.getElementById('mobile-categories-overlay');
+            mobileCategoriesOverlay.classList.add('hidden');
+        });
+
+        // Close mobile categories when clicking outside
+        document.getElementById('mobile-categories-overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+            }
         });
 
         // Enhanced Cart Animation Functions
@@ -1080,6 +1252,68 @@
 
         // Initialize cart count on page load
         updateCartCount();
+
+        // Categories Dropdown Functionality
+        const categoriesDropdownTrigger = document.getElementById('categories-dropdown-trigger');
+        const categoriesDropdownMenu = document.getElementById('categories-dropdown-menu');
+        const categoriesDropdownArrow = document.getElementById('categories-dropdown-arrow');
+        
+        if (categoriesDropdownTrigger && categoriesDropdownMenu) {
+            // Toggle dropdown on click (for mobile and touch devices)
+            categoriesDropdownTrigger.addEventListener('click', function(e) {
+                e.preventDefault();
+                const isVisible = !categoriesDropdownMenu.classList.contains('opacity-0');
+                
+                if (isVisible) {
+                    // Hide dropdown
+                    categoriesDropdownMenu.classList.add('opacity-0', 'invisible');
+                    categoriesDropdownMenu.classList.remove('opacity-100', 'visible');
+                    categoriesDropdownArrow.style.transform = 'rotate(0deg)';
+                } else {
+                    // Show dropdown
+                    categoriesDropdownMenu.classList.remove('opacity-0', 'invisible');
+                    categoriesDropdownMenu.classList.add('opacity-100', 'visible');
+                    categoriesDropdownArrow.style.transform = 'rotate(180deg)';
+                }
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!categoriesDropdownTrigger.contains(e.target) && !categoriesDropdownMenu.contains(e.target)) {
+                    categoriesDropdownMenu.classList.add('opacity-0', 'invisible');
+                    categoriesDropdownMenu.classList.remove('opacity-100', 'visible');
+                    categoriesDropdownArrow.style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            // Handle mobile touch events
+            categoriesDropdownTrigger.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                categoriesDropdownTrigger.click();
+            }, { passive: false });
+        }
+
+        // Back to Top Button Functionality
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'invisible');
+                backToTopButton.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        // Smooth scroll to top when clicked
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     </script>
 </body>
 </html>

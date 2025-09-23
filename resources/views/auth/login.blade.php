@@ -13,15 +13,15 @@
     
     <div class="max-w-md w-full space-y-8 relative z-10">
         <!-- Glass Card Container -->
-        <div class="bg-[#1a1a1c]/80 backdrop-blur-xl border border-gray-800/50 rounded-2xl p-8 shadow-2xl">
+        <div class="bg-[#1a1a1c]/80 backdrop-blur-xl border border-gray-800/50 rounded-2xl p-6 md:p-8 shadow-2xl">
             <!-- Logo and Header -->
             <div class="text-center">
-                <div class="h-32 w-32 mx-auto mb-6 relative">
+                <div class="h-24 w-24 md:h-32 md:w-32 mx-auto mb-4 md:mb-6 relative">
                     <div class="absolute inset-0 bg-[#f59e0b]/20 rounded-full blur-xl"></div>
                     <img src="{{ asset('msk-computers-logo-color.png') }}" alt="MSK Computers Logo" class="w-full h-full object-contain relative z-10">
                 </div>
-                <h2 class="text-3xl font-bold text-white mb-2">Welcome Back</h2>
-                <p class="text-gray-400 mb-6">Sign in to your MSK Computers account</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Welcome Back</h2>
+                <p class="text-sm md:text-base text-gray-400 mb-4 md:mb-6">Sign in to your MSK Computers account</p>
             </div>
 
             <!-- Error Messages -->

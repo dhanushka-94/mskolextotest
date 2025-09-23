@@ -7,30 +7,30 @@
 
 <?php $__env->startSection('content'); ?>
 <!-- Compact Category Header -->
-<section class="relative bg-[#0f0f0f] border-b border-gray-800/30 py-6">
+<section class="relative bg-[#0f0f0f] border-b border-gray-800/30 py-4 md:py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumb -->
-        <nav class="mb-4">
-            <ol class="flex items-center space-x-2 text-xs text-gray-500">
-                <li><a href="<?php echo e(route('home')); ?>" class="hover:text-[#f59e0b] transition-colors">Home</a></li>
+        <nav class="mb-3 md:mb-4">
+            <ol class="flex items-center space-x-1 md:space-x-2 text-xs text-gray-500 overflow-x-auto">
+                <li><a href="<?php echo e(route('home')); ?>" class="hover:text-[#f59e0b] transition-colors whitespace-nowrap">Home</a></li>
                 <li><span class="mx-1">/</span></li>
-                <li><a href="<?php echo e(route('categories.index')); ?>" class="hover:text-[#f59e0b] transition-colors">Categories</a></li>
+                <li><a href="<?php echo e(route('categories.index')); ?>" class="hover:text-[#f59e0b] transition-colors whitespace-nowrap">Categories</a></li>
                 <li><span class="mx-1">/</span></li>
-                <li class="text-[#f59e0b] font-medium"><?php echo e($category->name); ?></li>
+                <li class="text-[#f59e0b] font-medium truncate"><?php echo e($category->name); ?></li>
             </ol>
         </nav>
         
         <div class="flex items-center justify-between">
             <!-- Category Info -->
-            <div class="flex items-center gap-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-center gap-3 md:gap-4 min-w-0 flex-1">
+                <div class="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 h-4 md:w-6 md:h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
                 </div>
-                <div>
-                    <h1 class="text-2xl font-bold text-white"><?php echo e($category->name); ?></h1>
-                    <p class="text-sm text-gray-400"><?php echo e($products->total()); ?> products available</p>
+                <div class="min-w-0 flex-1">
+                    <h1 class="text-lg md:text-2xl font-bold text-white truncate"><?php echo e($category->name); ?></h1>
+                    <p class="text-xs md:text-sm text-gray-400"><?php echo e($products->total()); ?> products available</p>
                 </div>
             </div>
         </div>
@@ -38,12 +38,27 @@
 </section>
 
 <!-- Products Section -->
-<section class="py-16 bg-black min-h-screen">
+<section class="py-8 md:py-16 bg-black min-h-screen">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="flex gap-8">
+        <!-- Mobile Filter Toggle -->
+        <div class="lg:hidden mb-4">
+            <button id="mobile-filter-toggle" class="w-full bg-[#1c1c1e] border border-gray-800/30 rounded-lg px-4 py-3 flex items-center justify-between text-white hover:bg-[#2c2c2e] transition-colors">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-[#f59e0b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z"/>
+                    </svg>
+                    <span class="font-medium">Filters & Sort</span>
+                </div>
+                <svg class="w-5 h-5 transition-transform duration-200" id="mobile-filter-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
             <!-- Filter Sidebar -->
-            <div class="w-80 flex-shrink-0 hidden lg:block">
+            <div class="w-full lg:w-80 lg:flex-shrink-0 hidden lg:block" id="filter-sidebar">
                 <div class="bg-[#1c1c1e] rounded-xl border border-gray-800/30 p-6 shadow-lg sticky top-24">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-2 h-2 bg-[#f59e0b] rounded-full"></div>
@@ -135,11 +150,11 @@
             <!-- Main Content -->
             <div class="flex-1">
                 <!-- Compact Top Bar with Results & Sort -->
-                <div class="bg-[#1c1c1e] rounded-lg border border-gray-800/30 p-3 mb-6 shadow-sm">
+                <div class="bg-[#1c1c1e] rounded-lg border border-gray-800/30 p-3 mb-4 md:mb-6 shadow-sm">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                         <!-- Results Info -->
                         <div class="flex items-center">
-                            <span id="results-info" class="text-gray-300 text-sm">
+                            <span id="results-info" class="text-gray-300 text-xs sm:text-sm">
                                 <?php if($products->total() > 0): ?>
                                     <?php echo e($products->total()); ?> products found
                                 <?php else: ?>
@@ -151,7 +166,7 @@
                         <!-- Sort Options -->
                         <div class="flex items-center gap-2">
                             <label for="sort-select" class="text-xs text-gray-400 whitespace-nowrap">Sort:</label>
-                            <select name="sort" id="sort-select" class="bg-[#2c2c2e] border border-gray-700 text-white rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-[#f59e0b] focus:border-[#f59e0b] transition-all">
+                            <select name="sort" id="sort-select" class="bg-[#2c2c2e] border border-gray-700 text-white rounded px-2 md:px-3 py-1.5 text-xs md:text-sm focus:ring-1 focus:ring-[#f59e0b] focus:border-[#f59e0b] transition-all">
                                 <option value="latest" <?php echo e(request('sort') == 'latest' ? 'selected' : ''); ?>>Latest</option>
                                 <option value="price_low" <?php echo e(request('sort') == 'price_low' ? 'selected' : ''); ?>>Price ↑</option>
                                 <option value="price_high" <?php echo e(request('sort') == 'price_high' ? 'selected' : ''); ?>>Price ↓</option>
@@ -164,7 +179,7 @@
                 <!-- Products Grid -->
                 <div id="products-container">
                     <?php if($products->count() > 0): ?>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="products-grid">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12" id="products-grid">
                 <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <a href="<?php echo e(route('products.show', ['category' => $category->slug ?: $category->id, 'product' => $product->slug])); ?>" class="product-card block bg-[#1c1c1e] rounded-xl border border-gray-800/30 overflow-hidden hover:border-[#f59e0b]/30 transition-all duration-300 group shadow-lg hover:shadow-xl hover:shadow-[#f59e0b]/10 cursor-pointer">
                         <!-- Product Image -->
@@ -195,25 +210,25 @@
                         </div>
                         
                         <!-- Product Info -->
-                        <div class="p-4">
+                        <div class="p-3 md:p-4">
                             <div class="mb-2">
                                 <span class="text-xs text-[#f59e0b] font-medium tracking-wide"><?php echo e($product->category->name ?? 'Uncategorized'); ?></span>
                             </div>
-                            <h3 class="text-base font-semibold text-white mb-3 line-clamp-2 group-hover:text-[#f59e0b] transition-colors leading-tight">
+                            <h3 class="text-sm md:text-base font-semibold text-white mb-2 md:mb-3 line-clamp-2 group-hover:text-[#f59e0b] transition-colors leading-tight">
                                 <?php echo e($product->name); ?>
 
                             </h3>
                             
-                            <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center justify-between mb-3 md:mb-4">
                                 <div class="flex flex-col">
                                     <?php if($product->is_on_sale): ?>
-                                        <span class="text-sm text-gray-500 line-through">LKR <?php echo e(number_format($product->price, 2)); ?></span>
-                                        <span class="text-lg font-bold text-[#f59e0b]">LKR <?php echo e(number_format($product->final_price, 2)); ?></span>
+                                        <span class="text-xs md:text-sm text-gray-500 line-through">LKR <?php echo e(number_format($product->price, 2)); ?></span>
+                                        <span class="text-sm md:text-lg font-bold text-[#f59e0b]">LKR <?php echo e(number_format($product->final_price, 2)); ?></span>
                                     <?php else: ?>
                                         <?php if($product->price > 0 && $product->final_price > 0): ?>
-                                            <span class="text-lg font-bold text-white">LKR <?php echo e(number_format($product->final_price, 2)); ?></span>
+                                            <span class="text-sm md:text-lg font-bold text-white">LKR <?php echo e(number_format($product->final_price, 2)); ?></span>
                                         <?php else: ?>
-                                            <span class="text-lg font-bold text-[#f59e0b]">Contact for Price</span>
+                                            <span class="text-sm md:text-lg font-bold text-[#f59e0b]">Contact for Price</span>
                                         <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
@@ -232,12 +247,12 @@
                             <div class="mt-auto">
                                 <?php if($product->can_add_to_cart): ?>
                                     <button onclick="event.preventDefault(); event.stopPropagation(); addToCartFromCategory(<?php echo e($product->id); ?>)" 
-                                            class="w-full bg-[#f59e0b] hover:bg-[#d97706] text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition-all">
+                                            class="w-full bg-[#f59e0b] hover:bg-[#d97706] text-white px-3 md:px-4 py-2 md:py-2.5 rounded-lg text-xs md:text-sm font-semibold transition-all">
                                         Add to Cart
                                     </button>
                                 <?php else: ?>
                                     <button disabled 
-                                            class="w-full bg-[#2c2c2e] text-gray-500 px-4 py-2.5 rounded-lg text-sm font-medium cursor-not-allowed border border-gray-700"
+                                            class="w-full bg-[#2c2c2e] text-gray-500 px-3 md:px-4 py-2 md:py-2.5 rounded-lg text-xs md:text-sm font-medium cursor-not-allowed border border-gray-700"
                                             title="<?php echo e($product->cart_restriction_reason); ?>">
                                         <?php echo e($product->cart_restriction_reason ?: 'Unavailable'); ?>
 
@@ -605,7 +620,7 @@
                 return;
             }
 
-            let gridHTML = '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">';
+            let gridHTML = '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">';
             
             products.forEach(product => {
                 let stockBadge = '';
@@ -806,6 +821,27 @@
 
         FilterSystem.isInitialized = true;
         console.log('✅ AJAX Filter System initialized successfully!');
+        
+        // Mobile filter toggle functionality
+        const mobileFilterToggle = document.getElementById('mobile-filter-toggle');
+        const mobileFilterArrow = document.getElementById('mobile-filter-arrow');
+        const filterSidebar = document.getElementById('filter-sidebar');
+        
+        if (mobileFilterToggle && filterSidebar) {
+            mobileFilterToggle.addEventListener('click', function() {
+                const isHidden = filterSidebar.classList.contains('hidden');
+                
+                if (isHidden) {
+                    filterSidebar.classList.remove('hidden');
+                    filterSidebar.classList.add('block', 'mb-6');
+                    mobileFilterArrow.style.transform = 'rotate(180deg)';
+                } else {
+                    filterSidebar.classList.add('hidden');
+                    filterSidebar.classList.remove('block', 'mb-6');
+                    mobileFilterArrow.style.transform = 'rotate(0deg)';
+                }
+            });
+        }
     });
 
     // Global function for add to cart from category page
