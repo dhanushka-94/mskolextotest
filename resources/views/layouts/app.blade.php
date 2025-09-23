@@ -450,8 +450,8 @@
                     </svg>
                 </button>
             </div>
-        </div>
-        
+                </div>
+                
         <!-- Mobile Menu -->
         <div class="md:hidden hidden mobile-menu" id="mobile-menu">
             <div class="px-4 pt-4 pb-3 space-y-4 bg-black border-t border-gray-800 max-h-screen overflow-y-auto">
@@ -486,7 +486,7 @@
                         </svg>
                         Track Order
                     </a>
-                </div>
+                                </div>
 
                 <!-- Quick Categories -->
                 <div class="space-y-3">
@@ -501,10 +501,10 @@
                                 <span class="text-xs font-medium">{{ $category->name }}</span>
                                 <span class="text-xs text-gray-500">{{ $category->products_count }}</span>
                             </a>
-                        @endforeach
+                    @endforeach
                     </div>
                 </div>
-
+                
                 <!-- Services & Support -->
                 <div class="space-y-3">
                     <h3 class="text-primary-400 font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2">Services & Support</h3>
@@ -655,11 +655,11 @@
                     <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
                     <ul class="space-y-2">
                         <li><a href="{{ route('home') }}" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Home</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Gaming Laptops</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Desktop PCs</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Components</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Accessories</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Repair Services</a></li>
+                        <li><a href="{{ route('categories.index') }}" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">All Categories</a></li>
+                        <li><a href="{{ route('promotions.index') }}" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Promotions</a></li>
+                        <li><a href="{{ route('orders.track') }}" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Track Order</a></li>
+                        <li><a href="{{ route('about-us.index') }}" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">About Us</a></li>
+                        <li><a href="{{ route('contact-us.index') }}" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Contact Us</a></li>
                     </ul>
                 </div>
 
@@ -667,12 +667,13 @@
                 <div>
                     <h4 class="text-lg font-semibold text-white mb-4">Categories</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Processors</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Graphics Cards</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Memory (RAM)</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Storage</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Motherboards</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Power Supplies</a></li>
+                        @if(isset($menuCategories) && $menuCategories->count() > 0)
+                            @foreach($menuCategories->take(6) as $category)
+                                <li><a href="{{ route('categories.show', $category->slug ?: $category->id) }}" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">{{ $category->name }}</a></li>
+                            @endforeach
+                        @else
+                            <li><a href="{{ route('categories.index') }}" class="text-gray-400 hover:text-primary-400 transition-colors text-sm">Browse All Categories</a></li>
+                        @endif
                     </ul>
                 </div>
 
@@ -849,67 +850,67 @@
         // Enhanced Cart Animation Functions
         function updateCartCount(newCount = null, cartTotal = null) {
             try {
-                if (newCount === null) {
-                    // Get count from localStorage or session
-                    newCount = localStorage.getItem('cartCount') || 0;
-                } else {
-                    // Store the new count
-                    localStorage.setItem('cartCount', newCount);
-                }
-                
-                if (cartTotal !== null) {
-                    localStorage.setItem('cartTotal', cartTotal);
-                } else {
-                    cartTotal = localStorage.getItem('cartTotal') || '0.00';
-                }
-                
-                const cartCountElements = document.querySelectorAll('.cart-count');
-                cartCountElements.forEach(element => {
+            if (newCount === null) {
+                // Get count from localStorage or session
+                newCount = localStorage.getItem('cartCount') || 0;
+            } else {
+                // Store the new count
+                localStorage.setItem('cartCount', newCount);
+            }
+            
+            if (cartTotal !== null) {
+                localStorage.setItem('cartTotal', cartTotal);
+            } else {
+                cartTotal = localStorage.getItem('cartTotal') || '0.00';
+            }
+            
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(element => {
                     if (!element) return; // Skip if element doesn't exist
                     
-                    const oldCount = parseInt(element.textContent) || 0;
-                    element.textContent = newCount;
-                    
-                    // Animate cart count update
-                    if (newCount > oldCount) {
+                const oldCount = parseInt(element.textContent) || 0;
+                element.textContent = newCount;
+                
+                // Animate cart count update
+                if (newCount > oldCount) {
                         try {
-                            animateCartUpdate(element);
+                    animateCartUpdate(element);
                         } catch (animError) {
                             console.error('Cart animation error:', animError);
                         }
-                    }
-                    
-                    // Hide badge if count is 0
-                    if (newCount == 0) {
-                        element.style.opacity = '0';
-                        element.style.transform = 'scale(0.8)';
-                    } else {
-                        element.style.opacity = '1';
-                        element.style.transform = 'scale(1)';
-                    }
-                });
-                
-                // Update cart total display (but not on cart page itself)
-                if (!window.location.pathname.includes('/cart')) {
-                    const cartTotalElements = document.querySelectorAll('.cart-total');
-                    cartTotalElements.forEach(element => {
-                        if (element) {
-                            element.textContent = `LKR ${cartTotal}`;
-                        }
-                    });
                 }
                 
-                // Update mobile cart count separately
-                const mobileCartCountElements = document.querySelectorAll('.mobile-cart-count');
-                mobileCartCountElements.forEach(element => {
+                // Hide badge if count is 0
+                if (newCount == 0) {
+                    element.style.opacity = '0';
+                    element.style.transform = 'scale(0.8)';
+                } else {
+                    element.style.opacity = '1';
+                    element.style.transform = 'scale(1)';
+                }
+            });
+            
+                // Update cart total display (but not on cart page itself)
+                if (!window.location.pathname.includes('/cart')) {
+            const cartTotalElements = document.querySelectorAll('.cart-total');
+            cartTotalElements.forEach(element => {
+                        if (element) {
+                element.textContent = `LKR ${cartTotal}`;
+                        }
+            });
+                }
+            
+            // Update mobile cart count separately
+            const mobileCartCountElements = document.querySelectorAll('.mobile-cart-count');
+            mobileCartCountElements.forEach(element => {
                     if (element) {
                         element.textContent = newCount;
                     }
-                });
+            });
 
-                // Update mobile cart text
-                const mobileCartTexts = document.querySelectorAll('.mobile-cart-text');
-                mobileCartTexts.forEach(element => {
+            // Update mobile cart text
+            const mobileCartTexts = document.querySelectorAll('.mobile-cart-text');
+            mobileCartTexts.forEach(element => {
                     if (element) {
                         element.textContent = newCount > 0 ? `Cart (${newCount})` : 'Cart';
                     }
@@ -955,7 +956,7 @@
                 }
             });
         }
-
+        
         function animateCartIcon() {
             // Cart icon shake and bounce
             const cartIcons = document.querySelectorAll('.cart-icon, .mobile-cart-icon, .cart-icon-mobile');
@@ -1056,30 +1057,30 @@
         // Global function to handle all cart animations
         window.animateCartAddition = function(cartCount, productName = 'Item', cartTotal = null) {
             try {
-                // Update cart count with animation and total
-                updateCartCount(cartCount, cartTotal);
+            // Update cart count with animation and total
+            updateCartCount(cartCount, cartTotal);
                 
                 // Update mobile cart count
                 updateMobileCartCount(cartCount);
-                
-                // Animate cart icon
-                animateCartIcon();
-                
-                // Show pulse effect
-                showCartPulse();
-                
-                // Show success notification
-                showCartSuccessNotification(`${productName} added to cart!`);
-                
-                // Add temporary glow effect to cart container
+            
+            // Animate cart icon
+            animateCartIcon();
+            
+            // Show pulse effect
+            showCartPulse();
+            
+            // Show success notification
+            showCartSuccessNotification(`${productName} added to cart!`);
+            
+            // Add temporary glow effect to cart container
                 const cartContainers = document.querySelectorAll('.cart-container, .mobile-cart-container, .cart-container-mobile');
-                cartContainers.forEach(container => {
-                    container.style.filter = 'drop-shadow(0 0 15px #10b981)';
-                    container.style.transform = 'scale(1.05)';
-                    setTimeout(() => {
-                        container.style.filter = 'none';
-                        container.style.transform = 'scale(1)';
-                    }, 800);
+            cartContainers.forEach(container => {
+                container.style.filter = 'drop-shadow(0 0 15px #10b981)';
+                container.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    container.style.filter = 'none';
+                    container.style.transform = 'scale(1)';
+                }, 800);
                 });
             } catch (error) {
                 console.error('Cart animation error:', error);
@@ -1103,7 +1104,7 @@
             // Fetch actual cart count from server
             // Only fetch if not on checkout page to avoid conflicts
             if (!window.location.pathname.includes('/checkout')) {
-                fetchCartCount();
+            fetchCartCount();
             } else {
                 // For checkout page, use fallback values
                 updateCartCount(0, '0.00');
@@ -1252,7 +1253,7 @@
 
         // Initialize cart count on page load
         updateCartCount();
-
+        
         // Categories Dropdown Functionality
         const categoriesDropdownTrigger = document.getElementById('categories-dropdown-trigger');
         const categoriesDropdownMenu = document.getElementById('categories-dropdown-menu');

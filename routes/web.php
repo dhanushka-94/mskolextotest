@@ -85,6 +85,69 @@ Route::get('/e-services', function () {
     return view('e-services');
 })->name('e-services.index');
 
+// SEO Routes
+Route::get('/sitemap.xml', function() {
+    $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    // Add main pages
+    $mainPages = [
+        ['url' => url('/'), 'priority' => '1.0', 'changefreq' => 'weekly'],
+        ['url' => url('/categories'), 'priority' => '0.9', 'changefreq' => 'weekly'],
+        ['url' => url('/about-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
+        ['url' => url('/contact-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
+        ['url' => url('/track-order'), 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['url' => url('/e-services'), 'priority' => '0.6', 'changefreq' => 'monthly'],
+    ];
+
+    foreach ($mainPages as $page) {
+        $sitemap .= "  <url>\n";
+        $sitemap .= "    <loc>" . htmlspecialchars($page['url']) . "</loc>\n";
+        $sitemap .= "    <lastmod>" . now()->format('Y-m-d\TH:i:s\Z') . "</lastmod>\n";
+        $sitemap .= "    <changefreq>" . $page['changefreq'] . "</changefreq>\n";
+        $sitemap .= "    <priority>" . $page['priority'] . "</priority>\n";
+        $sitemap .= "  </url>\n";
+    }
+
+    // Add categories if available
+    try {
+        if (class_exists('\App\Models\SmaCategory')) {
+            $categories = \App\Models\SmaCategory::where('hide', 0)->limit(50)->get();
+            foreach ($categories as $category) {
+                $categoryUrl = url('/categories/' . ($category->slug ?: $category->id));
+                $sitemap .= "  <url>\n";
+                $sitemap .= "    <loc>" . htmlspecialchars($categoryUrl) . "</loc>\n";
+                $sitemap .= "    <lastmod>" . now()->format('Y-m-d\TH:i:s\Z') . "</lastmod>\n";
+                $sitemap .= "    <changefreq>weekly</changefreq>\n";
+                $sitemap .= "    <priority>0.8</priority>\n";
+                $sitemap .= "  </url>\n";
+            }
+        }
+    } catch (\Exception $e) {
+        // Handle gracefully if categories table doesn't exist
+    }
+
+    $sitemap .= '</urlset>';
+
+    return response($sitemap, 200, ['Content-Type' => 'application/xml']);
+})->name('sitemap');
+
+Route::get('/robots.txt', function() {
+    $robots = "User-agent: *\n";
+    $robots .= "Allow: /\n";
+    $robots .= "Disallow: /admin/\n";
+    $robots .= "Disallow: /cart/\n";
+    $robots .= "Disallow: /checkout/\n";
+    $robots .= "Disallow: /login\n";
+    $robots .= "Disallow: /register\n";
+    $robots .= "Disallow: /password/\n";
+    $robots .= "Disallow: /storage/\n";
+    $robots .= "\n";
+    $robots .= "Sitemap: " . url('/sitemap.xml') . "\n";
+
+    return response($robots, 200, ['Content-Type' => 'text/plain']);
+})->name('robots');
+
 // Category Routes
 Route::prefix('categories')->name('categories.')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('index');
@@ -224,7 +287,6 @@ Route::middleware('auth')->group(function () {
 Route::post('/track-order', [App\Http\Controllers\OrderController::class, 'track']);
 Route::get('/orders/{orderNumber}', [App\Http\Controllers\OrderController::class, 'show'])->name('orders.show');
 Route::get('/orders/{orderNumber}/invoice', [App\Http\Controllers\OrderController::class, 'invoice'])->name('orders.invoice');
-
 
 // Fallback route for unknown category/product combinations (excluding admin routes)
 Route::get('{any}/{any2}', [App\Http\Controllers\FallbackController::class, 'handleUnknownUrl'])

@@ -41,7 +41,7 @@
                         <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
-                        Sri Lanka's Trusted Computer Specialist
+                        Your Best IT Partner
                     </div>
                     
                     <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white mb-4 md:mb-6 animate-fade-in-up leading-tight">
