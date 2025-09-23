@@ -19,7 +19,10 @@
     <div class="hero-slider relative z-10" id="heroSlider">
         <!-- Hero Video -->
         <div class="hero-slide active relative h-[500px] md:h-[600px] lg:h-[700px] flex items-center">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#0f0f0f] via-[#0f0f0f]/95 to-transparent z-10"></div>
+            <!-- Very Dark Video Overlay -->
+            <div class="absolute inset-0 bg-black/80 z-10"></div>
+            <!-- Additional Dark Gradient for Text Readability -->
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/95 to-black/70 z-20"></div>
             <div class="absolute inset-0">
                 <video 
                     autoplay 
@@ -34,7 +37,7 @@
                          class="w-full h-full object-cover">
                 </video>
             </div>
-            <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative z-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-4xl">
                     <!-- Badge -->
                     <div class="inline-flex items-center px-4 py-2 bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-full text-[#f59e0b] text-sm font-medium mb-6 animate-fade-in-up">

@@ -132,22 +132,12 @@
 
                 <!-- Search Bar - Mobile Search & Category Icons -->
                 <div class="flex-1 mx-2 md:mx-8">
-                    <!-- Mobile Action Buttons -->
-                    <div class="md:hidden flex items-center space-x-2">
-                        <!-- Mobile Categories Button -->
-                        <button class="p-2 text-gray-300 hover:text-primary-400 transition-colors" id="mobile-categories-toggle">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                            </svg>
-                        </button>
-                        
-                        <!-- Mobile Search Button -->
-                        <button class="p-2 text-gray-300 hover:text-primary-400 transition-colors" id="mobile-search-toggle">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                        </button>
-                    </div>
+                    <!-- Mobile Search Button -->
+                    <button class="md:hidden p-2 text-gray-300 hover:text-primary-400 transition-colors" id="mobile-search-toggle">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </button>
                     
                     <!-- Desktop Search -->
                     <form action="<?php echo e(route('products.search')); ?>" method="GET" class="relative hidden md:block" id="search-form">
@@ -380,50 +370,6 @@
             </div>
         </div>
         
-        <!-- Mobile Categories Overlay -->
-        <div class="md:hidden hidden fixed inset-0 bg-black/95 z-[9998]" id="mobile-categories-overlay">
-            <div class="flex items-start pt-4 px-4">
-                <div class="flex-1">
-                    <div class="bg-gray-900 border border-gray-700 rounded-lg shadow-xl max-h-[80vh] overflow-y-auto">
-                        <div class="p-4">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-primary-400 font-semibold text-lg">Browse Categories</h3>
-                                <button class="p-1 text-gray-300 hover:text-white" id="mobile-categories-close">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            
-                            <!-- Categories Grid -->
-                            <div class="grid grid-cols-2 gap-3">
-                                <?php $__currentLoopData = $menuCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <a href="<?php echo e(route('categories.show', $category->slug ?: $category->id)); ?>" 
-                                       class="flex flex-col items-center p-4 text-gray-300 hover:text-primary-400 hover:bg-gray-800/50 transition-colors rounded-lg text-center">
-                                        <svg class="w-8 h-8 mb-2 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
-                                        </svg>
-                                        <span class="text-sm font-medium mb-1"><?php echo e($category->name); ?></span>
-                                        <span class="text-xs text-gray-500"><?php echo e($category->products_count); ?> products</span>
-                                    </a>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </div>
-                            
-                            <!-- View All Categories Button -->
-                            <div class="mt-6 pt-4 border-t border-gray-700">
-                                <a href="<?php echo e(route('categories.index')); ?>" 
-                                   class="w-full flex items-center justify-center px-4 py-3 bg-primary-500 hover:bg-primary-600 text-black font-medium rounded-lg transition-colors">
-                                    <span>View All Categories</span>
-                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Mobile Search Overlay -->
         <div class="md:hidden hidden fixed inset-0 bg-black/95 z-[9998]" id="mobile-search-overlay">
@@ -455,7 +401,7 @@
                 
         <!-- Mobile Menu -->
         <div class="md:hidden hidden mobile-menu" id="mobile-menu">
-            <div class="px-4 pt-4 pb-3 space-y-4 bg-black border-t border-gray-800 max-h-screen overflow-y-auto">
+            <div class="px-4 pt-4 pb-3 space-y-4 bg-black border-t border-gray-800 max-h-[80vh] overflow-y-auto">
                 
                 <!-- Main Navigation Section -->
                 <div class="space-y-3">
@@ -465,13 +411,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
                         Home
-                    </a>
-                    
-                    <a href="<?php echo e(route('categories.index')); ?>" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors <?php echo e(request()->routeIs('categories.*') ? 'text-primary-400 bg-primary-500/10' : ''); ?> rounded-lg px-3">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                        </svg>
-                        All Categories
                     </a>
                     
                     <a href="<?php echo e(route('promotions.index')); ?>" class="flex items-center py-3 text-gray-300 hover:text-primary-400 transition-colors <?php echo e(request()->routeIs('promotions.*') ? 'text-primary-400 bg-primary-500/10' : ''); ?> rounded-lg px-3">
@@ -487,25 +426,75 @@
                         </svg>
                         Track Order
                     </a>
-                                </div>
-
-                <!-- Quick Categories -->
-                <div class="space-y-3">
-                    <h3 class="text-primary-400 font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2">Quick Categories</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <?php $__currentLoopData = $menuCategories->take(6); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <a href="<?php echo e(route('categories.show', $category->slug ?: $category->id)); ?>" 
-                               class="flex flex-col items-center p-3 text-gray-300 hover:text-primary-400 hover:bg-gray-800/50 transition-colors rounded-lg text-center">
-                                <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
-                                </svg>
-                                <span class="text-xs font-medium"><?php echo e($category->name); ?></span>
-                                <span class="text-xs text-gray-500"><?php echo e($category->products_count); ?></span>
-                            </a>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </div>
                 </div>
-                
+
+                <!-- Categories Section -->
+                <div class="space-y-3">
+                    <h3 class="text-primary-400 font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2">Categories</h3>
+                    
+                    <!-- All Categories Link -->
+                    <a href="<?php echo e(route('categories.index')); ?>" class="flex items-center py-3 text-primary-400 hover:bg-gray-800 transition-colors rounded-lg px-3 border border-primary-400/20">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                        <span class="font-medium">All Categories</span>
+                    </a>
+
+                    <!-- Main Categories with Subcategories -->
+                    <?php $__currentLoopData = $menuCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <!-- Main Category -->
+                        <div class="mb-1">
+                            <div class="flex items-center">
+                                <a href="<?php echo e(route('categories.show', $category->slug ?: $category->id)); ?>" 
+                                   class="flex-1 flex items-center justify-between py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors rounded-lg group">
+                                    <div class="flex items-center">
+                                        <svg class="w-4 h-4 mr-3 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
+                                        </svg>
+                                        <span class="font-medium text-sm"><?php echo e($category->name); ?></span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 bg-gray-800 px-2 py-1 rounded-full group-hover:bg-gray-700"><?php echo e($category->products_count); ?></span>
+                                </a>
+                                
+                                <?php if($category->subcategories->count() > 0): ?>
+                                    <button class="p-2 text-gray-400 hover:text-white transition-colors mobile-category-toggle" data-category="<?php echo e($category->id); ?>">
+                                        <svg class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </button>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <!-- Subcategories (Collapsible) -->
+                            <?php if($category->subcategories->count() > 0): ?>
+                                <div class="mobile-subcategories ml-6 mt-1 space-y-1 hidden" id="mobile-subcategories-<?php echo e($category->id); ?>">
+                                    <?php $__currentLoopData = $category->subcategories->take(10); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <a href="<?php echo e(route('categories.show', $subcategory->slug ?: $subcategory->id)); ?>" 
+                                           class="flex items-center justify-between px-3 py-1.5 text-gray-400 hover:text-primary-400 hover:bg-gray-800/50 transition-colors text-sm rounded group">
+                                            <div class="flex items-center">
+                                                <svg class="w-3 h-3 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                                </svg>
+                                                <span><?php echo e($subcategory->name); ?></span>
+                                            </div>
+                                            <span class="text-xs text-gray-600 group-hover:text-gray-500">
+                                                <?php echo e($subcategory->subcategory_products_count ?? 0); ?>
+
+                                            </span>
+                                        </a>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if($category->subcategories->count() > 10): ?>
+                                        <a href="<?php echo e(route('categories.show', $category->slug ?: $category->id)); ?>" 
+                                           class="block px-3 py-1 text-xs text-primary-400 hover:text-primary-300 transition-colors">
+                                            +<?php echo e($category->subcategories->count() - 10); ?> more subcategories
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+
                 <!-- Services & Support -->
                 <div class="space-y-3">
                     <h3 class="text-primary-400 font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2">Services & Support</h3>
@@ -829,22 +818,23 @@
             mobileSearchOverlay.classList.add('hidden');
         });
 
-        // Mobile categories toggle
-        document.getElementById('mobile-categories-toggle').addEventListener('click', function() {
-            const mobileCategoriesOverlay = document.getElementById('mobile-categories-overlay');
-            mobileCategoriesOverlay.classList.remove('hidden');
-        });
-
-        // Mobile categories close
-        document.getElementById('mobile-categories-close').addEventListener('click', function() {
-            const mobileCategoriesOverlay = document.getElementById('mobile-categories-overlay');
-            mobileCategoriesOverlay.classList.add('hidden');
-        });
-
-        // Close mobile categories when clicking outside
-        document.getElementById('mobile-categories-overlay').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.add('hidden');
+        // Mobile category toggle functionality in hamburger menu
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.mobile-category-toggle')) {
+                const button = e.target.closest('.mobile-category-toggle');
+                const categoryId = button.getAttribute('data-category');
+                const subcategoriesDiv = document.getElementById('mobile-subcategories-' + categoryId);
+                const arrow = button.querySelector('svg');
+                
+                if (subcategoriesDiv.classList.contains('hidden')) {
+                    // Show subcategories
+                    subcategoriesDiv.classList.remove('hidden');
+                    arrow.classList.add('rotate-180');
+                } else {
+                    // Hide subcategories
+                    subcategoriesDiv.classList.add('hidden');
+                    arrow.classList.remove('rotate-180');
+                }
             }
         });
 
