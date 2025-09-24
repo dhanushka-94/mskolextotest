@@ -12,8 +12,8 @@
             <p class="text-gray-400">Welcome to the MSK Computers admin panel</p>
         </div>
         <div class="text-right text-sm text-gray-400">
-            <p>{{ \Carbon\Carbon::now()->format('l, F j, Y') }}</p>
-            <p>{{ \Carbon\Carbon::now()->format('g:i A') }}</p>
+            <p>{{ \Carbon\Carbon::now()->setTimezone('Asia/Colombo')->format('l, F j, Y') }}</p>
+            <p>{{ \Carbon\Carbon::now()->setTimezone('Asia/Colombo')->format('g:i A') }} <span class="text-xs text-gray-500">LKT</span></p>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
             <div class="flex items-center justify-between mb-6">
                 <div>
                     <h2 class="text-2xl font-bold text-white mb-2">Today's Orders</h2>
-                    <p class="text-gray-300">{{ \Carbon\Carbon::today()->format('F j, Y') }}</p>
+                    <p class="text-gray-300">{{ \Carbon\Carbon::today()->setTimezone('Asia/Colombo')->format('F j, Y') }}</p>
                 </div>
                 <div class="text-right">
                     <div class="text-3xl font-bold text-primary-400">{{ $stats['today_orders'] }}</div>
@@ -67,7 +67,7 @@
             <div class="flex items-center justify-between mb-6">
                 <div>
                     <h2 class="text-2xl font-bold text-white mb-2">Yesterday's Orders</h2>
-                    <p class="text-gray-300">{{ \Carbon\Carbon::yesterday()->format('F j, Y') }}</p>
+                    <p class="text-gray-300">{{ \Carbon\Carbon::yesterday()->setTimezone('Asia/Colombo')->format('F j, Y') }}</p>
                 </div>
                 <div class="text-right">
                     <div class="text-3xl font-bold text-gray-300">{{ $stats['yesterday_orders'] }}</div>
@@ -237,7 +237,7 @@
                             </div>
                             <div class="flex items-center justify-between text-xs text-gray-500">
                                 <span>{{ $order->orderItems->count() ?? 0 }} items</span>
-                                <span>{{ $order->created_at->format('g:i A') }}</span>
+                                <span>{{ $order->created_at->setTimezone('Asia/Colombo')->format('g:i A') }}</span>
                             </div>
                         </div>
                     @endforeach
@@ -296,7 +296,7 @@
                             </div>
                             <div class="flex items-center justify-between text-xs text-gray-500">
                                 <span>{{ $order->orderItems->count() ?? 0 }} items</span>
-                                <span>{{ $order->created_at->format('g:i A') }}</span>
+                                <span>{{ $order->created_at->setTimezone('Asia/Colombo')->format('g:i A') }}</span>
                             </div>
                         </div>
                     @endforeach
@@ -382,7 +382,7 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="text-sm text-gray-400">{{ $customer->created_at->format('M d, Y') }}</p>
+                                <p class="text-sm text-gray-400">{{ $customer->created_at->setTimezone('Asia/Colombo')->format('M d, Y') }}</p>
                             </div>
                         </div>
                     </div>

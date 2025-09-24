@@ -20,20 +20,21 @@ class PerformanceCacheService
     public static function getMainCategories()
     {
         return Cache::remember('main_categories_with_counts', self::CATEGORY_CACHE_DURATION, function () {
-            return SmaCategory::mainCategories()
+            $categories = SmaCategory::mainCategories()
                 ->withCount(['products as total_products_count' => function($query) {
                     $query->where('hide', 0);
                 }])
                 ->withCount(['subcategoryProducts as subcategory_products_count' => function($query) {
                     $query->where('hide', 0);
                 }])
-                ->orderBy('sort_order', 'asc')
-                ->orderBy('name', 'asc')
                 ->get()
                 ->map(function($category) {
                     $category->active_products_count = $category->total_products_count + $category->subcategory_products_count;
                     return $category;
                 });
+
+            // Apply config-based ordering without touching database
+            return \App\Services\CategoryOrderingService::sortCategories($categories);
         });
     }
 
@@ -43,11 +44,12 @@ class PerformanceCacheService
     public static function getNavigationCategories()
     {
         return Cache::remember('navigation_categories', self::CATEGORY_CACHE_DURATION, function () {
-            return SmaCategory::mainCategories()
-                ->select(['id', 'name', 'slug', 'sort_order'])
-                ->orderBy('sort_order', 'asc')
-                ->orderBy('name', 'asc')
+            $categories = SmaCategory::mainCategories()
+                ->select(['id', 'name', 'slug'])
                 ->get();
+
+            // Apply config-based ordering without touching database
+            return \App\Services\CategoryOrderingService::sortCategories($categories);
         });
     }
 

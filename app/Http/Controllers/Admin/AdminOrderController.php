@@ -7,6 +7,8 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class AdminOrderController extends Controller
@@ -30,13 +32,14 @@ class AdminOrderController extends Controller
             $query->where('payment_status', $request->payment_status);
         }
 
-        // Search by order number or customer name
+        // Search by order number, customer name, email, or phone
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('order_number', 'like', "%{$search}%")
                   ->orWhere('customer_name', 'like', "%{$search}%")
-                  ->orWhere('customer_email', 'like', "%{$search}%");
+                  ->orWhere('customer_email', 'like', "%{$search}%")
+                  ->orWhere('customer_phone', 'like', "%{$search}%");
             });
         }
 
@@ -72,6 +75,15 @@ class AdminOrderController extends Controller
             $query->whereDate('created_at', '<=', $request->date_to);
         }
 
+        // View status filter
+        if ($request->filled('view_status')) {
+            if ($request->view_status === 'unviewed') {
+                $query->whereNull('admin_viewed_at');
+            } elseif ($request->view_status === 'viewed') {
+                $query->whereNotNull('admin_viewed_at');
+            }
+        }
+
         $orders = $query->latest()->paginate(20);
 
         return view('admin.orders.index', compact('orders'));
@@ -83,6 +95,11 @@ class AdminOrderController extends Controller
     public function show(Order $order)
     {
         $order->load(['user', 'orderItems']);
+        
+        // Mark order as viewed by current admin
+        if (!$order->isViewedByAdmin()) {
+            $order->markAsViewedBy(auth()->id());
+        }
         
         return view('admin.orders.show', compact('order'));
     }
@@ -179,29 +196,47 @@ class AdminOrderController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors($validator);
+            return redirect()->route('admin.orders.index')->withErrors($validator)->withInput();
         }
 
         $orderIds = $request->selected_orders;
         $action = $request->action;
 
-        switch ($action) {
-            case 'update_status':
-                Order::whereIn('id', $orderIds)->update([
-                    'status' => $request->bulk_status
-                ]);
-                return back()->with('success', count($orderIds) . ' orders updated successfully');
+        // Preserve query parameters for redirect
+        $redirectUrl = route('admin.orders.index', $request->only(['search', 'status', 'payment_status', 'view_status', 'date_from', 'date_to', 'filter']));
 
-            case 'delete':
-                Order::whereIn('id', $orderIds)->delete();
-                return back()->with('success', count($orderIds) . ' orders deleted successfully');
+        try {
+            switch ($action) {
+                case 'update_status':
+                    $updatedCount = Order::whereIn('id', $orderIds)->update([
+                        'status' => $request->bulk_status
+                    ]);
+                    Log::info("Bulk status update: {$updatedCount} orders updated to {$request->bulk_status}");
+                    return redirect($redirectUrl)->with('success', count($orderIds) . ' orders updated successfully');
 
-            case 'export':
-                // TODO: Implement CSV export
-                return back()->with('info', 'Export functionality will be implemented');
+                case 'delete':
+                    // First delete order items, then delete orders in a transaction
+                    DB::transaction(function() use ($orderIds) {
+                        $itemsDeleted = OrderItem::whereIn('order_id', $orderIds)->delete();
+                        $ordersDeleted = Order::whereIn('id', $orderIds)->delete();
+                        Log::info("Bulk delete: {$itemsDeleted} order items and {$ordersDeleted} orders deleted");
+                    });
+                    return redirect($redirectUrl)->with('success', count($orderIds) . ' orders deleted successfully');
 
-            default:
-                return back()->with('error', 'Invalid action');
+                case 'export':
+                    // TODO: Implement CSV export
+                    return redirect($redirectUrl)->with('info', 'Export functionality will be implemented');
+
+                default:
+                    return redirect($redirectUrl)->with('error', 'Invalid action');
+            }
+        } catch (\Exception $e) {
+            Log::error('Bulk action failed: ' . $e->getMessage(), [
+                'action' => $action,
+                'order_ids' => $orderIds,
+                'trace' => $e->getTraceAsString()
+            ]);
+            return redirect($redirectUrl)->with('error', 'Bulk action failed: ' . $e->getMessage());
         }
     }
 

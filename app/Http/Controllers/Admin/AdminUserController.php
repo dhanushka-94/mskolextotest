@@ -55,7 +55,7 @@ class AdminUserController extends Controller
             'total_orders' => $user->orders->count(),
             'total_spent' => $user->orders->where('payment_status', 'paid')->sum('total_amount'),
             'average_order' => $user->orders->where('payment_status', 'paid')->avg('total_amount'),
-            'last_order' => $user->orders->latest()->first(),
+            'last_order' => $user->orders->sortByDesc('created_at')->first(),
         ];
 
         return view('admin.users.show', compact('user', 'userStats'));

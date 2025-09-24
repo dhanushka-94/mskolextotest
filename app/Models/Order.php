@@ -45,6 +45,8 @@ class Order extends Model
         'delivered_at',
         'tracking_number',
         'courier_service',
+        'admin_viewed_at',
+        'viewed_by_admin_id',
     ];
 
     protected function casts(): array
@@ -57,6 +59,7 @@ class Order extends Model
             'total_amount' => 'decimal:2',
             'shipped_at' => 'datetime',
             'delivered_at' => 'datetime',
+            'admin_viewed_at' => 'datetime',
         ];
     }
 
@@ -85,6 +88,37 @@ class Order extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function viewedByAdmin()
+    {
+        return $this->belongsTo(User::class, 'viewed_by_admin_id');
+    }
+
+    /**
+     * Helper methods for order viewing
+     */
+    public function isViewedByAdmin()
+    {
+        return !is_null($this->admin_viewed_at);
+    }
+
+    public function markAsViewedBy($adminId)
+    {
+        $this->update([
+            'admin_viewed_at' => now(),
+            'viewed_by_admin_id' => $adminId
+        ]);
+    }
+
+    public function scopeUnviewed($query)
+    {
+        return $query->whereNull('admin_viewed_at');
+    }
+
+    public function scopeViewed($query)
+    {
+        return $query->whereNotNull('admin_viewed_at');
     }
 
     /**

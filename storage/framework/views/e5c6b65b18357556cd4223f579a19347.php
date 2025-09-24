@@ -17,10 +17,10 @@
     <div class="hero-slider relative z-10" id="heroSlider">
         <!-- Hero Video -->
         <div class="hero-slide active relative h-[500px] md:h-[600px] lg:h-[700px] flex items-center">
-            <!-- Very Dark Video Overlay -->
-            <div class="absolute inset-0 bg-black/80 z-10"></div>
-            <!-- Additional Dark Gradient for Text Readability -->
-            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/95 to-black/70 z-20"></div>
+            <!-- Balanced Video Overlay -->
+            <div class="absolute inset-0 bg-black/50 z-10"></div>
+            <!-- Subtle Gradient for Text Readability -->
+            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40 z-20"></div>
             <div class="absolute inset-0">
                 <video 
                     autoplay 
@@ -200,28 +200,29 @@
     </div>
 </section>
 
-<!-- Professional Featured Products Section -->
+<!-- Professional Latest Promotions Section -->
 <section class="py-12 md:py-16 bg-gradient-to-b from-black to-[#0f0f0f] relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Clean Section Header -->
         <div class="text-center mb-8 md:mb-12">
-            <div class="inline-flex items-center px-3 md:px-4 py-2 bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-lg text-[#f59e0b] text-xs md:text-sm font-medium mb-4 md:mb-6">
+            <div class="inline-flex items-center px-3 md:px-4 py-2 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-xs md:text-sm font-medium mb-4 md:mb-6">
                 <svg class="w-3 h-3 md:w-4 md:h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    <path d="M12.79 21L3 11.21v2c0 .45.37.82.82.82h16.36c.45 0 .82-.37.82-.82v-2L12.79 21z"/>
+                    <path d="M11.83 1.73l8.17 8.17V8c0-.45-.37-.82-.82-.82H3.82c-.45 0-.82.37-.82.82v1.9l8.83-8.17z"/>
                 </svg>
-                Featured Selection
+                Special Offers
             </div>
             <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4">
-                Featured Products
+                Latest Promotions
             </h2>
             <p class="text-base md:text-lg text-gray-400 max-w-3xl mx-auto">
-                Discover our handpicked selection of premium computer hardware and technology products
+                Don't miss out on our latest deals and special offers on premium computer hardware
             </p>
         </div>
 
-        <?php if($featuredProducts->count() > 0): ?>
+        <?php if($promotionProducts->count() > 0): ?>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <?php $__currentLoopData = $featuredProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = $promotionProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="group bg-[#1a1a1c] rounded-xl border border-gray-800/30 overflow-hidden hover:border-[#f59e0b]/30 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <div class="relative overflow-hidden">
                             <a href="<?php echo e(route('products.show', ['category' => $product->category->slug ?: $product->category->id, 'product' => $product->slug])); ?>">
@@ -336,8 +337,8 @@
             </div>
         <?php else: ?>
             <div class="text-center py-16">
-                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2">No Featured Products</h3>
-                <p class="text-gray-400 mb-6">Check back soon for featured products!</p>
+                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2">No Promotions Available</h3>
+                <p class="text-gray-400 mb-6">Check back soon for special offers and promotions!</p>
                 <a href="<?php echo e(route('products.index')); ?>" class="btn-primary">Browse All Products</a>
             </div>
         <?php endif; ?>

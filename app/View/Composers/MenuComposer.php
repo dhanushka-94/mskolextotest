@@ -16,16 +16,15 @@ class MenuComposer
             ->with(['subcategories' => function($query) {
                 $query->withCount(['subcategoryProducts as subcategory_products_count' => function($q) {
                     $q->where('hide', 0);
-                }])
-                ->orderBy('sort_order', 'asc')
-                ->orderBy('name', 'asc'); // Show all subcategories in logical order
+                }]);
             }])
             ->withCount(['products as products_count' => function($query) {
                 $query->where('hide', 0);
             }])
-            ->orderBy('sort_order', 'asc')
-            ->orderBy('name', 'asc')
-            ->get(); // Show all main categories in logical order
+            ->get();
+
+        // Apply config-based ordering without touching database
+        $menuCategories = \App\Services\CategoryOrderingService::sortCategoriesWithSubcategories($menuCategories);
 
         $view->with('menuCategories', $menuCategories);
     }

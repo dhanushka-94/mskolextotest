@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
@@ -44,12 +45,18 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->prefix
     Route::post('/transactions/{transaction}/retry', [App\Http\Controllers\Admin\TransactionController::class, 'retry'])->name('transactions.retry');
     Route::post('/transactions/{transaction}/refund', [App\Http\Controllers\Admin\TransactionController::class, 'refund'])->name('transactions.refund');
     
-    // Activity Logs Management
-    Route::get('/activity-logs', [App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity-logs.index');
-    Route::get('/activity-logs/{activityLog}', [App\Http\Controllers\Admin\ActivityLogController::class, 'show'])->name('activity-logs.show');
-    Route::get('/activity-logs-export', [App\Http\Controllers\Admin\ActivityLogController::class, 'export'])->name('activity-logs.export');
-    Route::get('/activity-logs-feed', [App\Http\Controllers\Admin\ActivityLogController::class, 'feed'])->name('activity-logs.feed');
-    Route::post('/activity-logs-cleanup', [App\Http\Controllers\Admin\ActivityLogController::class, 'cleanup'])->name('activity-logs.cleanup');
+        // Activity Logs Management
+        Route::get('/activity-logs', [App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity-logs.index');
+        Route::get('/activity-logs/{activityLog}', [App\Http\Controllers\Admin\ActivityLogController::class, 'show'])->name('activity-logs.show');
+        Route::get('/activity-logs-export', [App\Http\Controllers\Admin\ActivityLogController::class, 'export'])->name('activity-logs.export');
+        Route::get('/activity-logs-feed', [App\Http\Controllers\Admin\ActivityLogController::class, 'feed'])->name('activity-logs.feed');
+        Route::post('/activity-logs-cleanup', [App\Http\Controllers\Admin\ActivityLogController::class, 'cleanup'])->name('activity-logs.cleanup');
+
+        // Sitemap Management
+        Route::get('/sitemap-management', [App\Http\Controllers\Admin\SitemapController::class, 'index'])->name('sitemap.index');
+        Route::post('/sitemap-regenerate', [App\Http\Controllers\Admin\SitemapController::class, 'regenerate'])->name('sitemap.regenerate');
+        Route::get('/sitemap-status', [App\Http\Controllers\Admin\SitemapController::class, 'status'])->name('sitemap.status');
+        Route::get('/sitemap-download/{file}', [App\Http\Controllers\Admin\SitemapController::class, 'download'])->name('sitemap.download');
 });
 
 // Home Route
@@ -97,41 +104,97 @@ Route::get('/sitemap.xml', function() {
     $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 
-    // Add main pages
+    // Helper function to create URL entries
+    $createUrlEntry = function($url, $priority, $changefreq, $lastmod = null) {
+        $lastmod = $lastmod ?: now()->format('Y-m-d\TH:i:s\Z');
+        $entry = "  <url>\n";
+        $entry .= "    <loc>" . htmlspecialchars($url) . "</loc>\n";
+        $entry .= "    <lastmod>{$lastmod}</lastmod>\n";
+        $entry .= "    <changefreq>{$changefreq}</changefreq>\n";
+        $entry .= "    <priority>{$priority}</priority>\n";
+        $entry .= "  </url>\n";
+        return $entry;
+    };
+
+    // 1. Main pages with high priority
     $mainPages = [
-        ['url' => url('/'), 'priority' => '1.0', 'changefreq' => 'weekly'],
+        ['url' => url('/'), 'priority' => '1.0', 'changefreq' => 'daily'],
         ['url' => url('/categories'), 'priority' => '0.9', 'changefreq' => 'weekly'],
-        ['url' => url('/about-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
-        ['url' => url('/contact-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
-        ['url' => url('/track-order'), 'priority' => '0.6', 'changefreq' => 'monthly'],
-        ['url' => url('/e-services'), 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['url' => url('/products'), 'priority' => '0.9', 'changefreq' => 'daily'],
+        ['url' => url('/promotions'), 'priority' => '0.8', 'changefreq' => 'weekly'],
     ];
 
     foreach ($mainPages as $page) {
-        $sitemap .= "  <url>\n";
-        $sitemap .= "    <loc>" . htmlspecialchars($page['url']) . "</loc>\n";
-        $sitemap .= "    <lastmod>" . now()->format('Y-m-d\TH:i:s\Z') . "</lastmod>\n";
-        $sitemap .= "    <changefreq>" . $page['changefreq'] . "</changefreq>\n";
-        $sitemap .= "    <priority>" . $page['priority'] . "</priority>\n";
-        $sitemap .= "  </url>\n";
+        $sitemap .= $createUrlEntry($page['url'], $page['priority'], $page['changefreq']);
     }
 
-    // Add categories if available
+    // 2. Information pages
+    $infoPages = [
+        ['url' => url('/about-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
+        ['url' => url('/contact-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
+        ['url' => url('/services'), 'priority' => '0.7', 'changefreq' => 'monthly'],
+        ['url' => url('/e-services'), 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['url' => url('/bank-details'), 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['url' => url('/warranty'), 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['url' => url('/track-order'), 'priority' => '0.6', 'changefreq' => 'weekly'],
+    ];
+
+    foreach ($infoPages as $page) {
+        $sitemap .= $createUrlEntry($page['url'], $page['priority'], $page['changefreq']);
+    }
+
+    // 3. User and legal pages
+    $otherPages = [
+        ['url' => url('/register'), 'priority' => '0.5', 'changefreq' => 'yearly'],
+        ['url' => url('/login'), 'priority' => '0.5', 'changefreq' => 'yearly'],
+        ['url' => url('/privacy-policy'), 'priority' => '0.4', 'changefreq' => 'yearly'],
+        ['url' => url('/terms-of-service'), 'priority' => '0.4', 'changefreq' => 'yearly'],
+    ];
+
+    foreach ($otherPages as $page) {
+        $sitemap .= $createUrlEntry($page['url'], $page['priority'], $page['changefreq']);
+    }
+
+    // 4. Categories (all categories)
     try {
         if (class_exists('\App\Models\SmaCategory')) {
-            $categories = \App\Models\SmaCategory::where('hide', 0)->limit(50)->get();
+            $categories = \App\Models\SmaCategory::select(['id', 'name', 'slug'])
+                ->whereHas('products', function($query) {
+                    $query->where('hide', 0);
+                })
+                ->orWhereHas('subcategoryProducts', function($query) {
+                    $query->where('hide', 0);
+                })
+                ->get();
+
             foreach ($categories as $category) {
                 $categoryUrl = url('/categories/' . ($category->slug ?: $category->id));
-                $sitemap .= "  <url>\n";
-                $sitemap .= "    <loc>" . htmlspecialchars($categoryUrl) . "</loc>\n";
-                $sitemap .= "    <lastmod>" . now()->format('Y-m-d\TH:i:s\Z') . "</lastmod>\n";
-                $sitemap .= "    <changefreq>weekly</changefreq>\n";
-                $sitemap .= "    <priority>0.8</priority>\n";
-                $sitemap .= "  </url>\n";
+                $sitemap .= $createUrlEntry($categoryUrl, '0.8', 'weekly');
             }
         }
     } catch (\Exception $e) {
         // Handle gracefully if categories table doesn't exist
+    }
+
+    // 5. Featured products (limit to avoid huge sitemap)
+    try {
+        if (class_exists('\App\Models\SmaProduct')) {
+            $products = \App\Models\SmaProduct::select(['id', 'name', 'slug', 'category_id'])
+                ->where('hide', 0)
+                ->where('promotion', 1) // Only promotional products for sitemap
+                ->whereHas('category')
+                ->with('category:id,name,slug')
+                ->orderBy('id', 'desc')
+                ->limit(200) // Limit to featured/promotional products
+                ->get();
+
+            foreach ($products as $product) {
+                $productUrl = url('/' . ($product->category->slug ?: $product->category->id) . '/' . ($product->slug ?: $product->id));
+                $sitemap .= $createUrlEntry($productUrl, '0.7', 'weekly');
+            }
+        }
+    } catch (\Exception $e) {
+        // Handle gracefully if products table doesn't exist
     }
 
     $sitemap .= '</urlset>';
@@ -154,6 +217,18 @@ Route::get('/robots.txt', function() {
 
     return response($robots, 200, ['Content-Type' => 'text/plain']);
 })->name('robots');
+
+// Sitemap routes for serving individual sitemap files
+Route::get('/sitemaps/{file}', function($file) {
+    $path = public_path('sitemaps/' . $file);
+    
+    if (!File::exists($path) || !str_ends_with($file, '.xml')) {
+        abort(404);
+    }
+    
+    $content = File::get($path);
+    return response($content, 200, ['Content-Type' => 'application/xml']);
+})->where('file', '.*\.xml$');
 
 // Category Routes
 Route::prefix('categories')->name('categories.')->group(function () {

@@ -1,255 +1,266 @@
-@extends('layouts.admin')
+@extends('admin.layout')
 
-@section('title', 'Activity Logs - Admin Dashboard')
+@section('title', 'Activity Logs')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
-    <!-- Header -->
-    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6">
+<div class="space-y-8">
+    
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Activity Logs</h1>
-            <p class="text-gray-600 dark:text-gray-300 mt-1">Monitor system and user activities</p>
+            <h1 class="text-3xl font-bold text-white mb-2">Activity Logs</h1>
+            <p class="text-gray-400">Monitor system and user activities</p>
         </div>
-        <div class="flex items-center gap-3 mt-4 lg:mt-0">
-            <button onclick="exportLogs()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
-                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="flex flex-col sm:flex-row gap-3">
+            <a href="{{ route('admin.activity-logs.export') }}" 
+               class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
-                Export
-            </button>
-            <button onclick="showCleanupModal()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors">
-                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                Export Logs
+            </a>
+            <button id="refresh-btn"
+                    class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                 </svg>
-                Cleanup
+                Refresh
             </button>
         </div>
     </div>
 
     <!-- Statistics Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900">
-                    <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 00-2-2z"/>
-                    </svg>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        <!-- Total Activities -->
+        <div class="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-xl p-4 lg:p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-blue-400 text-sm font-medium">Total Activities</p>
+                    <p class="text-2xl lg:text-3xl font-bold text-white">{{ number_format($stats['total_activities'] ?? 0) }}</p>
                 </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600 dark:text-gray-300">Total Activities</p>
-                    <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ number_format($stats['total_activities']) }}</p>
+                <div class="bg-blue-500/20 p-2 lg:p-3 rounded-lg">
+                    <svg class="w-5 h-5 lg:w-6 lg:h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-green-100 dark:bg-green-900">
-                    <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Customer Activities -->
+        <div class="bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 rounded-xl p-4 lg:p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-green-400 text-sm font-medium">Customer Activities</p>
+                    <p class="text-2xl lg:text-3xl font-bold text-white">{{ number_format($stats['by_type']['customer'] ?? 0) }}</p>
+                </div>
+                <div class="bg-green-500/20 p-2 lg:p-3 rounded-lg">
+                    <svg class="w-5 h-5 lg:w-6 lg:h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
                 </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600 dark:text-gray-300">Customer Activities</p>
-                    <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ number_format($stats['by_type']['customer'] ?? 0) }}</p>
+            </div>
+        </div>
+
+        <!-- System Activities -->
+        <div class="bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20 rounded-xl p-4 lg:p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-purple-400 text-sm font-medium">System Activities</p>
+                    <p class="text-2xl lg:text-3xl font-bold text-white">{{ number_format($stats['by_type']['system'] ?? 0) }}</p>
+                </div>
+                <div class="bg-purple-500/20 p-2 lg:p-3 rounded-lg">
+                    <svg class="w-5 h-5 lg:w-6 lg:h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900">
-                    <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        <!-- Admin Activities -->
+        <div class="bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-500/20 rounded-xl p-4 lg:p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-orange-400 text-sm font-medium">Admin Activities</p>
+                    <p class="text-2xl lg:text-3xl font-bold text-white">{{ number_format($stats['by_type']['admin'] ?? 0) }}</p>
+                </div>
+                <div class="bg-orange-500/20 p-2 lg:p-3 rounded-lg">
+                    <svg class="w-5 h-5 lg:w-6 lg:h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600 dark:text-gray-300">System Activities</p>
-                    <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ number_format($stats['by_type']['system'] ?? 0) }}</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-red-100 dark:bg-red-900">
-                    <svg class="w-6 h-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.134 16.5c-.77.833.192 2.5 1.732 2.5z"/>
-                    </svg>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600 dark:text-gray-300">High Priority</p>
-                    <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ number_format(($stats['by_severity']['high'] ?? 0) + ($stats['by_severity']['critical'] ?? 0)) }}</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Filters -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
-        <form method="GET" action="{{ route('admin.activity-logs.index') }}" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+    <!-- Filters and Search -->
+    <div class="bg-gray-800/50 border border-gray-700 rounded-xl p-4 lg:p-6">
+        <div class="flex flex-col lg:flex-row gap-4">
+            <!-- Search -->
+            <div class="flex-1">
+                <label for="search" class="block text-sm font-medium text-gray-300 mb-2">Search Activities</label>
+                <div class="relative">
+                    <input type="text" id="search" name="search" 
+                           value="{{ request('search') }}"
+                           placeholder="Search by description, user, or IP address..."
+                           class="w-full bg-gray-900/50 border border-gray-600 text-white placeholder-gray-400 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <!-- Type Filter -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Type</label>
-                    <select name="type" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    <label for="type" class="block text-sm font-medium text-gray-300 mb-2">Type</label>
+                    <select id="type" name="type" 
+                            class="w-full bg-gray-900/50 border border-gray-600 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                         <option value="">All Types</option>
-                        @foreach($filterOptions['types'] as $key => $label)
-                            <option value="{{ $key }}" {{ $type === $key ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
+                        <option value="customer" {{ request('type') == 'customer' ? 'selected' : '' }}>Customer</option>
+                        <option value="system" {{ request('type') == 'system' ? 'selected' : '' }}>System</option>
+                        <option value="admin" {{ request('type') == 'admin' ? 'selected' : '' }}>Admin</option>
                     </select>
                 </div>
 
                 <!-- Action Filter -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Action</label>
-                    <select name="action" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    <label for="action" class="block text-sm font-medium text-gray-300 mb-2">Action</label>
+                    <select id="action" name="action"
+                            class="w-full bg-gray-900/50 border border-gray-600 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                         <option value="">All Actions</option>
-                        @foreach($filterOptions['actions'] as $key => $label)
-                            <option value="{{ $key }}" {{ $action === $key ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
+                        <option value="login" {{ request('action') == 'login' ? 'selected' : '' }}>Login</option>
+                        <option value="logout" {{ request('action') == 'logout' ? 'selected' : '' }}>Logout</option>
+                        <option value="create" {{ request('action') == 'create' ? 'selected' : '' }}>Create</option>
+                        <option value="update" {{ request('action') == 'update' ? 'selected' : '' }}>Update</option>
+                        <option value="delete" {{ request('action') == 'delete' ? 'selected' : '' }}>Delete</option>
                     </select>
                 </div>
 
                 <!-- Severity Filter -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Severity</label>
-                    <select name="severity" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                        <option value="">All Severities</option>
-                        @foreach($filterOptions['severities'] as $key => $label)
-                            <option value="{{ $key }}" {{ $severity === $key ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
+                    <label for="severity" class="block text-sm font-medium text-gray-300 mb-2">Severity</label>
+                    <select id="severity" name="severity"
+                            class="w-full bg-gray-900/50 border border-gray-600 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                        <option value="">All Levels</option>
+                        <option value="low" {{ request('severity') == 'low' ? 'selected' : '' }}>Low</option>
+                        <option value="medium" {{ request('severity') == 'medium' ? 'selected' : '' }}>Medium</option>
+                        <option value="high" {{ request('severity') == 'high' ? 'selected' : '' }}>High</option>
+                        <option value="critical" {{ request('severity') == 'critical' ? 'selected' : '' }}>Critical</option>
                     </select>
                 </div>
 
-                <!-- Status Filter -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label>
-                    <select name="status" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                        <option value="">All Statuses</option>
-                        @foreach($filterOptions['statuses'] as $key => $label)
-                            <option value="{{ $key }}" {{ $status === $key ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <!-- Date Range Filter -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date Range</label>
-                    <select name="date_range" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                        @foreach($filterOptions['date_ranges'] as $key => $label)
-                            <option value="{{ $key }}" {{ $dateRange === $key ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <!-- Search -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Search</label>
-                    <input type="text" name="search" value="{{ $search }}" placeholder="Search logs..." class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                <!-- Apply Button -->
+                <div class="flex items-end">
+                    <button type="button" id="apply-filters"
+                            class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                        Apply Filters
+                    </button>
                 </div>
             </div>
-
-            <div class="flex items-center gap-3">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
-                    Apply Filters
-                </button>
-                <a href="{{ route('admin.activity-logs.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors">
-                    Clear Filters
-                </a>
-                <div class="ml-auto">
-                    <label class="flex items-center">
-                        <input type="checkbox" id="auto-refresh" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Auto-refresh</span>
-                    </label>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
 
     <!-- Activity Logs Table -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden">
+        <div class="px-4 lg:px-6 py-4 border-b border-gray-700">
+            <h3 class="text-lg font-semibold text-white">Recent Activities</h3>
+        </div>
+        
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead class="bg-gray-50 dark:bg-gray-900">
+            <table class="min-w-full divide-y divide-gray-700">
+                <thead class="bg-gray-900/50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Activity</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">User</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Type</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">IP Address</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Time</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Activity</th>
+                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden sm:table-cell">User</th>
+                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden md:table-cell">Type</th>
+                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden lg:table-cell">IP Address</th>
+                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Time</th>
+                        <th class="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700" id="activity-table-body">
-                    @forelse($activities as $activity)
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" data-activity-id="{{ $activity->id }}">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <span class="text-2xl mr-3">{{ $activity->icon }}</span>
-                                    <div>
-                                        <div class="text-sm font-medium text-gray-900 dark:text-white">{{ $activity->action }}</div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">{{ Str::limit($activity->description, 60) }}</div>
-                                    </div>
+                <tbody class="divide-y divide-gray-700">
+                    @forelse($activities as $log)
+                    <tr class="hover:bg-gray-700/30 transition-colors">
+                        <!-- Activity Description -->
+                        <td class="px-4 lg:px-6 py-4">
+                            <div class="flex flex-col">
+                                <div class="text-sm font-medium text-white truncate max-w-xs lg:max-w-md">
+                                    {{ $log->description }}
                                 </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900 dark:text-white">
-                                    {{ $activity->causer->name ?? 'System' }}
-                                </div>
-                                @if($activity->causer)
-                                    <div class="text-sm text-gray-500 dark:text-gray-400">
-                                        {{ $activity->causer->email ?? '' }}
-                                    </div>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                    @if($activity->type === 'admin') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200
-                                    @elseif($activity->type === 'customer') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200
-                                    @elseif($activity->type === 'system') bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200
-                                    @else bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 @endif">
-                                    {{ ucfirst($activity->type) }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                        @if($activity->status === 'success') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200
-                                        @elseif($activity->status === 'failed') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200
-                                        @elseif($activity->status === 'pending') bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200
-                                        @else bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 @endif">
-                                        {{ ucfirst($activity->status) }}
+                                <div class="text-xs text-gray-400 mt-1 sm:hidden">
+                                    {{ $log->causer ? $log->causer->name : 'System' }} • 
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
+                                        {{ $log->type == 'customer' ? 'bg-green-100 text-green-800' : 
+                                           ($log->type == 'admin' ? 'bg-orange-100 text-orange-800' : 'bg-purple-100 text-purple-800') }}">
+                                        {{ ucfirst($log->type) }}
                                     </span>
-                                    <span class="ml-2 w-2 h-2 rounded-full {{ $activity->severity_color }}"></span>
                                 </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                                {{ $activity->ip_address ?? 'N/A' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                <div title="{{ $activity->created_at->format('Y-m-d H:i:s') }}">
-                                    {{ $activity->time_ago }}
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{{ route('admin.activity-logs.show', $activity) }}" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
-                                    View Details
-                                </a>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+
+                        <!-- User (Hidden on mobile) -->
+                        <td class="px-4 lg:px-6 py-4 hidden sm:table-cell">
+                            <div class="text-sm text-white">
+                                {{ $log->causer ? $log->causer->name : 'System' }}
+                            </div>
+                            <div class="text-xs text-gray-400">
+                                {{ $log->causer ? $log->causer->email : 'Automated' }}
+                            </div>
+                        </td>
+
+                        <!-- Type (Hidden on small screens) -->
+                        <td class="px-4 lg:px-6 py-4 hidden md:table-cell">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                {{ $log->type == 'customer' ? 'bg-green-500/20 text-green-400 border border-green-500/20' : 
+                                   ($log->type == 'admin' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/20' : 'bg-purple-500/20 text-purple-400 border border-purple-500/20') }}">
+                                {{ ucfirst($log->type) }}
+                            </span>
+                        </td>
+
+                        <!-- IP Address (Hidden on medium screens and below) -->
+                        <td class="px-4 lg:px-6 py-4 hidden lg:table-cell">
+                            <div class="text-sm text-gray-300 font-mono">
+                                {{ $log->ip_address ?? 'N/A' }}
+                            </div>
+                        </td>
+
+                        <!-- Time -->
+                        <td class="px-4 lg:px-6 py-4">
+                            <div class="text-sm text-white">
+                                {{ $log->created_at->format('M j') }}
+                            </div>
+                            <div class="text-xs text-gray-400">
+                                {{ $log->created_at->format('H:i') }}
+                            </div>
+                        </td>
+
+                        <!-- Actions -->
+                        <td class="px-4 lg:px-6 py-4">
+                            <a href="{{ route('admin.activity-logs.show', $log) }}" 
+                               class="inline-flex items-center px-3 py-1 bg-primary-600/20 text-primary-400 text-xs font-medium rounded-lg hover:bg-primary-600/30 transition-colors">
+                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                                View
+                            </a>
+                        </td>
+                    </tr>
                     @empty
-                        <tr>
-                            <td colspan="7" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
-                                <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <tr>
+                        <td colspan="6" class="px-4 lg:px-6 py-12 text-center">
+                            <div class="flex flex-col items-center">
+                                <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                 </svg>
-                                <p class="text-lg font-medium">No activity logs found</p>
-                                <p class="text-sm">Try adjusting your filters or check back later.</p>
-                            </td>
-                        </tr>
+                                <h3 class="text-lg font-medium text-gray-300 mb-2">No activity logs found</h3>
+                                <p class="text-gray-400">Activities will appear here as users interact with the system.</p>
+                            </div>
+                        </td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -257,161 +268,62 @@
 
         <!-- Pagination -->
         @if($activities->hasPages())
-            <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
-                {{ $activities->links() }}
-            </div>
-        @endif
-    </div>
-</div>
-
-<!-- Cleanup Modal -->
-<div id="cleanup-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Cleanup Activity Logs</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-            This will permanently delete activity logs older than the specified number of days.
-        </p>
-        <form action="{{ route('admin.activity-logs.cleanup') }}" method="POST">
-            @csrf
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Delete logs older than:</label>
-                <select name="days" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                    <option value="30">30 days</option>
-                    <option value="60">60 days</option>
-                    <option value="90" selected>90 days</option>
-                    <option value="180">180 days</option>
-                    <option value="365">1 year</option>
-                </select>
-            </div>
-            <div class="flex justify-end gap-3">
-                <button type="button" onclick="hideCleanupModal()" class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white">
-                    Cancel
-                </button>
-                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-                    Delete Logs
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-@endsection
-
-@push('scripts')
-<script>
-let autoRefreshInterval;
-let lastActivityId = {{ $activities->first()->id ?? 0 }};
-
-// Auto-refresh functionality
-document.getElementById('auto-refresh').addEventListener('change', function() {
-    if (this.checked) {
-        autoRefreshInterval = setInterval(fetchNewActivities, 10000); // Refresh every 10 seconds
-    } else {
-        clearInterval(autoRefreshInterval);
-    }
-});
-
-// Fetch new activities
-async function fetchNewActivities() {
-    try {
-        const response = await fetch(`{{ route('admin.activity-logs.feed') }}?last_id=${lastActivityId}`);
-        const data = await response.json();
-        
-        if (data.activities.length > 0) {
-            prependNewActivities(data.activities);
-            lastActivityId = data.last_id;
-        }
-    } catch (error) {
-        console.error('Error fetching new activities:', error);
-    }
-}
-
-// Prepend new activities to the table
-function prependNewActivities(activities) {
-    const tbody = document.getElementById('activity-table-body');
-    
-    activities.forEach(activity => {
-        const row = createActivityRow(activity);
-        tbody.insertBefore(row, tbody.firstChild);
-        
-        // Add highlight animation
-        row.classList.add('bg-yellow-100', 'dark:bg-yellow-900');
-        setTimeout(() => {
-            row.classList.remove('bg-yellow-100', 'dark:bg-yellow-900');
-        }, 2000);
-    });
-}
-
-// Create activity row HTML
-function createActivityRow(activity) {
-    const row = document.createElement('tr');
-    row.className = 'hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors';
-    row.setAttribute('data-activity-id', activity.id);
-    
-    row.innerHTML = `
-        <td class="px-6 py-4 whitespace-nowrap">
-            <div class="flex items-center">
-                <span class="text-2xl mr-3">${activity.icon}</span>
-                <div>
-                    <div class="text-sm font-medium text-gray-900 dark:text-white">${activity.action}</div>
-                    <div class="text-sm text-gray-500 dark:text-gray-400">${activity.description.substring(0, 60)}...</div>
+        <div class="px-4 lg:px-6 py-4 border-t border-gray-700">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-sm text-gray-400">
+                    Showing {{ $activities->firstItem() }} to {{ $activities->lastItem() }} of {{ $activities->total() }} results
+                </div>
+                <div class="flex space-x-1">
+                    {{ $activities->appends(request()->query())->links('pagination::tailwind') }}
                 </div>
             </div>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap">
-            <div class="text-sm text-gray-900 dark:text-white">${activity.causer_name}</div>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                ${activity.type.charAt(0).toUpperCase() + activity.type.slice(1)}
-            </span>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap">
-            <div class="flex items-center">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                    Success
-                </span>
-                <span class="ml-2 w-2 h-2 rounded-full ${activity.severity_color}"></span>
-            </div>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-            N/A
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-            <div title="${activity.created_at}">
-                ${activity.time_ago}
-            </div>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-            <a href="/admin/activity-logs/${activity.id}" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
-                View Details
-            </a>
-        </td>
-    `;
+        </div>
+        @endif
+    </div>
+
+</div>
+
+<!-- Real-time Update Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-refresh functionality
+    const refreshBtn = document.getElementById('refresh-btn');
+    const applyFiltersBtn = document.getElementById('apply-filters');
     
-    return row;
-}
+    // Refresh button
+    refreshBtn?.addEventListener('click', function() {
+        window.location.reload();
+    });
 
-// Export logs
-function exportLogs() {
-    window.open('{{ route('admin.activity-logs.export') }}', '_blank');
-}
+    // Apply filters
+    applyFiltersBtn?.addEventListener('click', function() {
+        const params = new URLSearchParams();
+        
+        const search = document.getElementById('search')?.value;
+        const type = document.getElementById('type')?.value;
+        const action = document.getElementById('action')?.value;
+        const severity = document.getElementById('severity')?.value;
+        
+        if (search) params.append('search', search);
+        if (type) params.append('type', type);
+        if (action) params.append('action', action);
+        if (severity) params.append('severity', severity);
+        
+        window.location.search = params.toString();
+    });
 
-// Cleanup modal functions
-function showCleanupModal() {
-    document.getElementById('cleanup-modal').classList.remove('hidden');
-    document.getElementById('cleanup-modal').classList.add('flex');
-}
+    // Enter key search
+    document.getElementById('search')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            applyFiltersBtn?.click();
+        }
+    });
 
-function hideCleanupModal() {
-    document.getElementById('cleanup-modal').classList.add('hidden');
-    document.getElementById('cleanup-modal').classList.remove('flex');
-}
-
-// Close modal when clicking outside
-document.getElementById('cleanup-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        hideCleanupModal();
-    }
+    // Auto-refresh every 30 seconds
+    setInterval(() => {
+        // Optional: Add subtle notification or reload if no user interaction
+    }, 30000);
 });
 </script>
-@endpush
+
+@endsection

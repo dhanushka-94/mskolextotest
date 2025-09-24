@@ -121,10 +121,29 @@ class AdminDashboardController extends Controller
      */
     public function analytics()
     {
-        $period = request('period', '30'); // days
-
-        $startDate = Carbon::now()->subDays($period);
-        $endDate = Carbon::now();
+        // Handle date range parameters
+        $dateFrom = request('date_from');
+        $dateTo = request('date_to');
+        $period = request('period', '30'); // days for backward compatibility
+        
+        // Determine date range based on input
+        if ($dateFrom && $dateTo) {
+            // Custom date range
+            $startDate = Carbon::parse($dateFrom)->startOfDay();
+            $endDate = Carbon::parse($dateTo)->endOfDay();
+        } elseif ($dateFrom && !$dateTo) {
+            // From date only
+            $startDate = Carbon::parse($dateFrom)->startOfDay();
+            $endDate = Carbon::now()->endOfDay();
+        } elseif (!$dateFrom && $dateTo) {
+            // To date only  
+            $startDate = Carbon::parse($dateTo)->startOfDay()->subDays(30); // Default to 30 days back
+            $endDate = Carbon::parse($dateTo)->endOfDay();
+        } else {
+            // Default to period-based range
+            $startDate = Carbon::now()->subDays($period)->startOfDay();
+            $endDate = Carbon::now()->endOfDay();
+        }
 
         // Revenue analytics
         $revenueData = Order::where('payment_status', 'paid')
@@ -173,7 +192,9 @@ class AdminDashboardController extends Controller
             'revenueData',
             'productPerformance',
             'customerInsights',
-            'period'
+            'period',
+            'startDate',
+            'endDate'
         ));
     }
 }
