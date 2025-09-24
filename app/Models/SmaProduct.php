@@ -387,6 +387,75 @@ class SmaProduct extends Model
             }
         }
         
+        // Try flexible matching for product model variations
+        if (!$result) {
+            // Extract key product identifiers from the slug - expanded for more brands
+            $keyWords = [];
+            if (preg_match_all('/\b(asus|tuf|a15|fa506[a-z]?|r[57]|rtx\d{4}|gtx\d{4}|ddr[45]|nvme|fhd|144hz|rgb|msi|thin|b13[a-z]*|i[357]|13th|12th|11th|156inch|15\.?6|14inch|touch|zenbook|ultra|16gb|8gb|512gb|1tb)\b/i', $value, $matches)) {
+                $keyWords = $matches[0];
+            }
+            
+            // Special handling for inch variations (156inch -> 15.6)
+            if (preg_match('/(\d{2,3})inch/i', $value, $inchMatches)) {
+                $inches = $inchMatches[1];
+                if ($inches == '156') {
+                    $keyWords[] = '15.6';
+                } elseif ($inches == '140') {
+                    $keyWords[] = '14';
+                } elseif ($inches == '173') {
+                    $keyWords[] = '17.3';
+                }
+            }
+            
+            // Special handling for RTX/GTX graphics cards
+            if (preg_match('/rtx(\d{4})/i', $value, $rtxMatches)) {
+                $keyWords[] = 'RTX' . $rtxMatches[1];
+            }
+            if (preg_match('/gtx(\d{4})/i', $value, $gtxMatches)) {
+                $keyWords[] = 'GTX' . $gtxMatches[1];
+            }
+            
+            if (count($keyWords) >= 3) {
+                // Filter keywords to most important ones for better matching
+                $importantKeywords = array_filter($keyWords, function($keyword) {
+                    $important = ['msi', 'thin', 'asus', 'tuf', 'b13usdx', 'fa506', 'i5', 'i3', 'i7', 'r5', 'r7', '13th', '12th', 'rtx2050', 'rtx3050', 'rtx4050', '15.6', '14', '16gb', '8gb'];
+                    return in_array(strtolower($keyword), array_map('strtolower', $important));
+                });
+                
+                if (count($importantKeywords) >= 3) {
+                    $query = $this->newQuery();
+                    foreach ($importantKeywords as $keyword) {
+                        $query->where('name', 'like', '%' . $keyword . '%');
+                    }
+                    $result = $query->first();
+                    
+                    if ($result) {
+                        \Log::info("Product found via important keywords: " . $result->name . " with keywords: " . implode(', ', $importantKeywords) . " for input: $value");
+                    }
+                }
+                
+                // If still not found, try with fewer essential keywords
+                if (!$result) {
+                    $essentialKeywords = array_filter($keyWords, function($keyword) {
+                        $essential = ['msi', 'thin', 'asus', 'tuf', 'b13usdx', 'fa506'];
+                        return in_array(strtolower($keyword), array_map('strtolower', $essential));
+                    });
+                    
+                    if (count($essentialKeywords) >= 2) {
+                        $query = $this->newQuery();
+                        foreach ($essentialKeywords as $keyword) {
+                            $query->where('name', 'like', '%' . $keyword . '%');
+                        }
+                        $result = $query->first();
+                        
+                        if ($result) {
+                            \Log::info("Product found via essential keywords: " . $result->name . " with keywords: " . implode(', ', $essentialKeywords) . " for input: $value");
+                        }
+                    }
+                }
+            }
+        }
+        
         // Try common product variations
         if (!$result) {
             $variations = [
