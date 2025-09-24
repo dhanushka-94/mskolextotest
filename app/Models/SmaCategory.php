@@ -18,7 +18,8 @@ class SmaCategory extends Model
         'name',
         'image',
         'parent_id',
-        'slug'
+        'slug',
+        'sort_order'
     ];
 
     protected $casts = [

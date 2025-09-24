@@ -22,6 +22,52 @@
             </ol>
         </nav>
         
+        <!-- Laptop Expert Banner (Show only for laptop-related categories) -->
+        @if(str_contains(strtolower($category->name), 'laptop'))
+        <div class="mb-3 md:mb-4 bg-gradient-to-r from-blue-600/15 via-blue-500/8 to-blue-600/15 border border-blue-500/25 rounded-lg p-3">
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 flex-1 min-w-0">
+                    <!-- Compact Icon -->
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20,18C20.5,18 21,17.5 21,17V7C21,6.5 20.5,6 20,6H4C3.5,6 3,6.5 3,7V17C3,17.5 3.5,18 4,18H1V20H23V18M5,8H19V16H5V8Z"/>
+                        </svg>
+                    </div>
+                    
+                    <!-- Compact Text -->
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3 class="text-sm md:text-base font-bold text-white truncate">Expert Laptop Service</h3>
+                            <span class="bg-blue-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">PRO</span>
+                        </div>
+                        <p class="text-xs text-gray-300 truncate">Professional repairs, upgrades & data recovery</p>
+                    </div>
+                </div>
+                
+                <!-- Compact Buttons -->
+                <div class="flex gap-2 flex-shrink-0">
+                    <a href="https://www.laptopexpert.lk/" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-semibold rounded-md hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm hover:shadow-md">
+                        <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        <span class="hidden sm:inline">Visit</span>
+                        <span class="sm:hidden">Go</span>
+                    </a>
+                    <a href="tel:+94777506939" 
+                       class="inline-flex items-center px-3 py-2 border border-blue-500 text-blue-400 text-xs font-semibold rounded-md hover:bg-blue-500 hover:text-white transition-all duration-200">
+                        <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        Call
+                    </a>
+                </div>
+            </div>
+        </div>
+        @endif
+        
         <div class="flex items-center justify-between">
             <!-- Category Info -->
             <div class="flex items-center gap-3 md:gap-4 min-w-0 flex-1">
@@ -79,48 +125,80 @@
 
                         <!-- Price Range -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-300 mb-3">Price Range</label>
-                            <div class="space-y-4">
-                                <!-- Price Display -->
-                                <div class="flex items-center justify-between text-sm text-gray-400">
-                                    <span>Rs. <span id="min-price-display">{{ $priceRange['min'] ?? 0 }}</span></span>
-                                    <span>Rs. <span id="max-price-display">{{ $priceRange['max'] ?? 100000 }}</span></span>
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-sm font-semibold text-gray-200">Price Range</h4>
+                                <button type="button" id="reset-price" class="text-xs text-gray-500 hover:text-[#f59e0b] transition-colors">Reset</button>
+                            </div>
+                            
+                            <!-- Current Price Display -->
+                            <div class="bg-[#2c2c2e] rounded-lg p-3 mb-4 border border-gray-700/50">
+                                <div class="flex items-center justify-between">
+                                    <div class="text-center flex-1">
+                                        <div class="text-xs text-gray-500 mb-1">From</div>
+                                        <div class="text-sm font-medium text-white">Rs. <span id="min-price-display">{{ number_format($priceRange['min'] ?? 0) }}</span></div>
+                                    </div>
+                                    <div class="w-px h-8 bg-gray-600 mx-3"></div>
+                                    <div class="text-center flex-1">
+                                        <div class="text-xs text-gray-500 mb-1">To</div>
+                                        <div class="text-sm font-medium text-white">Rs. <span id="max-price-display">{{ number_format($priceRange['max'] ?? 100000) }}</span></div>
+                                    </div>
                                 </div>
-                                
-                                <!-- Range Slider Container -->
+                            </div>
+                            
+                            <!-- Modern Range Slider -->
+                            <div class="relative mb-4">
+                                <div class="price-range-container">
+                                    <input type="range" name="min_price" id="min-price" 
+                                           min="{{ $priceRange['min'] ?? 0 }}" 
+                                           max="{{ $priceRange['max'] ?? 100000 }}" 
+                                           value="{{ request('min_price', $priceRange['min'] ?? 0) }}" 
+                                           class="price-range-input price-range-min">
+                                    <input type="range" name="max_price" id="max-price" 
+                                           min="{{ $priceRange['min'] ?? 0 }}" 
+                                           max="{{ $priceRange['max'] ?? 100000 }}" 
+                                           value="{{ request('max_price', $priceRange['max'] ?? 100000) }}" 
+                                           class="price-range-input price-range-max">
+                                    <div class="price-range-track">
+                                        <div class="price-range-track-active" id="price-track-active"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Manual Input Fields -->
+                            <div class="grid grid-cols-2 gap-3">
                                 <div class="relative">
-                                    <div class="price-range-slider">
-                                        <input type="range" name="min_price" id="min-price" 
-                                               min="{{ $priceRange['min'] ?? 0 }}" 
-                                               max="{{ $priceRange['max'] ?? 100000 }}" 
-                                               value="{{ request('min_price', $priceRange['min'] ?? 0) }}" 
-                                               class="range-input range-min">
-                                        <input type="range" name="max_price" id="max-price" 
-                                               min="{{ $priceRange['min'] ?? 0 }}" 
-                                               max="{{ $priceRange['max'] ?? 100000 }}" 
-                                               value="{{ request('max_price', $priceRange['max'] ?? 100000) }}" 
-                                               class="range-input range-max">
-                                    </div>
+                                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-xs text-gray-500">Rs.</div>
+                                    <input type="number" id="min-price-input" 
+                                           min="{{ $priceRange['min'] ?? 0 }}" 
+                                           max="{{ $priceRange['max'] ?? 100000 }}" 
+                                           value="{{ request('min_price', $priceRange['min'] ?? 0) }}"
+                                           placeholder="Min"
+                                           class="w-full bg-[#2c2c2e] border border-gray-700 text-white rounded-lg pl-8 pr-3 py-2.5 text-sm focus:ring-2 focus:ring-[#f59e0b]/50 focus:border-[#f59e0b] transition-all hover:border-gray-600">
                                 </div>
-                                
-                                <!-- Input Fields -->
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block text-xs text-gray-500 mb-1">Min</label>
-                                        <input type="number" id="min-price-input" 
-                                               min="{{ $priceRange['min'] ?? 0 }}" 
-                                               max="{{ $priceRange['max'] ?? 100000 }}" 
-                                               value="{{ request('min_price', $priceRange['min'] ?? 0) }}"
-                                               class="w-full bg-[#2c2c2e] border border-gray-700 text-white rounded px-2 py-1 text-xs focus:ring-1 focus:ring-[#f59e0b] focus:border-[#f59e0b]">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs text-gray-500 mb-1">Max</label>
-                                        <input type="number" id="max-price-input" 
-                                               min="{{ $priceRange['min'] ?? 0 }}" 
-                                               max="{{ $priceRange['max'] ?? 100000 }}" 
-                                               value="{{ request('max_price', $priceRange['max'] ?? 100000) }}"
-                                               class="w-full bg-[#2c2c2e] border border-gray-700 text-white rounded px-2 py-1 text-xs focus:ring-1 focus:ring-[#f59e0b] focus:border-[#f59e0b]">
-                                    </div>
+                                <div class="relative">
+                                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-xs text-gray-500">Rs.</div>
+                                    <input type="number" id="max-price-input" 
+                                           min="{{ $priceRange['min'] ?? 0 }}" 
+                                           max="{{ $priceRange['max'] ?? 100000 }}" 
+                                           value="{{ request('max_price', $priceRange['max'] ?? 100000) }}"
+                                           placeholder="Max"
+                                           class="w-full bg-[#2c2c2e] border border-gray-700 text-white rounded-lg pl-8 pr-3 py-2.5 text-sm focus:ring-2 focus:ring-[#f59e0b]/50 focus:border-[#f59e0b] transition-all hover:border-gray-600">
+                                </div>
+                            </div>
+                            
+                            <!-- Quick Price Presets -->
+                            <div class="mt-4">
+                                <div class="text-xs text-gray-500 mb-2">Quick filters:</div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button type="button" onclick="setQuickPrice(0, 50000)" class="quick-price-btn text-xs px-3 py-1.5 bg-[#2c2c2e] text-gray-400 rounded-lg hover:bg-[#f59e0b] hover:text-white transition-all border border-gray-700 hover:border-[#f59e0b]">
+                                        Under 50k
+                                    </button>
+                                    <button type="button" onclick="setQuickPrice(50000, 100000)" class="quick-price-btn text-xs px-3 py-1.5 bg-[#2c2c2e] text-gray-400 rounded-lg hover:bg-[#f59e0b] hover:text-white transition-all border border-gray-700 hover:border-[#f59e0b]">
+                                        50k - 100k
+                                    </button>
+                                    <button type="button" onclick="setQuickPrice(100000, 300000)" class="quick-price-btn text-xs px-3 py-1.5 bg-[#2c2c2e] text-gray-400 rounded-lg hover:bg-[#f59e0b] hover:text-white transition-all border border-gray-700 hover:border-[#f59e0b]">
+                                        Above 100k
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -361,19 +439,39 @@
         100% { transform: rotate(360deg); }
     }
 
-    /* Price Range Slider Styles */
-    .price-range-slider {
+    /* Modern Price Range Slider Styles */
+    .price-range-container {
         position: relative;
-        height: 24px;
-        background: #2c2c2e;
-        border-radius: 12px;
-        margin: 8px 0;
+        height: 40px;
+        display: flex;
+        align-items: center;
     }
 
-    .range-input {
+    .price-range-track {
         position: absolute;
         width: 100%;
-        height: 100%;
+        height: 6px;
+        background: #374151;
+        border-radius: 3px;
+        z-index: 1;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .price-range-track-active {
+        position: absolute;
+        height: 6px;
+        background: linear-gradient(90deg, #f59e0b, #d97706);
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .price-range-input {
+        position: absolute;
+        width: 100%;
+        height: 40px;
         top: 0;
         left: 0;
         background: none;
@@ -382,70 +480,110 @@
         appearance: none;
         outline: none;
         border: none;
+        z-index: 2;
     }
 
-    .range-input::-webkit-slider-thumb {
+    .price-range-input::-webkit-slider-thumb {
         height: 20px;
         width: 20px;
         border-radius: 50%;
         background: #f59e0b;
-        border: 2px solid #1c1c1e;
+        border: 3px solid #ffffff;
         cursor: pointer;
         pointer-events: all;
         -webkit-appearance: none;
         appearance: none;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        transition: all 0.2s ease;
-        z-index: 9999;
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
         position: relative;
+        margin-top: -7px; /* Center thumb with 6px track: (20px thumb - 6px track) / 2 = 7px */
     }
 
-    .range-input::-webkit-slider-thumb:hover {
+    .price-range-input::-webkit-slider-thumb:hover {
         background: #d97706;
-        transform: scale(1.1);
+        transform: scale(1.15);
+        box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4), 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
-    .range-input::-moz-range-thumb {
+    .price-range-input::-webkit-slider-thumb:active {
+        transform: scale(1.25);
+        box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5), 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .price-range-input::-moz-range-thumb {
         height: 20px;
         width: 20px;
         border-radius: 50%;
         background: #f59e0b;
-        border: 2px solid #1c1c1e;
+        border: 3px solid #ffffff;
         cursor: pointer;
         pointer-events: all;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        transition: all 0.2s ease;
-        border: none;
-        z-index: 9999;
-        position: relative;
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        -moz-appearance: none;
+        margin-top: -7px; /* Center thumb with 6px track for Firefox */
     }
 
-    .range-input::-moz-range-thumb:hover {
+    .price-range-input::-moz-range-thumb:hover {
         background: #d97706;
-        transform: scale(1.1);
+        transform: scale(1.15);
+        box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4), 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
-    .range-input::-webkit-slider-runnable-track {
+    .price-range-input::-webkit-slider-runnable-track {
         width: 100%;
-        height: 4px;
-        background: #4a5568;
-        border-radius: 2px;
+        height: 6px;
+        background: transparent;
+        border-radius: 3px;
     }
 
-    .range-input::-moz-range-track {
+    .price-range-input::-moz-range-track {
         width: 100%;
-        height: 4px;
-        background: #4a5568;
-        border-radius: 2px;
+        height: 6px;
+        background: transparent;
+        border-radius: 3px;
         border: none;
     }
 
-    .range-min {
-        z-index: 9998;
+    .price-range-min {
+        z-index: 3;
     }
 
-    .range-max {
-        z-index: 9999;
+    .price-range-max {
+        z-index: 4;
+    }
+
+    /* Enhanced focus states for better accessibility */
+    .price-range-input:focus::-webkit-slider-thumb {
+        outline: 2px solid #f59e0b;
+        outline-offset: 2px;
+    }
+
+    .price-range-input:focus::-moz-range-thumb {
+        outline: 2px solid #f59e0b;
+        outline-offset: 2px;
+    }
+
+    /* Quick price button animations */
+    .quick-price-btn {
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quick-price-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(245, 158, 11, 0.2);
+    }
+
+    .quick-price-btn:active {
+        transform: translateY(0);
+    }
+
+    .quick-price-btn.active {
+        background: #f59e0b !important;
+        color: white !important;
+        border-color: #f59e0b !important;
     }
 </style>
 @endpush
@@ -716,18 +854,85 @@
             if (elements.minPriceSlider && elements.maxPriceSlider) {
                 elements.minPriceSlider.value = elements.minPriceSlider.min;
                 elements.maxPriceSlider.value = elements.maxPriceSlider.max;
+                
+                if (elements.minPriceInput) elements.minPriceInput.value = elements.minPriceSlider.min;
+                if (elements.maxPriceInput) elements.maxPriceInput.value = elements.maxPriceSlider.max;
+                
                 updatePriceDisplay();
+                updateActiveTrack();
             }
+            
+            // Remove active state from quick price buttons
+            const quickButtons = document.querySelectorAll('.quick-price-btn');
+            quickButtons.forEach(btn => btn.classList.remove('active'));
             
             filterProducts();
         }
 
-        // Price Range Slider Functions
+        // Enhanced Price Range Functions
         function updatePriceDisplay() {
             if (elements.minPriceDisplay && elements.maxPriceDisplay && 
                 elements.minPriceSlider && elements.maxPriceSlider) {
-                elements.minPriceDisplay.textContent = parseInt(elements.minPriceSlider.value).toLocaleString();
-                elements.maxPriceDisplay.textContent = parseInt(elements.maxPriceSlider.value).toLocaleString();
+                const minVal = parseInt(elements.minPriceSlider.value);
+                const maxVal = parseInt(elements.maxPriceSlider.value);
+                
+                elements.minPriceDisplay.textContent = minVal.toLocaleString();
+                elements.maxPriceDisplay.textContent = maxVal.toLocaleString();
+                
+                updateActiveTrack();
+            }
+        }
+
+        function updateActiveTrack() {
+            const activeTrack = document.getElementById('price-track-active');
+            if (activeTrack && elements.minPriceSlider && elements.maxPriceSlider) {
+                const min = parseInt(elements.minPriceSlider.min);
+                const max = parseInt(elements.maxPriceSlider.max);
+                const minVal = parseInt(elements.minPriceSlider.value);
+                const maxVal = parseInt(elements.maxPriceSlider.value);
+                
+                const leftPercent = ((minVal - min) / (max - min)) * 100;
+                const rightPercent = ((maxVal - min) / (max - min)) * 100;
+                
+                activeTrack.style.left = leftPercent + '%';
+                activeTrack.style.width = (rightPercent - leftPercent) + '%';
+            }
+        }
+
+        // Quick Price Preset Functions
+        window.setQuickPrice = function(minPrice, maxPrice) {
+            if (elements.minPriceSlider && elements.maxPriceSlider) {
+                elements.minPriceSlider.value = minPrice;
+                elements.maxPriceSlider.value = maxPrice;
+                
+                if (elements.minPriceInput) elements.minPriceInput.value = minPrice;
+                if (elements.maxPriceInput) elements.maxPriceInput.value = maxPrice;
+                
+                updatePriceDisplay();
+                filterProducts();
+                
+                // Visual feedback for quick buttons
+                const quickButtons = document.querySelectorAll('.quick-price-btn');
+                quickButtons.forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                setTimeout(() => {
+                    event.target.classList.remove('active');
+                }, 2000);
+            }
+        }
+
+        // Reset Price Function
+        function resetPrice() {
+            if (elements.minPriceSlider && elements.maxPriceSlider) {
+                elements.minPriceSlider.value = elements.minPriceSlider.min;
+                elements.maxPriceSlider.value = elements.maxPriceSlider.max;
+                
+                if (elements.minPriceInput) elements.minPriceInput.value = elements.minPriceSlider.min;
+                if (elements.maxPriceInput) elements.maxPriceInput.value = elements.maxPriceSlider.max;
+                
+                updatePriceDisplay();
+                filterProducts();
             }
         }
 
@@ -766,6 +971,7 @@
                 if (elements.maxPriceInput) elements.maxPriceInput.value = maxVal;
                 
                 updatePriceDisplay();
+                updateActiveTrack();
                 filterProducts();
             }
         }
@@ -802,6 +1008,12 @@
             elements.maxPriceSlider.addEventListener('input', handleSliderChange);
         }
 
+        // Reset Price Button
+        const resetPriceBtn = document.getElementById('reset-price');
+        if (resetPriceBtn) {
+            resetPriceBtn.addEventListener('click', resetPrice);
+        }
+
         if (elements.minPriceInput) {
             elements.minPriceInput.addEventListener('input', function() {
                 syncSliderToInput(true);
@@ -818,8 +1030,9 @@
             });
         }
 
-        // Initialize price display
+        // Initialize price display and active track
         updatePriceDisplay();
+        updateActiveTrack();
 
         FilterSystem.isInitialized = true;
         console.log('✅ AJAX Filter System initialized successfully!');

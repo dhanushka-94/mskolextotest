@@ -17,13 +17,15 @@ class MenuComposer
                 $query->withCount(['subcategoryProducts as subcategory_products_count' => function($q) {
                     $q->where('hide', 0);
                 }])
-                ->orderBy('name'); // Show all subcategories regardless of product count
+                ->orderBy('sort_order', 'asc')
+                ->orderBy('name', 'asc'); // Show all subcategories in logical order
             }])
             ->withCount(['products as products_count' => function($query) {
                 $query->where('hide', 0);
             }])
-            ->orderBy('name')
-            ->get(); // Show all main categories regardless of product count
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('name', 'asc')
+            ->get(); // Show all main categories in logical order
 
         $view->with('menuCategories', $menuCategories);
     }

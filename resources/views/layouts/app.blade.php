@@ -312,14 +312,11 @@
                                     <!-- Main Category -->
                                     <div class="mb-1">
                                         <a href="{{ route('categories.show', $category->slug ?: $category->id) }}" 
-                                           class="flex items-center justify-between px-4 py-2 text-gray-300 hover:bg-gray-900 hover:text-primary-400 transition-colors group">
-                                            <div class="flex items-center">
-                                                <svg class="w-4 h-4 mr-3 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
-                                                </svg>
-                                                <span class="font-medium text-sm">{{ $category->name }}</span>
-                                            </div>
-                                            <span class="text-gray-500 text-xs bg-gray-800 px-2 py-1 rounded-full group-hover:bg-gray-700">{{ $category->products_count }}</span>
+                                           class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-900 hover:text-primary-400 transition-colors group">
+                                            <svg class="w-4 h-4 mr-3 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+                                            </svg>
+                                            <span class="font-medium text-sm">{{ $category->name }}</span>
                                         </a>
                                         
                                         <!-- Subcategories -->
@@ -327,16 +324,11 @@
                                             <div class="ml-6 mt-1 space-y-1">
                                                 @foreach($category->subcategories as $subcategory)
                                                     <a href="{{ route('categories.show', $subcategory->slug ?: $subcategory->id) }}" 
-                                                       class="flex items-center justify-between px-4 py-1.5 text-gray-400 hover:bg-gray-900 hover:text-primary-400 transition-colors text-sm group">
-                                                        <div class="flex items-center">
-                                                            <svg class="w-3 h-3 mr-3 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                                                                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
-                                                            </svg>
-                                                            <span>{{ $subcategory->name }}</span>
-                                                        </div>
-                                                        <span class="text-gray-600 text-xs group-hover:text-gray-500">
-                                                            {{ $subcategory->subcategory_products_count ?? 0 }}
-                                                        </span>
+                                                       class="flex items-center px-4 py-1.5 text-gray-400 hover:bg-gray-900 hover:text-primary-400 transition-colors text-sm group">
+                                                        <svg class="w-3 h-3 mr-3 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                                                            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                                        </svg>
+                                                        <span>{{ $subcategory->name }}</span>
                                                     </a>
                                                 @endforeach
                                             </div>
@@ -444,16 +436,13 @@
                         <!-- Main Category -->
                         <div class="mb-1">
                             <div class="flex items-center">
-                                <a href="{{ route('categories.show', $category->slug ?: $category->id) }}" 
-                                   class="flex-1 flex items-center justify-between py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors rounded-lg group">
-                                    <div class="flex items-center">
-                                        <svg class="w-4 h-4 mr-3 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
-                                        </svg>
-                                        <span class="font-medium text-sm">{{ $category->name }}</span>
-                                    </div>
-                                    <span class="text-xs text-gray-500 bg-gray-800 px-2 py-1 rounded-full group-hover:bg-gray-700">{{ $category->products_count }}</span>
-                                </a>
+                       <a href="{{ route('categories.show', $category->slug ?: $category->id) }}" 
+                          class="flex-1 flex items-center py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors rounded-lg group">
+                           <svg class="w-4 h-4 mr-3 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
+                               <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
+                           </svg>
+                           <span class="font-medium text-sm">{{ $category->name }}</span>
+                       </a>
                                 
                                 @if($category->subcategories->count() > 0)
                                     <button class="p-2 text-gray-400 hover:text-white transition-colors mobile-category-toggle" data-category="{{ $category->id }}">
@@ -468,18 +457,13 @@
                             @if($category->subcategories->count() > 0)
                                 <div class="mobile-subcategories ml-6 mt-1 space-y-1 hidden" id="mobile-subcategories-{{ $category->id }}">
                                     @foreach($category->subcategories->take(10) as $subcategory)
-                                        <a href="{{ route('categories.show', $subcategory->slug ?: $subcategory->id) }}" 
-                                           class="flex items-center justify-between px-3 py-1.5 text-gray-400 hover:text-primary-400 hover:bg-gray-800/50 transition-colors text-sm rounded group">
-                                            <div class="flex items-center">
-                                                <svg class="w-3 h-3 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
-                                                </svg>
-                                                <span>{{ $subcategory->name }}</span>
-                                            </div>
-                                            <span class="text-xs text-gray-600 group-hover:text-gray-500">
-                                                {{ $subcategory->subcategory_products_count ?? 0 }}
-                                            </span>
-                                        </a>
+                               <a href="{{ route('categories.show', $subcategory->slug ?: $subcategory->id) }}" 
+                                  class="flex items-center px-3 py-1.5 text-gray-400 hover:text-primary-400 hover:bg-gray-800/50 transition-colors text-sm rounded group">
+                                   <svg class="w-3 h-3 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                                       <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                   </svg>
+                                   <span>{{ $subcategory->name }}</span>
+                               </a>
                                     @endforeach
                                     @if($category->subcategories->count() > 10)
                                         <a href="{{ route('categories.show', $category->slug ?: $category->id) }}" 

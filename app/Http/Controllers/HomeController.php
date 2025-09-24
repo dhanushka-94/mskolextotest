@@ -10,8 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Get cached featured products for better performance
-        $featuredProducts = \App\Services\PerformanceCacheService::getFeaturedProducts(8);
+        // Get cached promotion products for better performance (replacing featured products)
+        $promotionProducts = \App\Services\PerformanceCacheService::getPromotionProducts(null, 8);
 
         // Get cached categories (limited to 6 for homepage)
         $categories = \App\Services\PerformanceCacheService::getNavigationCategories()->take(6);
@@ -19,6 +19,6 @@ class HomeController extends Controller
         // Get cached latest products
         $latestProducts = \App\Services\PerformanceCacheService::getLatestProducts(4);
 
-        return view('home', compact('featuredProducts', 'categories', 'latestProducts'));
+        return view('home', compact('promotionProducts', 'categories', 'latestProducts'));
     }
 }

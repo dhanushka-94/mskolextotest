@@ -27,7 +27,8 @@ class PerformanceCacheService
                 ->withCount(['subcategoryProducts as subcategory_products_count' => function($query) {
                     $query->where('hide', 0);
                 }])
-                ->orderBy('name')
+                ->orderBy('sort_order', 'asc')
+                ->orderBy('name', 'asc')
                 ->get()
                 ->map(function($category) {
                     $category->active_products_count = $category->total_products_count + $category->subcategory_products_count;
@@ -43,8 +44,9 @@ class PerformanceCacheService
     {
         return Cache::remember('navigation_categories', self::CATEGORY_CACHE_DURATION, function () {
             return SmaCategory::mainCategories()
-                ->select(['id', 'name', 'slug'])
-                ->orderBy('name')
+                ->select(['id', 'name', 'slug', 'sort_order'])
+                ->orderBy('sort_order', 'asc')
+                ->orderBy('name', 'asc')
                 ->get();
         });
     }
