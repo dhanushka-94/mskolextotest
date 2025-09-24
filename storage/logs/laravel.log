@@ -12562,3 +12562,14 @@ Did you mean one of these?
 [2025-09-23 20:51:57] local.INFO: Category route binding - Value: cart, Field: null  
 [2025-09-23 20:51:57] local.INFO: Category slug lookup - searching for: cart  
 [2025-09-23 20:51:57] local.INFO: Category slug lookup result: not found  
+[2025-09-24 12:30:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-24 12:30:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-24 12:30:48] local.INFO: Category slug lookup result: not found  
+[2025-09-24 12:30:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-24 12:30:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-24 12:30:50] local.INFO: Category slug lookup result: not found  
+[2025-09-24 12:31:08] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-24 12:31:08] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-24 12:31:10] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-24 12:31:10] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-24 12:31:10] local.INFO: Category slug lookup result: not found  

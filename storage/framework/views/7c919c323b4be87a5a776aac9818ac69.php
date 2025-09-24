@@ -1,24 +1,22 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', $category->name . ' - MSK COMPUTERS'); ?>
+<?php $__env->startSection('description', 'Shop ' . $category->name . ' at MSK Computers. Find the best deals on computer hardware and technology products in Sri Lanka.'); ?>
+<?php $__env->startSection('keywords', $category->name . ', computer hardware, MSK Computers, Sri Lanka, technology, ' . strtolower($category->name)); ?>
+<?php $__env->startSection('og_title', $category->name . ' - MSK COMPUTERS'); ?>
+<?php $__env->startSection('og_description', 'Discover premium ' . $category->name . ' products at MSK Computers. Quality computer hardware and technology solutions.'); ?>
+<?php $__env->startSection('og_type', 'product.group'); ?>
 
-@section('title', $category->name . ' - MSK COMPUTERS')
-@section('description', 'Shop ' . $category->name . ' at MSK Computers. Find the best deals on computer hardware and technology products in Sri Lanka.')
-@section('keywords', $category->name . ', computer hardware, MSK Computers, Sri Lanka, technology, ' . strtolower($category->name))
-@section('og_title', $category->name . ' - MSK COMPUTERS')
-@section('og_description', 'Discover premium ' . $category->name . ' products at MSK Computers. Quality computer hardware and technology solutions.')
-@section('og_type', 'product.group')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Compact Category Header -->
 <section class="relative bg-[#0f0f0f] border-b border-gray-800/30 py-4 md:py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumb -->
         <nav class="mb-3 md:mb-4">
             <ol class="flex items-center space-x-1 md:space-x-2 text-xs text-gray-500 overflow-x-auto">
-                <li><a href="{{ route('home') }}" class="hover:text-[#f59e0b] transition-colors whitespace-nowrap">Home</a></li>
+                <li><a href="<?php echo e(route('home')); ?>" class="hover:text-[#f59e0b] transition-colors whitespace-nowrap">Home</a></li>
                 <li><span class="mx-1">/</span></li>
-                <li><a href="{{ route('categories.index') }}" class="hover:text-[#f59e0b] transition-colors whitespace-nowrap">Categories</a></li>
+                <li><a href="<?php echo e(route('categories.index')); ?>" class="hover:text-[#f59e0b] transition-colors whitespace-nowrap">Categories</a></li>
                 <li><span class="mx-1">/</span></li>
-                <li class="text-[#f59e0b] font-medium truncate">{{ $category->name }}</li>
+                <li class="text-[#f59e0b] font-medium truncate"><?php echo e($category->name); ?></li>
             </ol>
         </nav>
         
@@ -31,8 +29,8 @@
                     </svg>
                 </div>
                 <div class="min-w-0 flex-1">
-                    <h1 class="text-lg md:text-2xl font-bold text-white truncate">{{ $category->name }}</h1>
-                    <p class="text-xs md:text-sm text-gray-400">{{ $products->total() }} products available</p>
+                    <h1 class="text-lg md:text-2xl font-bold text-white truncate"><?php echo e($category->name); ?></h1>
+                    <p class="text-xs md:text-sm text-gray-400"><?php echo e($products->total()); ?> products available</p>
                 </div>
             </div>
         </div>
@@ -72,7 +70,7 @@
                         <!-- Search -->
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Search Products</label>
-                            <input type="text" name="search" id="search" value="{{ request('search') }}" 
+                            <input type="text" name="search" id="search" value="<?php echo e(request('search')); ?>" 
                                    placeholder="Search by name, code..." 
                                    class="w-full bg-[#2c2c2e] border border-gray-700 text-white rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#f59e0b] focus:border-[#f59e0b] transition-all">
                         </div>
@@ -83,22 +81,22 @@
                             <div class="space-y-4">
                                 <!-- Price Display -->
                                 <div class="flex items-center justify-between text-sm text-gray-400">
-                                    <span>Rs. <span id="min-price-display">{{ $priceRange['min'] ?? 0 }}</span></span>
-                                    <span>Rs. <span id="max-price-display">{{ $priceRange['max'] ?? 100000 }}</span></span>
+                                    <span>Rs. <span id="min-price-display"><?php echo e($priceRange['min'] ?? 0); ?></span></span>
+                                    <span>Rs. <span id="max-price-display"><?php echo e($priceRange['max'] ?? 100000); ?></span></span>
                                 </div>
                                 
                                 <!-- Range Slider Container -->
                                 <div class="relative">
                                     <div class="price-range-slider">
                                         <input type="range" name="min_price" id="min-price" 
-                                               min="{{ $priceRange['min'] ?? 0 }}" 
-                                               max="{{ $priceRange['max'] ?? 100000 }}" 
-                                               value="{{ request('min_price', $priceRange['min'] ?? 0) }}" 
+                                               min="<?php echo e($priceRange['min'] ?? 0); ?>" 
+                                               max="<?php echo e($priceRange['max'] ?? 100000); ?>" 
+                                               value="<?php echo e(request('min_price', $priceRange['min'] ?? 0)); ?>" 
                                                class="range-input range-min">
                                         <input type="range" name="max_price" id="max-price" 
-                                               min="{{ $priceRange['min'] ?? 0 }}" 
-                                               max="{{ $priceRange['max'] ?? 100000 }}" 
-                                               value="{{ request('max_price', $priceRange['max'] ?? 100000) }}" 
+                                               min="<?php echo e($priceRange['min'] ?? 0); ?>" 
+                                               max="<?php echo e($priceRange['max'] ?? 100000); ?>" 
+                                               value="<?php echo e(request('max_price', $priceRange['max'] ?? 100000)); ?>" 
                                                class="range-input range-max">
                                     </div>
                                 </div>
@@ -108,17 +106,17 @@
                                     <div>
                                         <label class="block text-xs text-gray-500 mb-1">Min</label>
                                         <input type="number" id="min-price-input" 
-                                               min="{{ $priceRange['min'] ?? 0 }}" 
-                                               max="{{ $priceRange['max'] ?? 100000 }}" 
-                                               value="{{ request('min_price', $priceRange['min'] ?? 0) }}"
+                                               min="<?php echo e($priceRange['min'] ?? 0); ?>" 
+                                               max="<?php echo e($priceRange['max'] ?? 100000); ?>" 
+                                               value="<?php echo e(request('min_price', $priceRange['min'] ?? 0)); ?>"
                                                class="w-full bg-[#2c2c2e] border border-gray-700 text-white rounded px-2 py-1 text-xs focus:ring-1 focus:ring-[#f59e0b] focus:border-[#f59e0b]">
                                     </div>
                                     <div>
                                         <label class="block text-xs text-gray-500 mb-1">Max</label>
                                         <input type="number" id="max-price-input" 
-                                               min="{{ $priceRange['min'] ?? 0 }}" 
-                                               max="{{ $priceRange['max'] ?? 100000 }}" 
-                                               value="{{ request('max_price', $priceRange['max'] ?? 100000) }}"
+                                               min="<?php echo e($priceRange['min'] ?? 0); ?>" 
+                                               max="<?php echo e($priceRange['max'] ?? 100000); ?>" 
+                                               value="<?php echo e(request('max_price', $priceRange['max'] ?? 100000)); ?>"
                                                class="w-full bg-[#2c2c2e] border border-gray-700 text-white rounded px-2 py-1 text-xs focus:ring-1 focus:ring-[#f59e0b] focus:border-[#f59e0b]">
                                     </div>
                                 </div>
@@ -126,24 +124,25 @@
                         </div>
 
                         <!-- Product Attributes -->
-                        @if(isset($availableAttributes) && !empty($availableAttributes))
-                        @foreach($availableAttributes as $parentName => $attributes)
+                        <?php if(isset($availableAttributes) && !empty($availableAttributes)): ?>
+                        <?php $__currentLoopData = $availableAttributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $parentName => $attributes): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div>
-                            <label class="block text-sm font-medium text-gray-300 mb-3">{{ $parentName }}</label>
+                            <label class="block text-sm font-medium text-gray-300 mb-3"><?php echo e($parentName); ?></label>
                             <div class="space-y-2">
-                                @foreach($attributes as $attribute)
+                                <?php $__currentLoopData = $attributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <label class="flex items-center cursor-pointer hover:bg-[#2c2c2e] rounded p-2 transition-colors">
-                                    <input type="checkbox" name="attributes[{{ $parentName }}][]" value="{{ $attribute['id'] }}" 
-                                           {{ in_array($attribute['id'], request('attributes.'.$parentName, [])) ? 'checked' : '' }}
+                                    <input type="checkbox" name="attributes[<?php echo e($parentName); ?>][]" value="<?php echo e($attribute['id']); ?>" 
+                                           <?php echo e(in_array($attribute['id'], request('attributes.'.$parentName, [])) ? 'checked' : ''); ?>
+
                                            class="w-4 h-4 text-[#f59e0b] bg-[#2c2c2e] border-gray-600 rounded focus:ring-[#f59e0b] focus:ring-2">
-                                    <span class="ml-3 text-sm text-gray-300 flex-1">{{ $attribute['name'] }}</span>
-                                    <span class="text-xs text-gray-500 bg-[#2c2c2e] px-2 py-0.5 rounded">{{ $attribute['count'] }}</span>
+                                    <span class="ml-3 text-sm text-gray-300 flex-1"><?php echo e($attribute['name']); ?></span>
+                                    <span class="text-xs text-gray-500 bg-[#2c2c2e] px-2 py-0.5 rounded"><?php echo e($attribute['count']); ?></span>
                                 </label>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </div>
-                        @endforeach
-                        @endif
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                     </form>
                 </div>
             </div>
@@ -156,11 +155,11 @@
                         <!-- Results Info -->
                         <div class="flex items-center">
                             <span id="results-info" class="text-gray-300 text-xs sm:text-sm">
-                                @if($products->total() > 0)
-                                    {{ $products->total() }} products found
-                                @else
+                                <?php if($products->total() > 0): ?>
+                                    <?php echo e($products->total()); ?> products found
+                                <?php else: ?>
                                     No products found
-                                @endif
+                                <?php endif; ?>
                             </span>
                         </div>
                         
@@ -168,10 +167,10 @@
                         <div class="flex items-center gap-2">
                             <label for="sort-select" class="text-xs text-gray-400 whitespace-nowrap">Sort:</label>
                             <select name="sort" id="sort-select" class="bg-[#2c2c2e] border border-gray-700 text-white rounded px-2 md:px-3 py-1.5 text-xs md:text-sm focus:ring-1 focus:ring-[#f59e0b] focus:border-[#f59e0b] transition-all">
-                                <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Latest</option>
-                                <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>Price ↑</option>
-                                <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>Price ↓</option>
-                                <option value="name" {{ request('sort') == 'name' ? 'selected' : '' }}>Name</option>
+                                <option value="latest" <?php echo e(request('sort') == 'latest' ? 'selected' : ''); ?>>Latest</option>
+                                <option value="price_low" <?php echo e(request('sort') == 'price_low' ? 'selected' : ''); ?>>Price ↑</option>
+                                <option value="price_high" <?php echo e(request('sort') == 'price_high' ? 'selected' : ''); ?>>Price ↓</option>
+                                <option value="name" <?php echo e(request('sort') == 'name' ? 'selected' : ''); ?>>Name</option>
                             </select>
                         </div>
                     </div>
@@ -179,97 +178,100 @@
 
                 <!-- Products Grid -->
                 <div id="products-container">
-                    @if($products->count() > 0)
+                    <?php if($products->count() > 0): ?>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12" id="products-grid">
-                @foreach($products as $product)
-                    <a href="{{ route('products.show', ['category' => $category->slug ?: $category->id, 'product' => $product->slug]) }}" class="product-card block bg-[#1c1c1e] rounded-xl border border-gray-800/30 overflow-hidden hover:border-[#f59e0b]/30 transition-all duration-300 group shadow-lg hover:shadow-xl hover:shadow-[#f59e0b]/10 cursor-pointer">
+                <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a href="<?php echo e(route('products.show', ['category' => $category->slug ?: $category->id, 'product' => $product->slug])); ?>" class="product-card block bg-[#1c1c1e] rounded-xl border border-gray-800/30 overflow-hidden hover:border-[#f59e0b]/30 transition-all duration-300 group shadow-lg hover:shadow-xl hover:shadow-[#f59e0b]/10 cursor-pointer">
                         <!-- Product Image -->
                         <div class="relative overflow-hidden bg-[#1a1a1c] aspect-square">
                             <img 
-                                src="{{ $product->main_image }}" 
-                                alt="{{ $product->name }}" 
+                                src="<?php echo e($product->main_image); ?>" 
+                                alt="<?php echo e($product->name); ?>" 
                                 class="product-image w-full h-full object-contain transition-transform duration-300 group-hover:scale-105 p-4 bg-white/5 rounded-lg"
                                 loading="lazy"
                             >
                             
                             <!-- Stock Badge -->
-                            @if($product->stock_quantity > 0)
+                            <?php if($product->stock_quantity > 0): ?>
                                 <div class="absolute top-3 left-3 bg-[#34d399] text-white text-xs font-medium px-2.5 py-1 rounded-lg backdrop-blur-sm">
                                     IN STOCK
                                 </div>
-                            @else
+                            <?php else: ?>
                                 <div class="absolute top-3 left-3 bg-[#ef4444] text-white text-xs font-medium px-2.5 py-1 rounded-lg backdrop-blur-sm">
                                     OUT OF STOCK
                                 </div>
-                            @endif
+                            <?php endif; ?>
 
-                            @if($product->is_on_sale)
+                            <?php if($product->is_on_sale): ?>
                                 <div class="absolute top-3 right-3 bg-[#f59e0b] text-white text-xs font-bold px-2.5 py-1 rounded-lg backdrop-blur-sm">
                                     SALE
                                 </div>
-                            @endif
+                            <?php endif; ?>
                         </div>
                         
                         <!-- Product Info -->
                         <div class="p-3 md:p-4">
                             <div class="mb-2">
-                                <span class="text-xs text-[#f59e0b] font-medium tracking-wide">{{ $product->category->name ?? 'Uncategorized' }}</span>
+                                <span class="text-xs text-[#f59e0b] font-medium tracking-wide"><?php echo e($product->category->name ?? 'Uncategorized'); ?></span>
                             </div>
                             <h3 class="text-sm md:text-base font-semibold text-white mb-2 md:mb-3 line-clamp-2 group-hover:text-[#f59e0b] transition-colors leading-tight">
-                                {{ $product->name }}
+                                <?php echo e($product->name); ?>
+
                             </h3>
                             
                             <div class="flex items-center justify-between mb-3 md:mb-4">
                                 <div class="flex flex-col">
-                                    @if($product->is_on_sale)
-                                        <span class="text-xs md:text-sm text-gray-500 line-through">LKR {{ number_format($product->price, 2) }}</span>
-                                        <span class="text-sm md:text-lg font-bold text-[#f59e0b]">LKR {{ number_format($product->final_price, 2) }}</span>
-                                    @else
-                                        @if($product->price > 0 && $product->final_price > 0)
-                                            <span class="text-sm md:text-lg font-bold text-white">LKR {{ number_format($product->final_price, 2) }}</span>
-                                        @else
+                                    <?php if($product->is_on_sale): ?>
+                                        <span class="text-xs md:text-sm text-gray-500 line-through">LKR <?php echo e(number_format($product->price, 2)); ?></span>
+                                        <span class="text-sm md:text-lg font-bold text-[#f59e0b]">LKR <?php echo e(number_format($product->final_price, 2)); ?></span>
+                                    <?php else: ?>
+                                        <?php if($product->price > 0 && $product->final_price > 0): ?>
+                                            <span class="text-sm md:text-lg font-bold text-white">LKR <?php echo e(number_format($product->final_price, 2)); ?></span>
+                                        <?php else: ?>
                                             <span class="text-sm md:text-lg font-bold text-[#f59e0b]">Contact for Price</span>
-                                        @endif
-                                    @endif
+                                        <?php endif; ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
                             <!-- Product Status Badge -->
-                            @if($product->status)
+                            <?php if($product->status): ?>
                                 <div class="mb-3">
-                                    @include('components.product-status-badge', ['product' => $product])
+                                    <?php echo $__env->make('components.product-status-badge', ['product' => $product], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                                 </div>
-                            @endif
+                            <?php endif; ?>
                             
                             <!-- Payment Method Badges -->
-                            @include('components.payment-badges')
+                            <?php echo $__env->make('components.payment-badges', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                             
                             <div class="mt-auto">
-                                @if($product->can_add_to_cart)
-                                    <button onclick="event.preventDefault(); event.stopPropagation(); addToCartFromCategory({{ $product->id }})" 
+                                <?php if($product->can_add_to_cart): ?>
+                                    <button onclick="event.preventDefault(); event.stopPropagation(); addToCartFromCategory(<?php echo e($product->id); ?>)" 
                                             class="w-full bg-[#f59e0b] hover:bg-[#d97706] text-white px-3 md:px-4 py-2 md:py-2.5 rounded-lg text-xs md:text-sm font-semibold transition-all">
                                         Add to Cart
                                     </button>
-                                @else
+                                <?php else: ?>
                                     <button disabled 
                                             class="w-full bg-[#2c2c2e] text-gray-500 px-3 md:px-4 py-2 md:py-2.5 rounded-lg text-xs md:text-sm font-medium cursor-not-allowed border border-gray-700"
-                                            title="{{ $product->cart_restriction_reason }}">
-                                        {{ $product->cart_restriction_reason ?: 'Unavailable' }}
+                                            title="<?php echo e($product->cart_restriction_reason); ?>">
+                                        <?php echo e($product->cart_restriction_reason ?: 'Unavailable'); ?>
+
                                     </button>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
                     </a>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
 
                         </div>
 
                         <!-- Custom Pagination -->
                         <div id="pagination-container">
-                            {{ $products->appends(request()->query())->links('custom.pagination') }}
+                            <?php echo e($products->appends(request()->query())->links('custom.pagination')); ?>
+
                         </div>
-                    @else
+                    <?php else: ?>
                         <!-- No Products Found -->
                         <div class="text-center py-16">
                             <div class="max-w-md mx-auto">
@@ -285,15 +287,15 @@
                                 </button>
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('styles')
+<?php $__env->startPush('styles'); ?>
 <style>
     /* Perfect 1:1 aspect ratio for product images */
     .aspect-square {
@@ -441,16 +443,16 @@
     }
 
     .range-min {
-        z-index: 9998;
+        z-index: 1;
     }
 
     .range-max {
-        z-index: 9999;
+        z-index: 2;
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     console.log('🔧 AJAX Filter System Loading...');
     
@@ -938,4 +940,6 @@
         }, 3000);
     }
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Dhanushka\Desktop\MSK\MSKMSV3\resources\views/categories/show.blade.php ENDPATH**/ ?>
