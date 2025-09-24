@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -59,6 +60,9 @@ class AuthController extends Controller
             // Update last login time
             Auth::user()->update(['last_login_at' => now()]);
             
+            // Log successful login
+            Auth::user()->logLoginActivity();
+            
             // Redirect based on role
             if (Auth::user()->is_admin) {
                 return redirect()->intended(route('admin.dashboard'));
@@ -66,6 +70,16 @@ class AuthController extends Controller
             
             return redirect()->intended(route('user.dashboard'));
         }
+
+        // Log failed login attempt
+        ActivityLog::log([
+            'type' => ActivityLog::TYPE_CUSTOMER,
+            'action' => ActivityLog::ACTION_LOGIN,
+            'description' => "Failed login attempt for email: {$request->email}",
+            'properties' => ['email' => $request->email],
+            'severity' => ActivityLog::SEVERITY_MEDIUM,
+            'status' => ActivityLog::STATUS_FAILED,
+        ]);
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
@@ -104,6 +118,13 @@ class AuthController extends Controller
         // Update last login time
         $user->update(['last_login_at' => now()]);
 
+        // Log user registration
+        $user->logUserActivity(
+            ActivityLog::ACTION_REGISTER,
+            "New user registered: {$user->name}",
+            ['email' => $user->email, 'phone' => $user->phone]
+        );
+
         return redirect()->route('user.dashboard')->with('success', 'Registration successful! Welcome to MSK Computers.');
     }
 
@@ -112,6 +133,13 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
+        $user = Auth::user();
+        
+        // Log logout activity before logging out
+        if ($user) {
+            $user->logLogoutActivity();
+        }
+        
         Auth::logout();
 
         $request->session()->invalidate();

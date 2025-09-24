@@ -6,11 +6,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Traits\LogsActivity;
+use App\Models\ActivityLog;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -128,5 +130,35 @@ class User extends Authenticatable
     public function scopeAdmins($query)
     {
         return $query->where('role', 'admin');
+    }
+
+    /**
+     * Activity Logging Methods
+     */
+    protected function getActivityType()
+    {
+        return $this->role === 'admin' ? ActivityLog::TYPE_ADMIN : ActivityLog::TYPE_CUSTOMER;
+    }
+
+    public function logLoginActivity()
+    {
+        return $this->logUserActivity(ActivityLog::ACTION_LOGIN, "User {$this->name} logged in");
+    }
+
+    public function logLogoutActivity()
+    {
+        return $this->logUserActivity(ActivityLog::ACTION_LOGOUT, "User {$this->name} logged out");
+    }
+
+    public function logPasswordChangeActivity()
+    {
+        return $this->logUserActivity(ActivityLog::ACTION_PASSWORD_CHANGED, "User {$this->name} changed password", [], ActivityLog::SEVERITY_HIGH);
+    }
+
+    public function logProfileUpdateActivity($changes = [])
+    {
+        return $this->logUserActivity(ActivityLog::ACTION_PROFILE_UPDATED, "User {$this->name} updated profile", [
+            'updated_fields' => array_keys($changes)
+        ]);
     }
 }

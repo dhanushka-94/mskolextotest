@@ -43,6 +43,13 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->prefix
     Route::get('/transactions/{transaction}', [App\Http\Controllers\Admin\TransactionController::class, 'show'])->name('transactions.show');
     Route::post('/transactions/{transaction}/retry', [App\Http\Controllers\Admin\TransactionController::class, 'retry'])->name('transactions.retry');
     Route::post('/transactions/{transaction}/refund', [App\Http\Controllers\Admin\TransactionController::class, 'refund'])->name('transactions.refund');
+    
+    // Activity Logs Management
+    Route::get('/activity-logs', [App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity-logs.index');
+    Route::get('/activity-logs/{activityLog}', [App\Http\Controllers\Admin\ActivityLogController::class, 'show'])->name('activity-logs.show');
+    Route::get('/activity-logs-export', [App\Http\Controllers\Admin\ActivityLogController::class, 'export'])->name('activity-logs.export');
+    Route::get('/activity-logs-feed', [App\Http\Controllers\Admin\ActivityLogController::class, 'feed'])->name('activity-logs.feed');
+    Route::post('/activity-logs-cleanup', [App\Http\Controllers\Admin\ActivityLogController::class, 'cleanup'])->name('activity-logs.cleanup');
 });
 
 // Home Route

@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Traits\LogsActivity;
+use App\Models\ActivityLog;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'order_number',
@@ -189,5 +191,47 @@ class Order extends Model
             'status' => 'delivered',
             'delivered_at' => now(),
         ]);
+    }
+
+    /**
+     * Activity Logging Methods
+     */
+    protected function getActivityType()
+    {
+        return ActivityLog::TYPE_SYSTEM;
+    }
+
+    public function logOrderCreated()
+    {
+        return $this->logOrderActivity(ActivityLog::ACTION_ORDER_CREATED, "Order {$this->order_number} created for customer {$this->customer_name}", [
+            'order_number' => $this->order_number,
+            'customer_email' => $this->customer_email,
+            'items_count' => $this->orderItems->count(),
+        ]);
+    }
+
+    public function logStatusChange($oldStatus, $newStatus)
+    {
+        return $this->logOrderActivity(ActivityLog::ACTION_ORDER_UPDATED, "Order {$this->order_number} status changed from {$oldStatus} to {$newStatus}", [
+            'old_status' => $oldStatus,
+            'new_status' => $newStatus,
+        ], ActivityLog::SEVERITY_MEDIUM);
+    }
+
+    public function logPaymentUpdate($paymentStatus, $paymentMethod = null)
+    {
+        return $this->logOrderActivity(ActivityLog::ACTION_PAYMENT_ATTEMPTED, "Payment {$paymentStatus} for order {$this->order_number}", [
+            'payment_status' => $paymentStatus,
+            'payment_method' => $paymentMethod,
+            'order_total' => $this->total_amount,
+        ], $paymentStatus === 'paid' ? ActivityLog::SEVERITY_LOW : ActivityLog::SEVERITY_HIGH);
+    }
+
+    public function logOrderCancelled($reason = null)
+    {
+        return $this->logOrderActivity(ActivityLog::ACTION_ORDER_CANCELLED, "Order {$this->order_number} cancelled", [
+            'cancellation_reason' => $reason,
+            'cancelled_amount' => $this->total_amount,
+        ], ActivityLog::SEVERITY_HIGH);
     }
 }
