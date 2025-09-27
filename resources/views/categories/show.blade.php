@@ -691,7 +691,7 @@
                 if (data.success) {
                     updateProductsGrid(data.products || []);
                     updateResultsInfo(data.pagination || {});
-                    hidePagination(); // Hide pagination for now with AJAX
+                    updatePagination(data.pagination || {}); // Update pagination with AJAX data
                 } else {
                     throw new Error('Server returned error response');
                 }
@@ -831,10 +831,11 @@
             }
         }
 
-        // Hide pagination for AJAX
-        function hidePagination() {
+        // Update pagination for AJAX
+        function updatePagination(pagination) {
             if (elements.paginationContainer) {
-                elements.paginationContainer.style.display = 'none';
+                // Always show pagination container - let the pagination component itself decide visibility
+                elements.paginationContainer.style.display = 'block';
             }
         }
 

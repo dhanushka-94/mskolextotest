@@ -99,6 +99,46 @@
                     <?php endif; ?>
                 </div>
 
+                <!-- KOKO Pay 3-Split Breakdown -->
+                <?php if($product->final_price > 0): ?>
+                    <?php
+                        $finalPrice = $product->final_price;
+                        $kokoPayTotal = $finalPrice * 1.10; // Add 10% transaction charge
+                        $splitAmount = ceil($kokoPayTotal / 3); // Round up to avoid decimals
+                        $lastSplitAmount = $kokoPayTotal - ($splitAmount * 2); // Adjust last payment for exact total
+                    ?>
+                    <div class="mb-6">
+                        <div class="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-xl p-4">
+                            <div class="flex items-center gap-2 mb-3">
+                                <img src="<?php echo e(asset('images/kokopay-logo.png')); ?>" alt="KOKO Pay" class="w-6 h-6 object-contain">
+                                <h3 class="text-base sm:text-lg font-semibold text-white">KOKO Pay - Split into 3 Payments</h3>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
+                                <div class="bg-black/30 border border-purple-500/30 rounded-lg p-3 text-center">
+                                    <div class="text-purple-300 text-xs font-medium mb-1">1st Payment (Today)</div>
+                                    <div class="text-white font-bold text-base sm:text-lg">LKR <?php echo e(number_format($splitAmount, 2)); ?></div>
+                                </div>
+                                <div class="bg-black/30 border border-purple-500/30 rounded-lg p-3 text-center">
+                                    <div class="text-purple-300 text-xs font-medium mb-1">2nd Payment (30 days)</div>
+                                    <div class="text-white font-bold text-base sm:text-lg">LKR <?php echo e(number_format($splitAmount, 2)); ?></div>
+                                </div>
+                                <div class="bg-black/30 border border-purple-500/30 rounded-lg p-3 text-center">
+                                    <div class="text-purple-300 text-xs font-medium mb-1">3rd Payment (60 days)</div>
+                                    <div class="text-white font-bold text-base sm:text-lg">LKR <?php echo e(number_format($lastSplitAmount, 2)); ?></div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-center">
+                                <div class="text-purple-300 font-medium">
+                                    ✨ No credit check required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+
                 <!-- Payment Method Badges -->
                 <div class="mb-6">
                     <?php echo $__env->make('components.payment-badges', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
@@ -115,146 +155,20 @@
                     
                     <!-- Stock Status -->
                     <?php if($product->stock_quantity > 0): ?>
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 mb-6">
                             <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-                            <span class="text-green-400 font-medium"><?php echo e($product->stock_quantity); ?> in stock</span>
+                            <span class="text-green-400 font-medium">In Stock</span>
                         </div>
                     <?php else: ?>
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 mb-6">
                             <span class="w-3 h-3 bg-red-500 rounded-full"></span>
                             <span class="text-red-400 font-medium">Out of Stock</span>
                         </div>
                     <?php endif; ?>
-                </div>
 
-                <!-- Product Description -->
-                <?php if($product->description): ?>
-                    <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
-                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
-                            Description
-                        </h3>
-                        <p class="text-gray-300 leading-relaxed"><?php echo e($product->description); ?></p>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Product Details & Specifications -->
-                <?php if($product->specifications && is_array($product->specifications)): ?>
-                    <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
-                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-                            </svg>
-                            Product Details & Specifications
-                        </h3>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <?php $__currentLoopData = $product->specifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php if(is_array($value)): ?>
-                                    <!-- Handle nested arrays -->
-                                    <div class="col-span-1 md:col-span-2">
-                                        <div class="bg-black/30 rounded-lg p-4 border border-gray-700/50">
-                                            <h4 class="text-lg font-medium text-primary-400 mb-3 capitalize"><?php echo e(str_replace(['_', '-'], ' ', $key)); ?></h4>
-                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                                <?php $__currentLoopData = $value; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subKey => $subValue): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <div class="flex justify-between items-center py-2 px-3 bg-gray-800/30 rounded border border-gray-700/30">
-                                                        <span class="text-gray-400 text-sm font-medium capitalize"><?php echo e(str_replace(['_', '-'], ' ', $subKey)); ?>:</span>
-                                                        <span class="text-white text-sm font-semibold"><?php echo e(is_array($subValue) ? implode(', ', $subValue) : $subValue); ?></span>
-                                                    </div>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php else: ?>
-                                    <!-- Handle simple key-value pairs -->
-                                    <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30 hover:border-primary-500/30 transition-colors">
-                                        <span class="text-gray-400 font-medium capitalize"><?php echo e(str_replace(['_', '-'], ' ', $key)); ?>:</span>
-                                        <span class="text-white font-semibold"><?php echo e($value); ?></span>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </div>
-                    </div>
-                <?php elseif($product->specifications && is_string($product->specifications)): ?>
-                    <!-- Fallback for string specifications -->
-                    <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
-                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-                            </svg>
-                            Specifications
-                        </h3>
-                        <p class="text-gray-300 leading-relaxed"><?php echo e($product->specifications); ?></p>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Product Attributes -->
-                <?php if($product->grouped_attributes && count($product->grouped_attributes) > 0): ?>
-                    <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
-                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-                            </svg>
-                            Product Attributes
-                        </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <?php $__currentLoopData = $product->grouped_attributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attributeName => $attributeValues): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="bg-black/30 rounded-lg p-4 border border-gray-700/50 hover:border-primary-500/30 transition-colors">
-                                    <span class="text-sm font-medium text-primary-400 mb-3 block uppercase tracking-wide"><?php echo e($attributeName); ?></span>
-                                    <div class="flex flex-wrap gap-2">
-                                        <?php $__currentLoopData = $attributeValues; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <span class="inline-block bg-gray-800/40 text-gray-300 text-sm font-medium px-3 py-2 rounded-lg border border-gray-700/50 hover:bg-gray-700/40 transition-colors">
-                                                <?php echo e($value); ?>
-
-                                            </span>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </div>
-                                </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Product Meta Information -->
-                <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
-                    <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                        <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        Product Information
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <?php if($product->warranty): ?>
-                            <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
-                                <span class="text-gray-400 font-medium">Warranty:</span>
-                                <span class="text-white font-semibold"><?php echo e($product->warranty); ?></span>
-                            </div>
-                        <?php endif; ?>
-                        <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
-                            <span class="text-gray-400 font-medium">Category:</span>
-                            <span class="text-white font-semibold"><?php echo e($product->category->name); ?></span>
-                        </div>
-                        <?php if($product->code): ?>
-                            <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
-                                <span class="text-gray-400 font-medium">Product Code:</span>
-                                <span class="text-white font-semibold"><?php echo e($product->code); ?></span>
-                            </div>
-                        <?php endif; ?>
-                        <?php if($product->model): ?>
-                            <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
-                                <span class="text-gray-400 font-medium">Model:</span>
-                                <span class="text-white font-semibold"><?php echo e($product->model); ?></span>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <!-- Add to Cart Section -->
-                <div class="border-t border-dark-700 pt-6">
+                    <!-- Add to Cart Section -->
                     <?php if($product->can_add_to_cart): ?>
-                        <div class="<?php if($product->is_on_sale): ?> bg-gradient-to-r from-primary-500/5 to-red-500/5 border border-primary-500/20 <?php else: ?> bg-black/50 border border-gray-800 <?php endif; ?> rounded-xl p-4">
+                        <div class="<?php if($product->is_on_sale): ?> bg-gradient-to-r from-primary-500/5 to-red-500/5 border border-primary-500/20 <?php else: ?> bg-black/50 border border-gray-800 <?php endif; ?> rounded-xl p-4 mb-6">
                             <?php if($product->is_on_sale): ?>
                                 <div class="flex items-center gap-2 mb-4">
                                     <span class="text-red-400 font-semibold text-sm animate-pulse">⚡ Limited Time Offer!</span>
@@ -292,7 +206,7 @@
                             </div>
                         </div>
                     <?php else: ?>
-                        <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 text-center">
+                        <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 text-center mb-6">
                             <div class="text-red-400 text-xl font-semibold mb-2"><?php echo e($product->cart_restriction_reason ?: 'Unavailable'); ?></div>
                             <?php if($product->status && in_array($product->status->status_name, ['Coming Soon', 'Pre Order', 'In Stock (for PC Build)', 'Reserved'])): ?>
                                 <p class="text-gray-400"><?php echo e($product->cart_restriction_reason); ?></p>
@@ -302,6 +216,176 @@
                         </div>
                     <?php endif; ?>
                 </div>
+
+                <!-- Product Description -->
+                <?php if($product->description): ?>
+                    <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
+                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            Description
+                        </h3>
+                        <p class="text-gray-300 leading-relaxed"><?php echo e($product->description); ?></p>
+                    </div>
+                <?php endif; ?>
+
+
+                <!-- Product Attributes (Compact) -->
+                <?php if($product->grouped_attributes && count($product->grouped_attributes) > 0): ?>
+                    <div class="mb-4 p-4 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-lg border border-gray-800/50">
+                        <h3 class="text-lg font-semibold text-white mb-3 flex items-center">
+                            <svg class="w-4 h-4 text-primary-400 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                            </svg>
+                            Product Attributes
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <?php $__currentLoopData = $product->grouped_attributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attributeName => $attributeValues): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="bg-black/20 rounded-md p-3 border border-gray-700/30 hover:border-primary-500/20 transition-colors">
+                                    <span class="text-xs font-semibold text-primary-400 mb-2 block uppercase tracking-wider"><?php echo e($attributeName); ?></span>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <?php $__currentLoopData = $attributeValues; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <span class="inline-block bg-gray-800/50 text-gray-300 text-xs font-medium px-2 py-1 rounded border border-gray-700/30 hover:bg-gray-700/50 transition-colors">
+                                                <?php echo e($value); ?>
+
+                                            </span>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Product Details & Specifications -->
+                <?php if($product->product_details && trim(strip_tags($product->product_details))): ?>
+                    <?php
+                        // Clean and format HTML content for display
+                        $htmlContent = $product->product_details;
+                        
+                        // Convert HTML to readable text while preserving structure
+                        $htmlContent = str_replace(['<p>', '<div>'], '', $htmlContent);
+                        $htmlContent = str_replace(['</p>', '</div>'], "\n", $htmlContent);
+                        $htmlContent = str_replace('<br>', "\n", $htmlContent);
+                        $htmlContent = str_replace('<br/>', "\n", $htmlContent);
+                        $htmlContent = str_replace('<br />', "\n", $htmlContent);
+                        
+                        // Handle lists
+                        $htmlContent = str_replace('<ul>', "\n", $htmlContent);
+                        $htmlContent = str_replace('</ul>', "\n", $htmlContent);
+                        $htmlContent = str_replace('<li>', "• ", $htmlContent);
+                        $htmlContent = str_replace('</li>', "\n", $htmlContent);
+                        
+                        // Remove remaining HTML tags
+                        $cleanContent = strip_tags($htmlContent);
+                        
+                        // Clean up whitespace and decode entities
+                        $cleanContent = html_entity_decode($cleanContent);
+                        $cleanContent = preg_replace('/\n\s*\n/', "\n\n", $cleanContent); // Multiple newlines to double
+                        $cleanContent = preg_replace('/\n{3,}/', "\n\n", $cleanContent); // More than 2 newlines to 2
+                        $cleanContent = trim($cleanContent);
+                        
+                        // Split into lines for better formatting
+                        $lines = explode("\n", $cleanContent);
+                        $lines = array_filter(array_map('trim', $lines)); // Remove empty lines and trim
+                    ?>
+                    
+                    <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
+                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                            </svg>
+                            Product Details & Specifications
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <?php $__currentLoopData = $lines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $line): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if(!empty($line)): ?>
+                                    <?php if(preg_match('/^\d+\.\s/', $line) || str_starts_with($line, '•')): ?>
+                                        <!-- List items -->
+                                        <div class="flex items-start py-2 px-4 bg-black/20 rounded-lg border border-gray-700/30 hover:border-primary-500/30 transition-colors">
+                                            <div class="text-gray-300 leading-relaxed"><?php echo e($line); ?></div>
+                                        </div>
+                                    <?php elseif(strpos($line, ':') !== false && strlen($line) < 100): ?>
+                                        <!-- Key-value pairs (short lines with colons) -->
+                                        <?php
+                                            $parts = explode(':', $line, 2);
+                                            $key = trim($parts[0]);
+                                            $value = isset($parts[1]) ? trim($parts[1]) : '';
+                                        ?>
+                                        <?php if(!empty($value)): ?>
+                                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30 hover:border-primary-500/30 transition-colors">
+                                                <span class="text-gray-400 font-medium mb-1 sm:mb-0"><?php echo e($key); ?>:</span>
+                                                <span class="text-white font-semibold sm:text-right"><?php echo e($value); ?></span>
+                                            </div>
+                                        <?php else: ?>
+                                            <!-- Header or section title -->
+                                            <div class="py-2 px-4 bg-primary-500/10 rounded-lg border border-primary-500/30">
+                                                <div class="text-primary-400 font-bold text-center"><?php echo e($key); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php elseif(preg_match('/^[A-Z\s]+$/', $line) && strlen($line) < 50): ?>
+                                        <!-- All caps headers -->
+                                        <div class="py-2 px-4 bg-primary-500/10 rounded-lg border border-primary-500/30">
+                                            <div class="text-primary-400 font-bold text-center"><?php echo e($line); ?></div>
+                                        </div>
+                                    <?php else: ?>
+                                        <!-- Regular text -->
+                                        <div class="py-3 px-4 bg-black/10 rounded-lg border border-gray-700/20">
+                                            <div class="text-gray-300 leading-relaxed"><?php echo e($line); ?></div>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                        
+                        <!-- Basic Product Info (Only Warranty and Model) -->
+                        <?php if($product->warranty || $product->model): ?>
+                            <div class="mt-6 pt-4 border-t border-gray-700/50">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <?php if($product->warranty): ?>
+                                        <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
+                                            <span class="text-gray-400 font-medium">Warranty:</span>
+                                            <span class="text-white font-semibold"><?php echo e($product->warranty); ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if($product->model): ?>
+                                        <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
+                                            <span class="text-gray-400 font-medium">Model:</span>
+                                            <span class="text-white font-semibold"><?php echo e($product->model); ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php else: ?>
+                    <!-- Fallback when no product details are available -->
+                    <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
+                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Product Information
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <?php if($product->warranty): ?>
+                                <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
+                                    <span class="text-gray-400 font-medium">Warranty:</span>
+                                    <span class="text-white font-semibold"><?php echo e($product->warranty); ?></span>
+                                </div>
+                            <?php endif; ?>
+                            <?php if($product->model): ?>
+                                <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
+                                    <span class="text-gray-400 font-medium">Model:</span>
+                                    <span class="text-white font-semibold"><?php echo e($product->model); ?></span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>
@@ -309,74 +393,91 @@
 
 <!-- Related Products -->
 <?php if($relatedProducts->count() > 0): ?>
-    <section class="py-16 bg-black">
+    <section class="py-12 bg-gradient-to-br from-gray-900 to-black">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-white text-center mb-12">Related Products</h2>
+            <div class="text-center mb-8">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">Related Products</h2>
+                <p class="text-gray-400">You might also be interested in these products</p>
+            </div>
             
-            <div class="product-grid">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 <?php $__currentLoopData = $relatedProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $relatedProduct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="card card-hover overflow-hidden">
-                        <div class="relative">
+                    <div class="bg-black/50 border border-gray-800/50 rounded-xl overflow-hidden hover:border-primary-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10">
+                        <!-- Product Image -->
+                        <div class="relative group">
                             <a href="<?php echo e(route('products.show', ['category' => $relatedProduct->category->slug ?: $relatedProduct->category->id, 'product' => $relatedProduct->slug])); ?>">
-                                <div class="p-3 bg-gradient-to-br from-gray-900 to-black">
-                                    <img src="<?php echo e($relatedProduct->images[0] ?? 'https://via.placeholder.com/400x300?text=No+Image'); ?>" 
+                                <div class="aspect-square bg-white/5 p-4">
+                                    <img src="<?php echo e($relatedProduct->main_image ?? 'https://via.placeholder.com/400x400?text=No+Image'); ?>" 
                                          alt="<?php echo e($relatedProduct->name); ?>" 
-                                         class="w-full h-48 object-contain p-4 bg-white/5 rounded-lg">
+                                         class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                                 </div>
                             </a>
                             
                             <?php if($relatedProduct->is_on_sale): ?>
                                 <div class="absolute top-2 right-2">
-                                    <span class="badge-sale">SALE</span>
+                                    <span class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">SALE</span>
                                 </div>
                             <?php endif; ?>
                         </div>
                         
-                        <div class="p-6">
-                            <h3 class="text-lg font-semibold text-white mb-2">
-                                <a href="<?php echo e(route('products.show', ['category' => $relatedProduct->category->slug ?: $relatedProduct->category->id, 'product' => $relatedProduct->slug])); ?>" class="hover:text-primary-400 transition-colors">
+                        <!-- Product Info -->
+                        <div class="p-4">
+                            <h3 class="text-sm sm:text-base font-semibold text-white mb-2 line-clamp-2">
+                                <a href="<?php echo e(route('products.show', ['category' => $relatedProduct->category->slug ?: $relatedProduct->category->id, 'product' => $relatedProduct->slug])); ?>" 
+                                   class="hover:text-primary-400 transition-colors">
                                     <?php echo e($relatedProduct->name); ?>
 
                                 </a>
                             </h3>
-                            <p class="text-gray-400 text-sm mb-4"><?php echo e(Str::limit($relatedProduct->description, 80)); ?></p>
                             
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <?php if($relatedProduct->is_on_sale): ?>
-                                        <span class="text-sm text-gray-500 line-through">LKR <?php echo e(number_format($relatedProduct->price, 2)); ?></span>
-                                        <span class="text-lg font-bold text-[#f59e0b] ml-2">LKR <?php echo e(number_format($relatedProduct->promo_price, 2)); ?></span>
-                                    <?php else: ?>
-                                        <?php if($relatedProduct->price > 0): ?>
-                                            <span class="text-lg font-bold text-white">LKR <?php echo e(number_format($relatedProduct->price, 2)); ?></span>
-                                        <?php else: ?>
-                                            <span class="text-lg font-bold text-[#f59e0b]">Contact for Price</span>
-                                        <?php endif; ?>
-                                    <?php endif; ?>
-                                </div>
-
-                                <!-- Product Status Badge -->
-                                <?php if($relatedProduct->status): ?>
-                                    <div class="mb-3">
-                                        <?php echo $__env->make('components.product-status-badge', ['product' => $relatedProduct], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                            <!-- Price -->
+                            <div class="mb-3">
+                                <?php if($relatedProduct->is_on_sale): ?>
+                                    <div class="space-y-1">
+                                        <span class="text-xs text-gray-500 line-through block">LKR <?php echo e(number_format($relatedProduct->price, 0)); ?></span>
+                                        <span class="text-base font-bold text-primary-400">LKR <?php echo e(number_format($relatedProduct->promo_price, 0)); ?></span>
                                     </div>
-                                <?php endif; ?>
-                                
-                                <!-- Payment Method Badges -->
-                                <?php echo $__env->make('components.payment-badges', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-                                
-                                <?php if($relatedProduct->can_add_to_cart): ?>
-                                    <button class="btn-primary px-4 py-2 text-sm" onclick="addToCart(<?php echo e($relatedProduct->id); ?>)">
-                                        Add to Cart
-                                    </button>
                                 <?php else: ?>
-                                    <button class="btn-secondary px-4 py-2 text-sm opacity-50 cursor-not-allowed" disabled 
-                                            title="<?php echo e($relatedProduct->cart_restriction_reason); ?>">
-                                        <?php echo e($relatedProduct->cart_restriction_reason ?: 'Unavailable'); ?>
-
-                                    </button>
+                                    <?php if($relatedProduct->price > 0): ?>
+                                        <span class="text-base font-bold text-white">LKR <?php echo e(number_format($relatedProduct->price, 0)); ?></span>
+                                    <?php else: ?>
+                                        <span class="text-base font-bold text-primary-400">Contact for Price</span>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </div>
+                            
+                            <!-- Stock Status -->
+                            <div class="flex items-center justify-between mb-3">
+                                <?php if($relatedProduct->stock_quantity > 0): ?>
+                                    <span class="text-xs text-green-400 flex items-center">
+                                        <span class="w-2 h-2 bg-green-500 rounded-full mr-1"></span>
+                                        In Stock
+                                    </span>
+                                <?php else: ?>
+                                    <span class="text-xs text-red-400 flex items-center">
+                                        <span class="w-2 h-2 bg-red-500 rounded-full mr-1"></span>
+                                        Out of Stock
+                                    </span>
+                                <?php endif; ?>
+                                
+                                <?php if($relatedProduct->status && in_array($relatedProduct->status->status_name, ['Coming Soon', 'Pre Order'])): ?>
+                                    <span class="text-xs text-blue-400 bg-blue-500/20 px-2 py-1 rounded-full"><?php echo e($relatedProduct->status->status_name); ?></span>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <!-- Add to Cart Button -->
+                            <?php if($relatedProduct->can_add_to_cart): ?>
+                                <button class="w-full bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors" 
+                                        onclick="addToCart(<?php echo e($relatedProduct->id); ?>)">
+                                    Add to Cart
+                                </button>
+                            <?php else: ?>
+                                <button class="w-full bg-gray-700 text-gray-400 text-sm font-medium py-2 px-4 rounded-lg cursor-not-allowed" 
+                                        disabled title="<?php echo e($relatedProduct->cart_restriction_reason); ?>">
+                                    <?php echo e($relatedProduct->cart_restriction_reason ?: 'Unavailable'); ?>
+
+                                </button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

@@ -85,6 +85,14 @@ class CategoryController extends Controller
 
         $products = $productsQuery->paginate(12);
         
+        // Debug logging for USED LAPTOP category issues
+        if (stripos($category->name, 'used') !== false && stripos($category->name, 'laptop') !== false) {
+            \Log::info("USED LAPTOP Debug - Category: {$category->name} (ID: {$category->id})");
+            \Log::info("USED LAPTOP Debug - Total products: {$products->total()}");
+            \Log::info("USED LAPTOP Debug - Current page: {$products->currentPage()}");
+            \Log::info("USED LAPTOP Debug - Last page: {$products->lastPage()}");
+        }
+        
         // Get available attributes for this category
         $availableAttributes = $this->getCategoryAttributes($category->id);
         
