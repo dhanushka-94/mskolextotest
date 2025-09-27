@@ -158,7 +158,7 @@ class SmaProduct extends Model
             if (str_starts_with($this->image, 'http')) {
                 return $this->image;
             }
-            return 'https://mskcomputers.lk/assets/uploads/' . $this->image;
+            return 'https://billing.mskcomputers.lk/assets/uploads/' . $this->image;
         }
         
         // Get first photo if no main image
@@ -167,7 +167,7 @@ class SmaProduct extends Model
             if (str_starts_with($firstPhoto->photo, 'http')) {
                 return $firstPhoto->photo;
             }
-            return 'https://mskcomputers.lk/assets/uploads/' . $firstPhoto->photo;
+            return 'https://billing.mskcomputers.lk/assets/uploads/' . $firstPhoto->photo;
         }
         
         // Fallback to placeholder
@@ -186,7 +186,7 @@ class SmaProduct extends Model
             if (str_starts_with($this->image, 'http')) {
                 $images[] = $this->image;
             } else {
-                $images[] = 'https://mskcomputers.lk/assets/uploads/' . $this->image;
+                $images[] = 'https://billing.mskcomputers.lk/assets/uploads/' . $this->image;
             }
         }
         
@@ -195,7 +195,7 @@ class SmaProduct extends Model
             if (str_starts_with($photo->photo, 'http')) {
                 $images[] = $photo->photo;
             } else {
-                $images[] = 'https://mskcomputers.lk/assets/uploads/' . $photo->photo;
+                $images[] = 'https://billing.mskcomputers.lk/assets/uploads/' . $photo->photo;
             }
         }
         
