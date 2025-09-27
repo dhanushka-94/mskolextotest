@@ -35,7 +35,7 @@
                 <div class="lg:col-span-2">
                     <div class="bg-[#1a1a1c] rounded-lg border border-gray-800 overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-800">
-                            <h2 class="text-lg font-semibold text-white">Cart Items ({{ $cartItems->sum('quantity') }})</h2>
+                            <h2 class="text-lg font-semibold text-white">Cart Items</h2>
                         </div>
                         
                         <div class="divide-y divide-gray-800">
@@ -282,7 +282,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Update cart totals
                 updateCartTotals(data.cart_total);
-                updateCartCount(data.cart_count);
+                
+                // Update cart total using global function
+                if (window.updateCartTotal) {
+                    window.updateCartTotal(data.cart_total);
+                } else {
+                    // Update localStorage as fallback
+                    localStorage.setItem('cartTotal', data.cart_total);
+                }
             } else {
                 alert(data.message);
             }
@@ -308,10 +315,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Update cart totals
                 updateCartTotals(data.cart_total);
-                updateCartCount(data.cart_count);
                 
-                // Check if cart is empty
-                if (data.cart_count === 0) {
+                // Update cart total using global function
+                if (window.updateCartTotal) {
+                    window.updateCartTotal(data.cart_total);
+                } else {
+                    // Update localStorage as fallback
+                    localStorage.setItem('cartTotal', data.cart_total);
+                }
+                
+                // Check if cart is empty by checking if total is 0
+                if (parseFloat(data.cart_total) === 0) {
                     location.reload();
                 }
             }
@@ -328,8 +342,23 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                location.reload();
+                // Update cart total using server response data
+                if (window.updateCartTotal) {
+                    window.updateCartTotal(data.cart_total);
+                } else {
+                    // Update localStorage as fallback
+                    localStorage.setItem('cartTotal', data.cart_total);
+                }
+                
+                // Small delay to ensure count update is visible before reload
+                setTimeout(() => {
+                    location.reload();
+                }, 300);
             }
+        })
+        .catch(error => {
+            console.error('Error clearing cart:', error);
+            alert('Failed to clear cart. Please try again.');
         });
     }
     
@@ -400,11 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    function updateCartCount(count) {
-        const cartCountElements = document.querySelectorAll('.cart-count');
-        cartCountElements.forEach(element => {
-            element.textContent = count;
-        });
+        
     }
 });
 </script>
@@ -413,12 +438,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 @push('scripts')
 <script>
-    // Initialize cart count on page load
+    // Initialize cart total on page load (no count needed)
     document.addEventListener('DOMContentLoaded', function() {
-        // Fetch and update cart count to ensure header is accurate
-        if (window.fetchCartCount) {
-            window.fetchCartCount();
-        }
+        // No need to fetch cart count anymore - removed feature
     });
 </script>
 @endpush

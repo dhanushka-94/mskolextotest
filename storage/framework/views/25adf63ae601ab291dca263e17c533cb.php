@@ -100,11 +100,49 @@
                         <span class="text-xs sm:text-sm">info@mskcomputers.lk</span>
                     </div>
                 </div>
-                <div class="flex items-center space-x-2 text-primary-400 text-xs">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                    </svg>
-                    <span>Island Wide Express Delivery Available</span>
+                <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 text-primary-400 text-xs">
+                    <!-- Delivery Info -->
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                        </svg>
+                        <span class="hidden sm:inline">Island Wide Express Delivery Available</span>
+                        <span class="sm:hidden">Express Delivery</span>
+                    </div>
+
+                    <!-- Social Media Links in Header -->
+                    <div class="flex items-center space-x-3">
+                        <span class="text-gray-400 text-xs hidden lg:inline">Follow:</span>
+                        <div class="flex space-x-2">
+                            <a href="https://www.facebook.com/www.mskcomputers.lk" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="text-gray-400 hover:text-[#1877f2] transition-colors"
+                               title="Follow us on Facebook">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.youtube.com/@mskcomputers" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="text-gray-400 hover:text-[#ff0000] transition-colors"
+                               title="Subscribe to our YouTube channel">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.tiktok.com/@mskcomputers.lk" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="text-gray-400 hover:text-white transition-colors"
+                               title="Follow us on TikTok">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -246,13 +284,6 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z"/>
                             </svg>
                             
-                            <!-- Enhanced Cart Count Badge -->
-                            <span class="cart-count absolute -top-2 -right-2 bg-gradient-to-r from-primary-400 to-primary-600 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transition-all duration-300 transform shadow-lg">
-                                0
-                            </span>
-                            
-                            <!-- Cart Animation Indicator -->
-                            <div class="cart-pulse absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full opacity-0 animate-ping"></div>
                         </div>
                         
                         <div class="hidden sm:block min-w-[80px]">
@@ -269,10 +300,6 @@
                             <svg class="w-6 h-6 cart-icon-mobile transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z"/>
                             </svg>
-                            <!-- Cart Count Badge -->
-                            <span class="cart-count-mobile absolute -top-2 -right-2 bg-gradient-to-r from-primary-400 to-primary-600 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transition-all duration-300 transform shadow-lg">
-                                0
-                            </span>
                         </div>
                     </a>
 
@@ -590,7 +617,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z"/>
                         </svg>
                         <span class="mobile-cart-text">Cart</span>
-                        <span class="mobile-cart-count ml-auto bg-primary-500 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transition-all duration-300">0</span>
                     </a>
                 </div>
             </div>
@@ -691,6 +717,7 @@
                                 <div><strong>Closed on Poya Days</strong></div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -759,9 +786,53 @@
 
             <!-- Bottom Section -->
             <div class="border-t border-gray-800 mt-8 pt-8">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <p class="text-gray-400 text-sm">© <?php echo e(date('Y')); ?> MSK COMPUTERS. All rights reserved.</p>
-                    <div class="flex space-x-6 mt-4 md:mt-0">
+                <div class="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
+                    <!-- Copyright and Social Media -->
+                    <div class="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-6">
+                        <p class="text-gray-400 text-sm">© <?php echo e(date('Y')); ?> MSK COMPUTERS. All rights reserved.</p>
+                        
+                        <!-- Social Media Icons -->
+                        <div class="flex items-center space-x-3">
+                            <span class="text-gray-500 text-xs hidden sm:inline">Follow us:</span>
+                            <div class="flex space-x-2">
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/www.mskcomputers.lk" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="group flex items-center justify-center w-8 h-8 bg-gray-800 hover:bg-[#1877f2] rounded-md transition-all duration-300 hover:scale-110"
+                                   title="Follow us on Facebook">
+                                    <svg class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                    </svg>
+                                </a>
+
+                                <!-- YouTube -->
+                                <a href="https://www.youtube.com/@mskcomputers" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="group flex items-center justify-center w-8 h-8 bg-gray-800 hover:bg-[#ff0000] rounded-md transition-all duration-300 hover:scale-110"
+                                   title="Subscribe to our YouTube channel">
+                                    <svg class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                    </svg>
+                                </a>
+
+                                <!-- TikTok -->
+                                <a href="https://www.tiktok.com/@mskcomputers.lk" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="group flex items-center justify-center w-8 h-8 bg-gray-800 hover:bg-[#000000] rounded-md transition-all duration-300 hover:scale-110"
+                                   title="Follow us on TikTok">
+                                    <svg class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Legal Links -->
+                    <div class="flex space-x-6 mt-2 lg:mt-0">
                         <a href="<?php echo e(route('privacy-policy')); ?>" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Privacy Policy</a>
                         <a href="<?php echo e(route('terms-of-service')); ?>" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Terms of Service</a>
                         <a href="<?php echo e(route('warranty')); ?>" class="text-gray-400 hover:text-primary-400 text-sm transition-colors">Warranty</a>
@@ -820,115 +891,29 @@
             }
         });
 
-        // Enhanced Cart Animation Functions
-        function updateCartCount(newCount = null, cartTotal = null) {
+        // Cart total display function (simplified, no count)
+        function updateCartTotal(cartTotal = null) {
             try {
-            if (newCount === null) {
-                // Get count from localStorage or session
-                newCount = localStorage.getItem('cartCount') || 0;
-            } else {
-                // Store the new count
-                localStorage.setItem('cartCount', newCount);
-            }
-            
-            if (cartTotal !== null) {
-                localStorage.setItem('cartTotal', cartTotal);
-            } else {
-                cartTotal = localStorage.getItem('cartTotal') || '0.00';
-            }
-            
-            const cartCountElements = document.querySelectorAll('.cart-count');
-            cartCountElements.forEach(element => {
-                    if (!element) return; // Skip if element doesn't exist
-                    
-                const oldCount = parseInt(element.textContent) || 0;
-                element.textContent = newCount;
-                
-                // Animate cart count update
-                if (newCount > oldCount) {
-                        try {
-                    animateCartUpdate(element);
-                        } catch (animError) {
-                            console.error('Cart animation error:', animError);
-                        }
-                }
-                
-                // Hide badge if count is 0
-                if (newCount == 0) {
-                    element.style.opacity = '0';
-                    element.style.transform = 'scale(0.8)';
+                if (cartTotal !== null) {
+                    localStorage.setItem('cartTotal', cartTotal);
                 } else {
-                    element.style.opacity = '1';
-                    element.style.transform = 'scale(1)';
+                    cartTotal = localStorage.getItem('cartTotal') || '0.00';
                 }
-            });
-            
+                
                 // Update cart total display (but not on cart page itself)
                 if (!window.location.pathname.includes('/cart')) {
-            const cartTotalElements = document.querySelectorAll('.cart-total');
-            cartTotalElements.forEach(element => {
+                    const cartTotalElements = document.querySelectorAll('.cart-total');
+                    cartTotalElements.forEach(element => {
                         if (element) {
-                element.textContent = `LKR ${cartTotal}`;
-                        }
-            });
-                }
-            
-            // Update mobile cart count separately
-            const mobileCartCountElements = document.querySelectorAll('.mobile-cart-count');
-            mobileCartCountElements.forEach(element => {
-                    if (element) {
-                        element.textContent = newCount;
-                    }
-            });
-
-            // Update mobile cart text
-            const mobileCartTexts = document.querySelectorAll('.mobile-cart-text');
-            mobileCartTexts.forEach(element => {
-                    if (element) {
-                        element.textContent = newCount > 0 ? `Cart (${newCount})` : 'Cart';
-                    }
-                });
-            } catch (error) {
-                console.error('Error updating cart count:', error);
-                // Fallback: at least update the basic count
-                try {
-                    const cartCountElements = document.querySelectorAll('.cart-count');
-                    cartCountElements.forEach(element => {
-                        if (element && newCount !== null) {
-                            element.textContent = newCount;
+                            element.textContent = `LKR ${cartTotal}`;
                         }
                     });
-                } catch (fallbackError) {
-                    console.error('Fallback cart count update failed:', fallbackError);
                 }
+            } catch (error) {
+                console.error('Error updating cart total:', error);
             }
         }
         
-        function animateCartUpdate(countElement) {
-            // Cart count bounce animation
-            countElement.style.transform = 'scale(1.3)';
-            countElement.style.backgroundColor = '#10b981'; // Green
-            
-            setTimeout(() => {
-                countElement.style.transform = 'scale(1)';
-                countElement.style.backgroundColor = '#f59e0b'; // Back to primary
-            }, 200);
-        }
-        
-        function updateMobileCartCount(newCount) {
-            // Update mobile header cart count
-            const mobileCartCountElements = document.querySelectorAll('.cart-count-mobile');
-            mobileCartCountElements.forEach(element => {
-                if (element) {
-                    element.textContent = newCount;
-                    if (newCount > 0) {
-                        element.style.display = 'flex';
-                    } else {
-                        element.style.display = 'none';
-                    }
-                }
-            });
-        }
         
         function animateCartIcon() {
             // Cart icon shake and bounce
@@ -1027,90 +1012,47 @@
             }, 4000);
         }
         
-        // Global function to handle all cart animations
-        window.animateCartAddition = function(cartCount, productName = 'Item', cartTotal = null) {
+        // Global function to handle cart animations (simplified, no count)
+        window.animateCartAddition = function(cartTotal = null, productName = 'Item') {
             try {
-            // Update cart count with animation and total
-            updateCartCount(cartCount, cartTotal);
+                // Update cart total only
+                if (cartTotal) {
+                    updateCartTotal(cartTotal);
+                }
                 
-                // Update mobile cart count
-                updateMobileCartCount(cartCount);
-            
-            // Animate cart icon
-            animateCartIcon();
-            
-            // Show pulse effect
-            showCartPulse();
-            
-            // Show success notification
-            showCartSuccessNotification(`${productName} added to cart!`);
-            
-            // Add temporary glow effect to cart container
+                // Animate cart icon
+                animateCartIcon();
+                
+                // Show pulse effect
+                showCartPulse();
+                
+                // Show success notification
+                showCartSuccessNotification(`${productName} added to cart!`);
+                
+                // Add temporary glow effect to cart container
                 const cartContainers = document.querySelectorAll('.cart-container, .mobile-cart-container, .cart-container-mobile');
-            cartContainers.forEach(container => {
-                container.style.filter = 'drop-shadow(0 0 15px #10b981)';
-                container.style.transform = 'scale(1.05)';
-                setTimeout(() => {
-                    container.style.filter = 'none';
-                    container.style.transform = 'scale(1)';
-                }, 800);
+                cartContainers.forEach(container => {
+                    container.style.filter = 'drop-shadow(0 0 15px #10b981)';
+                    container.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        container.style.filter = 'none';
+                        container.style.transform = 'scale(1)';
+                    }, 800);
                 });
             } catch (error) {
                 console.error('Cart animation error:', error);
-                // Don't show error notification, animation failure shouldn't show error to user
-                // Just ensure cart count is updated
-                if (cartCount) {
-                    const cartCountElements = document.querySelectorAll('.cart-count');
-                    cartCountElements.forEach(element => {
-                        element.textContent = cartCount;
-                    });
-                }
             }
         }
         
-        // Initialize cart count on page load
+        // Initialize cart total on page load (no count needed)
         document.addEventListener('DOMContentLoaded', function() {
-            // Clear localStorage cart data and get fresh count from server
-            localStorage.removeItem('cartCount');
-            localStorage.removeItem('cartTotal');
+            // Check if we have cart total in localStorage
+            const savedTotal = localStorage.getItem('cartTotal') || '0.00';
             
-            // Fetch actual cart count from server
-            // Only fetch if not on checkout page to avoid conflicts
-            if (!window.location.pathname.includes('/checkout')) {
-            fetchCartCount();
-            } else {
-                // For checkout page, use fallback values
-                updateCartCount(0, '0.00');
-            }
+            // Show saved total data
+            updateCartTotal(savedTotal);
         });
         
-        // Fetch current cart count from server
-        function fetchCartCount() {
-            fetch('/cart/count', {
-                method: 'GET',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Cart count fetched successfully:', data);
-                updateCartCount(data.count, data.total);
-            })
-            .catch(error => {
-                console.log('Cart count fetch error:', error);
-                // Fallback to localStorage or default values
-                const fallbackCount = localStorage.getItem('cartCount') || 0;
-                const fallbackTotal = localStorage.getItem('cartTotal') || '0.00';
-                updateCartCount(fallbackCount, fallbackTotal);
-            });
-        }
 
         // Search Suggestions Functionality
         let searchTimeout;
@@ -1126,20 +1068,22 @@
                 
                 clearTimeout(searchTimeout);
                 
-                if (query.length < 2) {
+                if (query.length < 3) { // Increased minimum characters
                     suggestionsDiv.classList.add('hidden');
                     return;
                 }
                 
                 searchTimeout = setTimeout(() => {
-                    console.log('Fetching suggestions for:', query);
+                    // Only log in development
+                    // console.log('Fetching suggestions for:', query);
+                    
                     fetch(`/api/search/suggestions?q=${encodeURIComponent(query)}`)
                         .then(response => {
-                            console.log('Search API response status:', response.status);
+                            // console.log('Search API response status:', response.status);
                             return response.json();
                         })
                         .then(data => {
-                            console.log('Search suggestions data:', data);
+                            // console.log('Search suggestions data:', data);
                             displaySuggestions(data, suggestionsDiv, isMobile);
                         })
                         .catch(error => {
@@ -1147,7 +1091,7 @@
                             suggestionsDiv.innerHTML = '<div class="p-4 text-red-400 text-center">Search error occurred</div>';
                             suggestionsDiv.classList.remove('hidden');
                         });
-                }, 300);
+                }, 500); // Increased debounce time from 300ms to 500ms
             });
             
             // Hide suggestions when clicking outside

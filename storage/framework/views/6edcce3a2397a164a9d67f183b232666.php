@@ -1,10 +1,10 @@
-@extends('layouts.app')
 
-@section('title', 'Contact Us - MSK COMPUTERS | Get Expert Computer Support')
-@section('description', 'Contact MSK COMPUTERS for all your computer needs. Expert sales, repairs, and technical support. Visit our store in Ragama or call us today.')
-@section('keywords', 'contact MSK Computers, computer repair Sri Lanka, technical support, computer sales, Ragama computer shop')
 
-@section('content')
+<?php $__env->startSection('title', 'Contact Us - MSK COMPUTERS | Get Expert Computer Support'); ?>
+<?php $__env->startSection('description', 'Contact MSK COMPUTERS for all your computer needs. Expert sales, repairs, and technical support. Visit our store in Ragama or call us today.'); ?>
+<?php $__env->startSection('keywords', 'contact MSK Computers, computer repair Sri Lanka, technical support, computer sales, Ragama computer shop'); ?>
+
+<?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
 <section class="py-16 bg-gradient-to-b from-black to-[#0f0f0f]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -384,4 +384,6 @@
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Dhanushka\Desktop\MSK\MSKMSV3\resources\views/contact-us.blade.php ENDPATH**/ ?>

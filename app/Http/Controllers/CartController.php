@@ -86,8 +86,6 @@ class CartController extends Controller
             ]);
         }
 
-        $cartCount = $this->getCartCount();
-
         // Calculate cart total for response
         $cartItems = Cart::where('session_id', session()->getId())->get();
         $cartTotal = 0;
@@ -101,7 +99,6 @@ class CartController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Product added to cart successfully!',
-            'cart_count' => $cartCount,
             'cart_total' => number_format($cartTotal, 2)
         ]);
     }
@@ -128,13 +125,11 @@ class CartController extends Controller
 
         $itemTotal = $cart->total_price;
         $cartTotal = $this->getCartTotal();
-        $cartCount = $this->getCartCount();
 
         return response()->json([
             'success' => true,
             'item_total' => number_format($itemTotal, 2),
-            'cart_total' => number_format($cartTotal, 2),
-            'cart_count' => $cartCount
+            'cart_total' => number_format($cartTotal, 2)
         ]);
     }
 
@@ -143,13 +138,11 @@ class CartController extends Controller
         $cart->delete();
 
         $cartTotal = $this->getCartTotal();
-        $cartCount = $this->getCartCount();
 
         return response()->json([
             'success' => true,
             'message' => 'Item removed from cart',
-            'cart_total' => number_format($cartTotal, 2),
-            'cart_count' => $cartCount
+            'cart_total' => number_format($cartTotal, 2)
         ]);
     }
 
@@ -160,35 +153,12 @@ class CartController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Cart cleared successfully'
+            'message' => 'Cart cleared successfully',
+            'cart_total' => '0.00'
         ]);
     }
     
-    public function count()
-    {
-        $cartCount = $this->getCartCount();
-        
-        // Calculate cart total
-        $cartItems = Cart::where('session_id', session()->getId())->get();
-        $cartTotal = 0;
-        foreach ($cartItems as $item) {
-            $product = SmaProduct::find($item->product_id);
-            if ($product) {
-                $cartTotal += $item->quantity * $product->final_price;
-            }
-        }
-        
-        return response()->json([
-            'count' => $cartCount,
-            'total' => number_format($cartTotal, 2)
-        ]);
-    }
 
-    public function getCartCount()
-    {
-        $sessionId = Session::getId();
-        return Cart::where('session_id', $sessionId)->sum('quantity');
-    }
 
     private function getCartItems()
     {

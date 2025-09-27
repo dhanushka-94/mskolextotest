@@ -107,95 +107,95 @@
         
         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             <!-- Gaming PCs -->
-            <div class="card card-hover p-3 md:p-6 text-center group">
+            <a href="/categories/brand-new-pc-build" class="card card-hover p-3 md:p-6 text-center group block hover:scale-105 transition-transform duration-300">
                 <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4 group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M21,16V4H3V16H21M21,2A2,2 0 0,1 23,4V16A2,2 0 0,1 21,18H14L16,21V22H8V21L10,18H3A2,2 0 0,1 1,16V4A2,2 0 0,1 3,2H21Z"/>
                     </svg>
                 </div>
-                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2">Gaming PCs</h3>
-                <p class="text-xs sm:text-sm md:text-base text-gray-400">High-performance gaming rigs</p>
-            </div>
+                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2 group-hover:text-[#f59e0b] transition-colors">Gaming PCs</h3>
+                <p class="text-xs sm:text-sm md:text-base text-gray-400 group-hover:text-gray-300 transition-colors">High-performance gaming rigs</p>
+            </a>
 
             <!-- Laptops -->
-            <div class="card card-hover p-3 md:p-6 text-center group">
+            <a href="/categories/brand-new-laptop" class="card card-hover p-3 md:p-6 text-center group block hover:scale-105 transition-transform duration-300">
                 <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4 group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M4,6H20V16H4M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H1V20H23V18H20Z"/>
                     </svg>
                 </div>
-                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2">Laptops</h3>
-                <p class="text-xs sm:text-sm md:text-base text-gray-400">Gaming & Professional laptops</p>
-            </div>
+                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2 group-hover:text-[#3b82f6] transition-colors">Laptops</h3>
+                <p class="text-xs sm:text-sm md:text-base text-gray-400 group-hover:text-gray-300 transition-colors">Gaming & Professional laptops</p>
+            </a>
 
             <!-- Components -->
-            <div class="card card-hover p-3 md:p-6 text-center group">
+            <a href="/categories/keyboard-and-mouse" class="card card-hover p-3 md:p-6 text-center group block hover:scale-105 transition-transform duration-300">
                 <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#10b981] to-[#059669] rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4 group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M17,17H7V7H17M21,11V9H19V7C19,5.89 18.1,5 17,5H15V3H13V5H11V3H9V5H7C5.89,5 5,5.89 5,7V9H3V11H5V13H3V15H5V17C5,18.1 5.89,19 7,19H9V21H11V19H13V21H15V19H17C18.1,19 19,18.1 19,17V15H21V13H19V11M15,15H9V9H15V15Z"/>
                     </svg>
                 </div>
-                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2">Components</h3>
-                <p class="text-xs sm:text-sm md:text-base text-gray-400">Latest PC parts & upgrades</p>
-            </div>
+                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2 group-hover:text-[#10b981] transition-colors">Components</h3>
+                <p class="text-xs sm:text-sm md:text-base text-gray-400 group-hover:text-gray-300 transition-colors">Latest PC parts & upgrades</p>
+            </a>
 
             <!-- Repair Services -->
-            <div class="card card-hover p-3 md:p-6 text-center group">
+            <a href="/services" class="card card-hover p-3 md:p-6 text-center group block hover:scale-105 transition-transform duration-300">
                 <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#8b5cf6] to-[#7c3aed] rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4 group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M22.7,19L13.6,9.9C14.5,7.6 14,4.9 12.1,3C10.1,1 7.1,0.6 4.7,1.7L9,6L6,9L1.6,4.7C0.4,7.1 0.9,10.1 2.9,12.1C4.8,14 7.5,14.5 9.8,13.6L18.9,22.7C19.3,23.1 19.9,23.1 20.3,22.7L22.6,20.4C23.1,20 23.1,19.3 22.7,19Z"/>
                     </svg>
                 </div>
-                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2">Repair</h3>
-                <p class="text-xs sm:text-sm md:text-base text-gray-400">Expert repair services</p>
-            </div>
+                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2 group-hover:text-[#8b5cf6] transition-colors">Repair</h3>
+                <p class="text-xs sm:text-sm md:text-base text-gray-400 group-hover:text-gray-300 transition-colors">Expert repair services</p>
+            </a>
         </div>
         
         <!-- Additional Features Row -->
         <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mt-6 md:mt-8">
             <!-- Best Warranty -->
-            <div class="card card-hover p-3 md:p-6 text-center group">
+            <a href="/warranty" class="card card-hover p-3 md:p-6 text-center group block hover:scale-105 transition-transform duration-300">
                 <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4 group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.1 16,12.7V16.7C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16.8V12.8C8,12.1 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
                     </svg>
                 </div>
-                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2">Best Warranty Provider</h3>
-                <p class="text-xs sm:text-sm md:text-base text-gray-400">On all products</p>
-            </div>
+                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2 group-hover:text-[#f59e0b] transition-colors">Best Warranty Provider</h3>
+                <p class="text-xs sm:text-sm md:text-base text-gray-400 group-hover:text-gray-300 transition-colors">On all products</p>
+            </a>
 
             <!-- Island-wide Delivery -->
-            <div class="card card-hover p-3 md:p-6 text-center group">
+            <a href="/about-us" class="card card-hover p-3 md:p-6 text-center group block hover:scale-105 transition-transform duration-300">
                 <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#10b981] to-[#059669] rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4 group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M3,4A2,2 0 0,0 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8H17V4M10,6L14,10L10,14V11H4V9H10M17,9.5H19.5L21.46,12H17M6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5M18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5Z"/>
                     </svg>
                 </div>
-                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2">Island-wide Delivery</h3>
-                <p class="text-xs sm:text-sm md:text-base text-gray-400">Islandwide delivery available</p>
-            </div>
+                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2 group-hover:text-[#10b981] transition-colors">Island-wide Delivery</h3>
+                <p class="text-xs sm:text-sm md:text-base text-gray-400 group-hover:text-gray-300 transition-colors">Islandwide delivery available</p>
+            </a>
 
             <!-- Expert Service -->
-            <div class="card card-hover p-3 md:p-6 text-center group">
+            <a href="/services" class="card card-hover p-3 md:p-6 text-center group block hover:scale-105 transition-transform duration-300">
                 <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4 group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z"/>
                     </svg>
                 </div>
-                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2">Expert Service</h3>
-                <p class="text-xs sm:text-sm md:text-base text-gray-400">3000+ products available</p>
-            </div>
+                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2 group-hover:text-[#3b82f6] transition-colors">Expert Service</h3>
+                <p class="text-xs sm:text-sm md:text-base text-gray-400 group-hover:text-gray-300 transition-colors">3000+ products available</p>
+            </a>
 
             <!-- Trusted Customers -->
-            <div class="card card-hover p-3 md:p-6 text-center group">
+            <a href="/about-us" class="card card-hover p-3 md:p-6 text-center group block hover:scale-105 transition-transform duration-300">
                 <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#8b5cf6] to-[#7c3aed] rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4 group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M16,4C18.11,4 20.11,4.89 21.39,6.39L22.5,5.5C20.86,3.85 18.64,3 16.39,3C14.14,3 11.92,3.85 10.28,5.5L11.39,6.39C12.67,4.89 14.67,4 16.89,4H16M16,7C17.38,7 18.63,7.56 19.54,8.46L20.5,7.5C19.33,6.33 17.72,5.7 16,5.7C14.28,5.7 12.67,6.33 11.5,7.5L12.46,8.46C13.37,7.56 14.62,7 16,7M16,10C16.69,10 17.32,10.28 17.78,10.78L16,12.5L14.22,10.78C14.68,10.28 15.31,10 16,10M7,4A3,3 0 0,1 10,7A3,3 0 0,1 7,10A3,3 0 0,1 4,7A3,3 0 0,1 7,4M7,11C8.11,11 9.17,11.25 10.12,11.68L9.5,12.5L8.5,11.5C8,11.34 7.5,11.25 7,11.25C5.5,11.25 4.1,11.95 3.21,13.15L2.25,12.19C3.46,10.65 5.16,10 7,10.75V11M1,17V20H4V17M6,17V20H9V17M11,17V20H14V17"/>
                     </svg>
                 </div>
-                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2">10,000+ Customers</h3>
-                <p class="text-xs sm:text-sm md:text-base text-gray-400">Trusted by thousands</p>
-            </div>
+                <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white mb-1 md:mb-2 group-hover:text-[#8b5cf6] transition-colors">10,000+ Customers</h3>
+                <p class="text-xs sm:text-sm md:text-base text-gray-400 group-hover:text-gray-300 transition-colors">Trusted by thousands</p>
+            </a>
         </div>
     </div>
 </section>
@@ -570,9 +570,9 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Update cart count
-                if (window.updateCartCount && data.cart_count !== undefined) {
-                    window.updateCartCount(data.cart_count, data.cart_total);
+                // Update cart total (no count needed)
+                if (window.updateCartTotal && data.cart_total !== undefined) {
+                    window.updateCartTotal(data.cart_total);
                 }
                 
                 // Show success notification
@@ -580,9 +580,9 @@
                     window.showCartSuccessNotification('Product added to cart successfully!');
                 }
                 
-                // Animate cart addition
+                // Animate cart addition (simplified)
                 if (window.animateCartAddition) {
-                    window.animateCartAddition(data.cart_count, data.cart_total);
+                    window.animateCartAddition(data.cart_total);
                 }
             } else {
                 alert(data.message || 'Failed to add product to cart');

@@ -550,19 +550,22 @@
             button.textContent = originalText;
             
             if (data.success) {
-                // Animate cart addition with product name and total
+                // Update localStorage immediately for faster future loads
+                if (data.cart_total !== undefined) {
+                    localStorage.setItem('cartTotal', data.cart_total);
+                }
+                
+                // Animate cart addition with product name and total (no count)
                 const productName = document.querySelector('h1').textContent.trim();
                 
-                // Use setTimeout to ensure animation doesn't interfere
+                // Use cart animation (simplified, no count)
                 try {
-                    window.animateCartAddition(data.cart_count, productName, data.cart_total);
+                    window.animateCartAddition(data.cart_total, productName);
                 } catch (animError) {
                     console.error('Animation error:', animError);
                     // Fallback: Just show a simple success message
                     showNotification('Product added to cart successfully!', 'success');
                 }
-                
-                // Don't show additional notification since animateCartAddition shows one
             } else {
                 showNotification(data.message || 'Failed to add product to cart', 'error');
             }

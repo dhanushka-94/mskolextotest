@@ -305,8 +305,8 @@ function addToCartFromSearch(productId, productName = 'Product') {
         button.textContent = originalText;
         
         if (data.success) {
-            // Animate cart addition
-            window.animateCartAddition(data.cart_count, productName, data.cart_total);
+            // Animate cart addition (simplified)
+            window.animateCartAddition(data.cart_total, productName);
             
             // Add success effect
             button.classList.add('cart-success-flash');

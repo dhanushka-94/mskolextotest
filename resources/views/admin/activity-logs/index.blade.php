@@ -319,10 +319,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Auto-refresh every 30 seconds
-    setInterval(() => {
-        // Optional: Add subtle notification or reload if no user interaction
-    }, 30000);
+    // Auto-refresh every 30 seconds (only when user is actively viewing)
+    let refreshInterval;
+    
+    function startAutoRefresh() {
+        refreshInterval = setInterval(() => {
+            // Only refresh if user is on this page and page is visible
+            if (!document.hidden && document.hasFocus()) {
+                // Optional: Add subtle notification or reload if no user interaction
+                // Currently disabled to prevent performance issues
+            }
+        }, 30000);
+    }
+    
+    // Only start auto-refresh if user is actively using the page
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            clearInterval(refreshInterval);
+        } else {
+            startAutoRefresh();
+        }
+    });
+    
+    // Start initially only if page is visible
+    if (!document.hidden) {
+        startAutoRefresh();
+    }
 });
 </script>
 

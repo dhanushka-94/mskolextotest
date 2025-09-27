@@ -1,25 +1,23 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Promotions & Deals - MSK Computers'); ?>
+<?php $__env->startSection('description', 'Discover amazing deals and promotions on computer hardware, gaming accessories, and tech products at MSK Computers. Limited time offers!'); ?>
+<?php $__env->startSection('keywords', 'promotions, deals, discounts, sales, computer hardware deals, gaming deals, MSK Computers'); ?>
 
-@section('title', 'Promotions & Deals - MSK Computers')
-@section('description', 'Discover amazing deals and promotions on computer hardware, gaming accessories, and tech products at MSK Computers. Limited time offers!')
-@section('keywords', 'promotions, deals, discounts, sales, computer hardware deals, gaming deals, MSK Computers')
-
-@push('head')
+<?php $__env->startPush('head'); ?>
     <!-- Open Graph Tags -->
     <meta property="og:title" content="Promotions & Deals - MSK Computers">
     <meta property="og:description" content="Discover amazing deals and promotions on computer hardware, gaming accessories, and tech products.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image" content="{{ asset('images/promotions-banner.jpg') }}">
+    <meta property="og:url" content="<?php echo e(url()->current()); ?>">
+    <meta property="og:image" content="<?php echo e(asset('images/promotions-banner.jpg')); ?>">
     
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Promotions & Deals - MSK Computers">
     <meta name="twitter:description" content="Discover amazing deals and promotions on computer hardware, gaming accessories, and tech products.">
-    <meta name="twitter:image" content="{{ asset('images/promotions-banner.jpg') }}">
-@endpush
+    <meta name="twitter:image" content="<?php echo e(asset('images/promotions-banner.jpg')); ?>">
+<?php $__env->stopPush(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="min-h-screen bg-[#0f0f0f]">
     <!-- Compact Header Section -->
     <section class="relative bg-gradient-to-r from-[#0f0f0f] to-[#1a1a1c] border-b border-gray-800/30 py-8">
@@ -43,7 +41,7 @@
                 </div>
                 <div class="hidden md:block">
                     <span class="inline-flex items-center px-4 py-2 bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-lg text-[#f59e0b] text-sm font-medium">
-                        {{ $products->total() }} Products on Sale
+                        <?php echo e($products->total()); ?> Products on Sale
                     </span>
                 </div>
             </div>
@@ -66,35 +64,35 @@
                         </h3>
                         
                         <div class="space-y-2">
-                            <a href="{{ route('promotions.index') }}" 
-                               class="flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all {{ !request('category') ? 'bg-[#f59e0b] text-black' : 'text-gray-300 hover:bg-[#f59e0b]/10 hover:text-[#f59e0b]' }}">
+                            <a href="<?php echo e(route('promotions.index')); ?>" 
+                               class="flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all <?php echo e(!request('category') ? 'bg-[#f59e0b] text-black' : 'text-gray-300 hover:bg-[#f59e0b]/10 hover:text-[#f59e0b]'); ?>">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                                 </svg>
                                 All Deals
-                                @if(!request('category'))
-                                    <span class="ml-auto text-xs bg-black/20 px-2 py-0.5 rounded-full">{{ $products->total() }}</span>
-                                @endif
+                                <?php if(!request('category')): ?>
+                                    <span class="ml-auto text-xs bg-black/20 px-2 py-0.5 rounded-full"><?php echo e($products->total()); ?></span>
+                                <?php endif; ?>
                             </a>
                             
-                            @foreach($categories as $category)
-                                <a href="{{ route('promotions.index', ['category' => $category->slug ?: $category->id]) }}" 
-                                   class="flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all group {{ request('category') == ($category->slug ?: $category->id) ? 'bg-[#f59e0b] text-black' : 'text-gray-300 hover:bg-[#f59e0b]/10 hover:text-[#f59e0b]' }}">
+                            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <a href="<?php echo e(route('promotions.index', ['category' => $category->slug ?: $category->id])); ?>" 
+                                   class="flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all group <?php echo e(request('category') == ($category->slug ?: $category->id) ? 'bg-[#f59e0b] text-black' : 'text-gray-300 hover:bg-[#f59e0b]/10 hover:text-[#f59e0b]'); ?>">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
                                     </svg>
-                                    <span class="truncate">{{ $category->name }}</span>
-                                    @if(request('category') == ($category->slug ?: $category->id))
-                                        <span class="ml-auto text-xs bg-black/20 px-2 py-0.5 rounded-full">{{ $products->total() }}</span>
-                                    @endif
+                                    <span class="truncate"><?php echo e($category->name); ?></span>
+                                    <?php if(request('category') == ($category->slug ?: $category->id)): ?>
+                                        <span class="ml-auto text-xs bg-black/20 px-2 py-0.5 rounded-full"><?php echo e($products->total()); ?></span>
+                                    <?php endif; ?>
                                 </a>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
 
                         <!-- Mobile Category Count -->
                         <div class="block md:hidden mt-4 pt-4 border-t border-gray-700">
                             <span class="inline-flex items-center px-3 py-1.5 bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-lg text-[#f59e0b] text-xs font-medium">
-                                {{ $products->total() }} Products on Sale
+                                <?php echo e($products->total()); ?> Products on Sale
                             </span>
                         </div>
                     </div>
@@ -102,18 +100,18 @@
 
                 <!-- Right Content - Products Grid -->
                 <div class="flex-1">
-                    @if($products->count() > 0)
+                    <?php if($products->count() > 0): ?>
                         <!-- Products Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
-                    @foreach($products as $product)
-                        <a href="{{ route('products.show', ['category' => $product->category->slug ?: $product->category->id, 'product' => $product->slug]) }}" 
+                    <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <a href="<?php echo e(route('products.show', ['category' => $product->category->slug ?: $product->category->id, 'product' => $product->slug])); ?>" 
                            class="group bg-[#1c1c1e] rounded-xl border border-gray-800/30 overflow-hidden hover:border-[#f59e0b]/30 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-[#f59e0b]/10">
                             
                             <!-- Product Image -->
                             <div class="relative overflow-hidden bg-[#1a1a1c] aspect-square">
                                 <img 
-                                    src="{{ $product->main_image }}" 
-                                    alt="{{ $product->name }}" 
+                                    src="<?php echo e($product->main_image); ?>" 
+                                    alt="<?php echo e($product->name); ?>" 
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                     loading="lazy"
                                 >
@@ -136,62 +134,68 @@
                             <!-- Product Info -->
                             <div class="p-4">
                                 <div class="mb-2">
-                                    <span class="text-xs text-[#f59e0b] font-medium">{{ $product->category->name }}</span>
+                                    <span class="text-xs text-[#f59e0b] font-medium"><?php echo e($product->category->name); ?></span>
                                 </div>
                                 
                                 <h3 class="text-sm font-semibold text-white mb-3 line-clamp-2 group-hover:text-[#f59e0b] transition-colors">
-                                    {{ $product->name }}
+                                    <?php echo e($product->name); ?>
+
                                 </h3>
 
                                 <!-- Pricing -->
                                 <div class="mb-4">
                                     <div class="flex items-baseline gap-2">
                                         <span class="text-lg font-bold text-[#f59e0b]">
-                                            LKR {{ number_format($product->promo_price, 2) }}
+                                            LKR <?php echo e(number_format($product->promo_price, 2)); ?>
+
                                         </span>
                                         <span class="text-sm text-gray-500 line-through">
-                                            LKR {{ number_format($product->price, 2) }}
+                                            LKR <?php echo e(number_format($product->price, 2)); ?>
+
                                         </span>
                                     </div>
                                     <div class="text-xs text-green-400 font-medium">
-                                        Save LKR {{ number_format($product->price - $product->promo_price, 2) }}
+                                        Save LKR <?php echo e(number_format($product->price - $product->promo_price, 2)); ?>
+
                                     </div>
                                 </div>
 
                                 <!-- Product Status Badge -->
-                                @if($product->status)
+                                <?php if($product->status): ?>
                                     <div class="mb-3">
-                                        @include('components.product-status-badge', ['product' => $product])
+                                        <?php echo $__env->make('components.product-status-badge', ['product' => $product], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                                     </div>
-                                @endif
+                                <?php endif; ?>
                                 
                                 <!-- Payment Method Badges -->
-                                @include('components.payment-badges')
+                                <?php echo $__env->make('components.payment-badges', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
                                 <!-- Add to Cart Button -->
                                 <div class="mt-auto">
-                                    @if($product->can_add_to_cart)
-                                        <button onclick="event.preventDefault(); event.stopPropagation(); addToCartFromPromo({{ $product->id }}, '{{ addslashes($product->name) }}')" 
+                                    <?php if($product->can_add_to_cart): ?>
+                                        <button onclick="event.preventDefault(); event.stopPropagation(); addToCartFromPromo(<?php echo e($product->id); ?>, '<?php echo e(addslashes($product->name)); ?>')" 
                                                 class="w-full bg-[#f59e0b] hover:bg-[#d97706] text-black px-4 py-2.5 rounded-lg text-sm font-semibold transition-all">
                                             Add to Cart
                                         </button>
-                                    @else
+                                    <?php else: ?>
                                         <button class="w-full bg-gray-600/50 text-gray-400 px-4 py-2.5 rounded-lg text-sm font-semibold cursor-not-allowed" 
-                                                disabled title="{{ $product->cart_restriction_reason }}">
-                                            {{ $product->cart_restriction_reason ?: 'Unavailable' }}
+                                                disabled title="<?php echo e($product->cart_restriction_reason); ?>">
+                                            <?php echo e($product->cart_restriction_reason ?: 'Unavailable'); ?>
+
                                         </button>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </a>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 
                         <!-- Pagination -->
                         <div class="flex justify-center">
-                            {{ $products->appends(request()->query())->links('custom.pagination') }}
+                            <?php echo e($products->appends(request()->query())->links('custom.pagination')); ?>
+
                         </div>
-                    @else
+                    <?php else: ?>
                         <!-- No Products -->
                         <div class="text-center py-16">
                             <div class="w-24 h-24 bg-[#2c2c2e] rounded-full flex items-center justify-center mx-auto mb-6">
@@ -202,12 +206,12 @@
                             </div>
                             <h3 class="text-xl font-semibold text-white mb-2">No Active Promotions</h3>
                             <p class="text-gray-400 mb-6">There are currently no promotional products available in this category. Check back soon for amazing deals!</p>
-                            <a href="{{ route('products.index') }}" 
+                            <a href="<?php echo e(route('products.index')); ?>" 
                                class="inline-flex items-center px-6 py-3 bg-[#f59e0b] hover:bg-[#d97706] text-black font-semibold rounded-lg transition-all">
                                 Browse All Products
                             </a>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -227,7 +231,7 @@ function addToCartFromPromo(productId, productName = 'Promotional Item') {
     button.disabled = true;
     button.textContent = 'Adding...';
     
-    fetch('{{ route("cart.add") }}', {
+    fetch('<?php echo e(route("cart.add")); ?>', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -304,4 +308,6 @@ function showNotification(message, type = 'success') {
     }, 3000);
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Dhanushka\Desktop\MSK\MSKMSV3\resources\views/products/promotions.blade.php ENDPATH**/ ?>

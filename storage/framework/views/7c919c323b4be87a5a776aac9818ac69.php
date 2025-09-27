@@ -592,7 +592,7 @@
 
 <?php $__env->startPush('scripts'); ?>
 <script>
-    console.log('🔧 AJAX Filter System Loading...');
+    // console.log('🔧 AJAX Filter System Loading...');
     
     // Global state
     let FilterSystem = {
@@ -604,11 +604,11 @@
     // Initialize filters when DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
         if (FilterSystem.isInitialized) {
-            console.log('⚠️ Filter system already initialized');
+            // console.log('⚠️ Filter system already initialized');
             return;
         }
         
-        console.log('Initializing AJAX Filter System...');
+        // console.log('Initializing AJAX Filter System...');
         
         // Get DOM elements
         const elements = {
@@ -628,26 +628,26 @@
         };
 
         // Validate elements exist
-        console.log('📍 Elements found:', {
-            filterForm: !!elements.filterForm,
-            sortSelect: !!elements.sortSelect,
-            productsContainer: !!elements.productsContainer,
-            resultsInfo: !!elements.resultsInfo,
-            clearFiltersBtn: !!elements.clearFiltersBtn,
-            searchInput: !!elements.searchInput
-        });
+        // console.log('📍 Elements found:', {
+        //     filterForm: !!elements.filterForm,
+        //     sortSelect: !!elements.sortSelect,
+        //     productsContainer: !!elements.productsContainer,
+        //     resultsInfo: !!elements.resultsInfo,
+        //     clearFiltersBtn: !!elements.clearFiltersBtn,
+        //     searchInput: !!elements.searchInput
+        // });
 
         // Main filter function
         function filterProducts() {
-            console.log('🔍 Filter triggered');
+            // console.log('🔍 Filter triggered');
             
             if (FilterSystem.isLoading) {
-                console.log('⏳ Already loading, skipping...');
+                // console.log('⏳ Already loading, skipping...');
                 return;
             }
 
             if (!elements.filterForm || !elements.productsContainer) {
-                console.log('❌ Required elements missing!');
+                console.error('❌ Required elements missing for filters!');
                 return;
             }
 
@@ -666,12 +666,12 @@
             const params = new URLSearchParams();
             for (let [key, value] of formData.entries()) {
                 params.append(key, value);
-                console.log('📝 Filter param:', key, '=', value);
+                // console.log('📝 Filter param:', key, '=', value);
             }
 
             // Make AJAX request
             const url = window.location.pathname + '?' + params.toString();
-            console.log('🌐 AJAX URL:', url);
+            // console.log('🌐 AJAX URL:', url);
 
             fetch(url, {
                 method: 'GET',
@@ -682,14 +682,14 @@
                 }
             })
             .then(response => {
-                console.log('📡 Response status:', response.status);
+                // console.log('📡 Response status:', response.status);
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 return response.json();
             })
             .then(data => {
-                console.log('✅ AJAX Success:', data);
+                // console.log('✅ AJAX Success:', data);
                 if (data.success) {
                     updateProductsGrid(data.products || []);
                     updateResultsInfo(data.pagination || {});
@@ -1101,8 +1101,8 @@
                 const productCard = button.closest('.product-card');
                 const productName = productCard.querySelector('h3')?.textContent.trim() || 'Product';
                 
-                // Animate cart addition with enhanced effects
-                window.animateCartAddition(data.cart_count, productName, data.cart_total);
+                // Animate cart addition with enhanced effects (simplified)
+                window.animateCartAddition(data.cart_total, productName);
                 
             } else {
                 // Add error animation to button

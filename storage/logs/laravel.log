@@ -21374,3 +21374,672 @@ Stack trace:
 [2025-09-27 19:16:04] local.INFO: Category route binding - Value: cart, Field: null  
 [2025-09-27 19:16:04] local.INFO: Category slug lookup - searching for: cart  
 [2025-09-27 19:16:04] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:35:46] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:35:46] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:35:46] local.INFO: Product route binding - Value: asus-tuf-a15-fa506n-amd-r5-7535hs-8gb-512gb-nvme-156inch-rtx-3050-4gb-rgb-backlit-156inch-laptop, Field: null  
+[2025-09-27 19:35:46] local.INFO: Product slug lookup - searching for: asus tuf a15 fa506n amd r5 7535hs 8gb 512gb nvme 156inch rtx 3050 4gb rgb backlit 156inch laptop  
+[2025-09-27 19:35:46] local.INFO: Product found via important keywords: ASUS TUF A15 FA507NVR GAMING  RYZEN 7 7435HS |  16GB DDR5 RAM | 512GB SSD | 15.6INCH |144HZ | RTX 4060 8GB DDR6 | MECHA GREY | RGB BACKLIT KEYBOARD | DOS LAPTOP with keywords: asus, tuf, r5, 8gb, 15.6 for input: asus-tuf-a15-fa506n-amd-r5-7535hs-8gb-512gb-nvme-156inch-rtx-3050-4gb-rgb-backlit-156inch-laptop  
+[2025-09-27 19:35:46] local.INFO: Product slug lookup result: ASUS TUF A15 FA507NVR GAMING  RYZEN 7 7435HS |  16GB DDR5 RAM | 512GB SSD | 15.6INCH |144HZ | RTX 4060 8GB DDR6 | MECHA GREY | RGB BACKLIT KEYBOARD | DOS LAPTOP  
+[2025-09-27 19:35:46] local.INFO: ProductController@show - Category: BRAND NEW LAPTOP (ID: 411), Product: ASUS TUF A15 FA507NVR GAMING  RYZEN 7 7435HS |  16GB DDR5 RAM | 512GB SSD | 15.6INCH |144HZ | RTX 4060 8GB DDR6 | MECHA GREY | RGB BACKLIT KEYBOARD | DOS LAPTOP (ID: 2107, Category: 381)  
+[2025-09-27 19:35:50] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:35:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:35:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:35:50] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:36:05] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:36:06] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:36:06] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:36:06] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:36:14] local.INFO: Category route binding - Value: used-laptop, Field: null  
+[2025-09-27 19:36:14] local.INFO: Category slug lookup (stored) result: USED LAPTOP  
+[2025-09-27 19:36:14] local.INFO: USED LAPTOP Debug - Category: USED LAPTOP (ID: 437)  
+[2025-09-27 19:36:14] local.INFO: USED LAPTOP Debug - Total products: 19  
+[2025-09-27 19:36:14] local.INFO: USED LAPTOP Debug - Current page: 1  
+[2025-09-27 19:36:14] local.INFO: USED LAPTOP Debug - Last page: 2  
+[2025-09-27 19:36:15] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:36:15] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:36:15] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:36:15] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:38:53] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:38:53] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:38:54] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:38:54] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:38:54] local.INFO: Product route binding - Value: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop, Field: null  
+[2025-09-27 19:38:54] local.INFO: Product slug lookup - searching for: acer nitro v15 i5 13420h 16gb 512gb rtx3050 6gb 165hz 156inch ips laptop  
+[2025-09-27 19:38:54] local.INFO: Product found via important keywords: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP with keywords: i5, 16gb, rtx3050, 15.6, RTX3050 for input: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop  
+[2025-09-27 19:38:54] local.INFO: Product slug lookup result: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP  
+[2025-09-27 19:38:54] local.INFO: ProductController@show - Category: BRAND NEW LAPTOP (ID: 411), Product: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP (ID: 2357, Category: 381)  
+[2025-09-27 19:38:54] local.INFO: Category route binding - Value: used-laptop, Field: null  
+[2025-09-27 19:38:54] local.INFO: Category slug lookup (stored) result: USED LAPTOP  
+[2025-09-27 19:38:54] local.INFO: USED LAPTOP Debug - Category: USED LAPTOP (ID: 437)  
+[2025-09-27 19:38:54] local.INFO: USED LAPTOP Debug - Total products: 19  
+[2025-09-27 19:38:54] local.INFO: USED LAPTOP Debug - Current page: 1  
+[2025-09-27 19:38:54] local.INFO: USED LAPTOP Debug - Last page: 2  
+[2025-09-27 19:38:55] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:38:57] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:38:57] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:38:57] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:38:57] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:38:57] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:38:57] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:38:58] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:38:58] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:38:58] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:38:58] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:38:58] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:38:58] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:39:15] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:39:15] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:39:15] local.INFO: Product route binding - Value: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop, Field: null  
+[2025-09-27 19:39:15] local.INFO: Product slug lookup - searching for: acer nitro v15 i5 13420h 16gb 512gb rtx3050 6gb 165hz 156inch ips laptop  
+[2025-09-27 19:39:15] local.INFO: Product found via important keywords: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP with keywords: i5, 16gb, rtx3050, 15.6, RTX3050 for input: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop  
+[2025-09-27 19:39:15] local.INFO: Product slug lookup result: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP  
+[2025-09-27 19:39:15] local.INFO: ProductController@show - Category: BRAND NEW LAPTOP (ID: 411), Product: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP (ID: 2357, Category: 381)  
+[2025-09-27 19:39:15] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:39:15] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:39:15] local.INFO: Category route binding - Value: used-laptop, Field: null  
+[2025-09-27 19:39:15] local.INFO: Category slug lookup (stored) result: USED LAPTOP  
+[2025-09-27 19:39:15] local.INFO: USED LAPTOP Debug - Category: USED LAPTOP (ID: 437)  
+[2025-09-27 19:39:15] local.INFO: USED LAPTOP Debug - Total products: 19  
+[2025-09-27 19:39:15] local.INFO: USED LAPTOP Debug - Current page: 1  
+[2025-09-27 19:39:15] local.INFO: USED LAPTOP Debug - Last page: 2  
+[2025-09-27 19:39:16] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:39:18] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:39:18] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:39:18] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:39:18] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:39:18] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:39:18] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:39:18] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:39:18] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:39:18] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:39:18] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:39:18] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:39:18] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:39:40] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:39:41] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:39:43] local.INFO: Category route binding - Value: used-laptop, Field: null  
+[2025-09-27 19:39:43] local.INFO: Category slug lookup (stored) result: USED LAPTOP  
+[2025-09-27 19:39:43] local.INFO: USED LAPTOP Debug - Category: USED LAPTOP (ID: 437)  
+[2025-09-27 19:39:43] local.INFO: USED LAPTOP Debug - Total products: 19  
+[2025-09-27 19:39:43] local.INFO: USED LAPTOP Debug - Current page: 1  
+[2025-09-27 19:39:43] local.INFO: USED LAPTOP Debug - Last page: 2  
+[2025-09-27 19:39:44] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:39:44] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:39:44] local.INFO: Product route binding - Value: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop, Field: null  
+[2025-09-27 19:39:44] local.INFO: Product slug lookup - searching for: acer nitro v15 i5 13420h 16gb 512gb rtx3050 6gb 165hz 156inch ips laptop  
+[2025-09-27 19:39:44] local.INFO: Product found via important keywords: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP with keywords: i5, 16gb, rtx3050, 15.6, RTX3050 for input: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop  
+[2025-09-27 19:39:44] local.INFO: Product slug lookup result: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP  
+[2025-09-27 19:39:44] local.INFO: ProductController@show - Category: BRAND NEW LAPTOP (ID: 411), Product: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP (ID: 2357, Category: 381)  
+[2025-09-27 19:39:45] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:39:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:39:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:39:48] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:39:49] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:39:49] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:39:49] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:39:52] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:39:52] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:39:52] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:39:55] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:39:55] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:39:55] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:40:07] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:40:07] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:40:07] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:40:07] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:40:07] local.INFO: Product route binding - Value: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop, Field: null  
+[2025-09-27 19:40:07] local.INFO: Product slug lookup - searching for: acer nitro v15 i5 13420h 16gb 512gb rtx3050 6gb 165hz 156inch ips laptop  
+[2025-09-27 19:40:07] local.INFO: Product found via important keywords: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP with keywords: i5, 16gb, rtx3050, 15.6, RTX3050 for input: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop  
+[2025-09-27 19:40:07] local.INFO: Product slug lookup result: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP  
+[2025-09-27 19:40:07] local.INFO: ProductController@show - Category: BRAND NEW LAPTOP (ID: 411), Product: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP (ID: 2357, Category: 381)  
+[2025-09-27 19:40:08] local.INFO: Category route binding - Value: used-laptop, Field: null  
+[2025-09-27 19:40:08] local.INFO: Category slug lookup (stored) result: USED LAPTOP  
+[2025-09-27 19:40:08] local.INFO: USED LAPTOP Debug - Category: USED LAPTOP (ID: 437)  
+[2025-09-27 19:40:08] local.INFO: USED LAPTOP Debug - Total products: 19  
+[2025-09-27 19:40:08] local.INFO: USED LAPTOP Debug - Current page: 1  
+[2025-09-27 19:40:08] local.INFO: USED LAPTOP Debug - Last page: 2  
+[2025-09-27 19:40:08] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:40:11] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:40:11] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:40:11] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:40:11] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:40:11] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:40:11] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:40:11] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:40:11] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:40:11] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:40:11] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:40:11] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:40:11] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:40:53] local.INFO: Category route binding - Value: used-laptop, Field: null  
+[2025-09-27 19:40:53] local.INFO: Category slug lookup (stored) result: USED LAPTOP  
+[2025-09-27 19:40:53] local.INFO: USED LAPTOP Debug - Category: USED LAPTOP (ID: 437)  
+[2025-09-27 19:40:53] local.INFO: USED LAPTOP Debug - Total products: 19  
+[2025-09-27 19:40:53] local.INFO: USED LAPTOP Debug - Current page: 1  
+[2025-09-27 19:40:53] local.INFO: USED LAPTOP Debug - Last page: 2  
+[2025-09-27 19:40:54] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:40:54] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:40:54] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:40:54] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:41:00] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:41:00] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:41:00] local.INFO: Product route binding - Value: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop, Field: null  
+[2025-09-27 19:41:00] local.INFO: Product slug lookup - searching for: acer nitro v15 i5 13420h 16gb 512gb rtx3050 6gb 165hz 156inch ips laptop  
+[2025-09-27 19:41:00] local.INFO: Product found via important keywords: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP with keywords: i5, 16gb, rtx3050, 15.6, RTX3050 for input: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop  
+[2025-09-27 19:41:00] local.INFO: Product slug lookup result: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP  
+[2025-09-27 19:41:00] local.INFO: ProductController@show - Category: BRAND NEW LAPTOP (ID: 411), Product: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP (ID: 2357, Category: 381)  
+[2025-09-27 19:41:01] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:41:01] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:41:01] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:42:04] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:42:04] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:42:04] local.INFO: Product route binding - Value: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop, Field: null  
+[2025-09-27 19:42:04] local.INFO: Product slug lookup - searching for: acer nitro v15 i5 13420h 16gb 512gb rtx3050 6gb 165hz 156inch ips laptop  
+[2025-09-27 19:42:04] local.INFO: Product found via important keywords: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP with keywords: i5, 16gb, rtx3050, 15.6, RTX3050 for input: acer-nitro-v15-i5-13420h-16gb-512gb-rtx3050-6gb-165hz-156inch-ips-laptop  
+[2025-09-27 19:42:04] local.INFO: Product slug lookup result: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP  
+[2025-09-27 19:42:04] local.INFO: ProductController@show - Category: BRAND NEW LAPTOP (ID: 411), Product: HP VICTUS 15 FA0033DX I5 12450H | 16GB RAM | 512GB | RTX3050 4GB | IPS | 144HZ | 15.6INCH | BACKLIT LAPTOP (ID: 2357, Category: 381)  
+[2025-09-27 19:42:04] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:42:04] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:42:04] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:43:21] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:43:22] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:43:22] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:44:36] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:44:36] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:44:36] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:44:40] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 19:44:40] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 19:44:41] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 19:44:41] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 19:44:42] local.INFO: Category route binding - Value: used-motherboard, Field: null  
+[2025-09-27 19:44:42] local.INFO: Category slug lookup (stored) result: USED MOTHERBOARD  
+[2025-09-27 19:44:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:44:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:44:48] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:44:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:44:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:44:48] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:44:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:44:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:44:48] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:44:50] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:44:59] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:45:01] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 19:45:01] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 19:45:01] local.INFO: Product route binding - Value: msi-a520m-a-pro-motherboard, Field: null  
+[2025-09-27 19:45:01] local.INFO: Product slug lookup - searching for: msi a520m a pro motherboard  
+[2025-09-27 19:45:01] local.INFO: Product slug lookup result: MSI A520M-A PRO MOTHERBOARD   
+[2025-09-27 19:45:01] local.INFO: ProductController@show - Category: BRAND NEW MOTHERBOARD (ID: 413), Product: MSI A520M-A PRO MOTHERBOARD  (ID: 461, Category: 383)  
+[2025-09-27 19:45:02] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:45:04] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:45:04] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:45:04] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:48:46] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 19:48:46] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 19:48:46] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 19:48:46] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 19:48:46] local.INFO: Product route binding - Value: msi-a520m-a-pro-motherboard, Field: null  
+[2025-09-27 19:48:46] local.INFO: Product slug lookup - searching for: msi a520m a pro motherboard  
+[2025-09-27 19:48:46] local.INFO: Product slug lookup result: MSI A520M-A PRO MOTHERBOARD   
+[2025-09-27 19:48:46] local.INFO: ProductController@show - Category: BRAND NEW MOTHERBOARD (ID: 413), Product: MSI A520M-A PRO MOTHERBOARD  (ID: 461, Category: 383)  
+[2025-09-27 19:48:46] local.INFO: Category route binding - Value: used-motherboard, Field: null  
+[2025-09-27 19:48:46] local.INFO: Category slug lookup (stored) result: USED MOTHERBOARD  
+[2025-09-27 19:48:47] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:48:47] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:48:47] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:48:47] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:48:47] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:48:47] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:48:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:48:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:48:48] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:48:48] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:48:48] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:48:48] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:49:20] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 19:49:20] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 19:49:20] local.INFO: Product route binding - Value: msi-a520m-a-pro-motherboard, Field: null  
+[2025-09-27 19:49:20] local.INFO: Product slug lookup - searching for: msi a520m a pro motherboard  
+[2025-09-27 19:49:20] local.INFO: Product slug lookup result: MSI A520M-A PRO MOTHERBOARD   
+[2025-09-27 19:49:20] local.INFO: ProductController@show - Category: BRAND NEW MOTHERBOARD (ID: 413), Product: MSI A520M-A PRO MOTHERBOARD  (ID: 461, Category: 383)  
+[2025-09-27 19:49:21] local.INFO: Category route binding - Value: used-motherboard, Field: null  
+[2025-09-27 19:49:21] local.INFO: Category slug lookup (stored) result: USED MOTHERBOARD  
+[2025-09-27 19:49:21] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 19:49:21] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 19:49:21] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:49:22] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:49:22] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:49:42] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 19:49:42] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 19:49:43] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 19:49:43] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 19:49:43] local.INFO: Product route binding - Value: msi-a520m-a-pro-motherboard, Field: null  
+[2025-09-27 19:49:43] local.INFO: Product slug lookup - searching for: msi a520m a pro motherboard  
+[2025-09-27 19:49:43] local.INFO: Product slug lookup result: MSI A520M-A PRO MOTHERBOARD   
+[2025-09-27 19:49:43] local.INFO: ProductController@show - Category: BRAND NEW MOTHERBOARD (ID: 413), Product: MSI A520M-A PRO MOTHERBOARD  (ID: 461, Category: 383)  
+[2025-09-27 19:49:43] local.INFO: Category route binding - Value: used-motherboard, Field: null  
+[2025-09-27 19:49:43] local.INFO: Category slug lookup (stored) result: USED MOTHERBOARD  
+[2025-09-27 19:49:43] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:49:44] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:49:44] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:49:46] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:49:46] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:49:46] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:50:03] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 19:50:03] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 19:50:04] local.INFO: Category route binding - Value: used-motherboard, Field: null  
+[2025-09-27 19:50:04] local.INFO: Category slug lookup (stored) result: USED MOTHERBOARD  
+[2025-09-27 19:50:04] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 19:50:04] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 19:50:04] local.INFO: Product route binding - Value: msi-a520m-a-pro-motherboard, Field: null  
+[2025-09-27 19:50:04] local.INFO: Product slug lookup - searching for: msi a520m a pro motherboard  
+[2025-09-27 19:50:04] local.INFO: Product slug lookup result: MSI A520M-A PRO MOTHERBOARD   
+[2025-09-27 19:50:04] local.INFO: ProductController@show - Category: BRAND NEW MOTHERBOARD (ID: 413), Product: MSI A520M-A PRO MOTHERBOARD  (ID: 461, Category: 383)  
+[2025-09-27 19:50:05] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:50:40] local.INFO: Category route binding - Value: used-motherboard, Field: null  
+[2025-09-27 19:50:40] local.INFO: Category slug lookup (stored) result: USED MOTHERBOARD  
+[2025-09-27 19:50:41] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 19:50:41] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 19:51:27] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-27 19:51:27] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-27 19:51:29] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-27 19:51:29] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-27 19:51:29] local.INFO: Product route binding - Value: msi-geforce-rtx-5050-ventus-2x-oc-8gb-gddr7x-graphics-card, Field: null  
+[2025-09-27 19:51:29] local.INFO: Product slug lookup - searching for: msi geforce rtx 5050 ventus 2x oc 8gb gddr7x graphics card  
+[2025-09-27 19:51:29] local.INFO: Product slug lookup result: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD  
+[2025-09-27 19:51:29] local.INFO: ProductController@show - Category: BRAND NEW GRAPHIC CARD (VGA) (ID: 415), Product: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD (ID: 3222, Category: 385)  
+[2025-09-27 19:51:33] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:51:37] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-27 19:51:37] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-27 19:51:37] local.INFO: Product route binding - Value: msi-geforce-rtx-5050-ventus-2x-oc-8gb-gddr7x-graphics-card, Field: null  
+[2025-09-27 19:51:37] local.INFO: Product slug lookup - searching for: msi geforce rtx 5050 ventus 2x oc 8gb gddr7x graphics card  
+[2025-09-27 19:51:37] local.INFO: Product slug lookup result: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD  
+[2025-09-27 19:51:37] local.INFO: ProductController@show - Category: BRAND NEW GRAPHIC CARD (VGA) (ID: 415), Product: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD (ID: 3222, Category: 385)  
+[2025-09-27 19:51:37] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:52:01] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:52:01] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:52:01] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:52:05] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:52:05] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:52:05] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:53:25] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:53:25] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:53:25] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:53:44] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:53:44] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:53:45] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:54:03] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:54:04] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:54:04] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:54:08] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:54:08] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:54:08] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:54:23] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:54:23] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:54:24] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:54:44] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:54:44] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:54:45] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:55:03] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:55:03] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:55:04] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:55:09] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 19:55:09] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 19:55:10] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:55:19] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:55:20] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:55:20] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:55:20] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:55:20] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:55:20] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:55:20] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:55:22] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:55:24] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:55:24] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:55:24] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:55:24] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:55:24] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:55:24] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:55:27] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:55:30] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:55:31] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:55:31] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:55:31] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:55:31] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:55:31] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:55:31] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:56:22] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:56:22] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:56:22] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:56:23] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 19:56:23] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 19:56:23] local.INFO: Category slug lookup result: not found  
+[2025-09-27 19:56:32] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:56:36] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:56:49] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:57:50] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 19:57:50] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 19:57:56] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 19:57:58] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 19:57:58] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 19:57:58] local.INFO: Product route binding - Value: amd-ryzen-5-5500-processor-not-sold-separately, Field: null  
+[2025-09-27 19:57:58] local.INFO: Product slug lookup - searching for: amd ryzen 5 5500 processor not sold separately  
+[2025-09-27 19:57:58] local.INFO: Product slug lookup result: AMD RYZEN 5 5500 PROCESSOR ( Not Sold Separately )  
+[2025-09-27 19:57:58] local.INFO: ProductController@show - Category: BRAND NEW PROCESSOR (ID: 412), Product: AMD RYZEN 5 5500 PROCESSOR ( Not Sold Separately ) (ID: 426, Category: 382)  
+[2025-09-27 19:57:59] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 20:02:19] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 20:02:19] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 20:02:19] local.INFO: Product route binding - Value: amd-ryzen-5-5500-processor-not-sold-separately, Field: null  
+[2025-09-27 20:02:19] local.INFO: Product slug lookup - searching for: amd ryzen 5 5500 processor not sold separately  
+[2025-09-27 20:02:19] local.INFO: Product slug lookup result: AMD RYZEN 5 5500 PROCESSOR ( Not Sold Separately )  
+[2025-09-27 20:02:19] local.INFO: ProductController@show - Category: BRAND NEW PROCESSOR (ID: 412), Product: AMD RYZEN 5 5500 PROCESSOR ( Not Sold Separately ) (ID: 426, Category: 382)  
+[2025-09-27 20:03:27] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 20:03:27] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 20:03:28] local.INFO: Cart add request: {"product_id":461,"quantity":1} 
+[2025-09-27 20:03:28] local.INFO: Product found: {"product":461} 
+[2025-09-27 20:03:30] local.INFO: Cart add request: {"product_id":3223,"quantity":1} 
+[2025-09-27 20:03:30] local.INFO: Product found: {"product":3223} 
+[2025-09-27 20:03:31] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:03:31] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:03:31] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:03:31] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:03:31] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:03:31] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:03:35] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:03:35] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:03:35] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:03:35] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:03:35] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:03:35] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:03:38] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 20:03:38] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 20:03:44] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:03:44] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:03:44] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:03:45] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:03:45] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:03:45] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:05:21] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:05:21] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:05:21] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:05:21] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:05:21] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:05:21] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:05:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:05:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:05:50] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:05:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:05:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:05:50] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:06:31] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:06:31] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:06:31] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:06:32] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:06:32] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:06:32] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:06:56] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:06:56] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:06:56] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:06:57] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:06:57] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:06:57] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:07:24] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:07:24] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:07:24] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:07:25] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:07:25] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:07:25] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:07:56] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:07:56] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:07:56] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:07:56] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:07:56] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:07:56] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:08:18] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:08:18] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:08:18] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:08:19] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:08:19] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:08:19] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:08:54] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:08:54] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:08:54] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:08:55] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:08:55] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:08:55] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:09:12] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:09:12] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:09:12] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:09:12] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:09:12] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:09:12] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:09:16] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 20:09:16] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 20:10:09] local.INFO: Cart add request: {"product_id":461,"quantity":1} 
+[2025-09-27 20:10:09] local.INFO: Product found: {"product":461} 
+[2025-09-27 20:10:10] local.INFO: Cart add request: {"product_id":3223,"quantity":1} 
+[2025-09-27 20:10:10] local.INFO: Product found: {"product":3223} 
+[2025-09-27 20:10:11] local.INFO: Cart add request: {"product_id":3059,"quantity":1} 
+[2025-09-27 20:10:11] local.INFO: Product found: {"product":3059} 
+[2025-09-27 20:10:16] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:10:16] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:10:16] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:10:16] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:10:16] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:10:16] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:10:18] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:10:18] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:10:18] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:10:18] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:10:18] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:10:18] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:11:42] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:11:42] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:11:42] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:11:42] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:11:42] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:11:42] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:12:02] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:12:02] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:12:02] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:12:03] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:12:03] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:12:03] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:12:22] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:12:22] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:12:22] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:12:22] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:12:23] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:12:23] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:12:55] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:12:55] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:12:55] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:12:56] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:12:56] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:12:56] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:13:14] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:13:14] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:13:14] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:13:15] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:13:15] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:13:15] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:13:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:13:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:13:50] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:13:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:13:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:13:50] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:15:09] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:15:09] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:15:09] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:15:10] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:15:10] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:15:10] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:15:26] local.INFO: Cart add request: {"product_id":815,"quantity":1} 
+[2025-09-27 20:15:26] local.INFO: Product found: {"product":815} 
+[2025-09-27 20:15:27] local.INFO: Cart add request: {"product_id":1316,"quantity":1} 
+[2025-09-27 20:15:27] local.INFO: Product found: {"product":1316} 
+[2025-09-27 20:15:28] local.INFO: Cart add request: {"product_id":2646,"quantity":1} 
+[2025-09-27 20:15:28] local.INFO: Product found: {"product":2646} 
+[2025-09-27 20:15:32] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:15:32] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:15:32] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:15:32] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:15:32] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:15:32] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:15:37] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:15:37] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:15:37] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:15:37] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:15:37] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:15:37] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:15:56] local.INFO: Category route binding - Value: brand-new-pc-build, Field: null  
+[2025-09-27 20:15:56] local.INFO: Category slug lookup (stored) result: BRAND NEW PC BUILD  
+[2025-09-27 20:15:57] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 20:16:16] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 20:16:16] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 20:16:16] local.INFO: FallbackController - Unknown URL: .well-known/appspecific/com.chrome.devtools.json  
+[2025-09-27 20:16:33] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 20:16:33] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 20:16:33] local.INFO: Product route binding - Value: msi-a520m-a-pro-motherboard, Field: null  
+[2025-09-27 20:16:33] local.INFO: Product slug lookup - searching for: msi a520m a pro motherboard  
+[2025-09-27 20:16:33] local.INFO: Product slug lookup result: MSI A520M-A PRO MOTHERBOARD   
+[2025-09-27 20:16:33] local.INFO: ProductController@show - Category: BRAND NEW MOTHERBOARD (ID: 413), Product: MSI A520M-A PRO MOTHERBOARD  (ID: 461, Category: 383)  
+[2025-09-27 20:18:09] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:18:09] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:18:09] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:18:16] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 20:18:16] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 20:18:33] local.INFO: Cart add request: {"product_id":3237,"quantity":1} 
+[2025-09-27 20:18:33] local.INFO: Product found: {"product":3237} 
+[2025-09-27 20:18:34] local.INFO: Cart add request: {"product_id":3236,"quantity":1} 
+[2025-09-27 20:18:34] local.INFO: Product found: {"product":3236} 
+[2025-09-27 20:18:34] local.INFO: Cart add request: {"product_id":3238,"quantity":1} 
+[2025-09-27 20:18:34] local.INFO: Product found: {"product":3238} 
+[2025-09-27 20:18:39] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:18:39] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:18:39] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:18:39] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:18:39] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:18:39] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:18:50] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:18:50] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:18:50] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:18:51] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:18:51] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:18:51] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:19:41] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:19:41] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:19:41] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:21:05] local.INFO: Category route binding - Value: brand-new-pc-build, Field: null  
+[2025-09-27 20:21:05] local.INFO: Category slug lookup (stored) result: BRAND NEW PC BUILD  
+[2025-09-27 20:21:18] local.INFO: Category route binding - Value: brand-new-memory-ram, Field: null  
+[2025-09-27 20:21:18] local.INFO: Category slug lookup (stored) result: BRAND NEW MEMORY (RAM)  
+[2025-09-27 20:21:23] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 20:21:23] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 20:21:25] local.INFO: Cart add request: {"product_id":3223,"quantity":1} 
+[2025-09-27 20:21:25] local.INFO: Product found: {"product":3223} 
+[2025-09-27 20:21:27] local.INFO: Cart add request: {"product_id":2843,"quantity":1} 
+[2025-09-27 20:21:27] local.INFO: Product found: {"product":2843} 
+[2025-09-27 20:21:28] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 20:21:28] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 20:21:28] local.INFO: Product route binding - Value: msi-pro-b840m-p-ddr5-wi-fi6e-motherboard, Field: null  
+[2025-09-27 20:21:28] local.INFO: Product slug lookup - searching for: msi pro b840m p ddr5 wi fi6e motherboard  
+[2025-09-27 20:21:28] local.INFO: Product slug lookup result: MSI PRO B840M P DDR5 (WI-FI6E) MOTHERBOARD  
+[2025-09-27 20:21:28] local.INFO: ProductController@show - Category: BRAND NEW MOTHERBOARD (ID: 413), Product: MSI PRO B840M P DDR5 (WI-FI6E) MOTHERBOARD (ID: 3223, Category: 383)  
+[2025-09-27 20:21:34] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:21:34] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:21:34] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:21:35] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:21:35] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:21:35] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:21:37] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:21:37] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:21:37] local.INFO: Category slug lookup result: not found  
+[2025-09-27 20:21:37] local.INFO: Category route binding - Value: cart, Field: null  
+[2025-09-27 20:21:37] local.INFO: Category slug lookup - searching for: cart  
+[2025-09-27 20:21:37] local.INFO: Category slug lookup result: not found  
+[2025-09-27 21:02:20] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 21:02:20] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 21:02:22] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 21:02:22] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 21:06:28] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 21:06:28] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 21:06:30] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 21:06:30] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 21:06:30] local.INFO: Product route binding - Value: msi-a520m-a-pro-motherboard, Field: null  
+[2025-09-27 21:06:30] local.INFO: Product slug lookup - searching for: msi a520m a pro motherboard  
+[2025-09-27 21:06:30] local.INFO: Product slug lookup result: MSI A520M-A PRO MOTHERBOARD   
+[2025-09-27 21:06:30] local.INFO: ProductController@show - Category: BRAND NEW MOTHERBOARD (ID: 413), Product: MSI A520M-A PRO MOTHERBOARD  (ID: 461, Category: 383)  
+[2025-09-27 21:06:41] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 21:06:41] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 21:06:41] local.INFO: Product route binding - Value: msi-a520m-a-pro-motherboard, Field: null  
+[2025-09-27 21:06:41] local.INFO: Product slug lookup - searching for: msi a520m a pro motherboard  
+[2025-09-27 21:06:41] local.INFO: Product slug lookup result: MSI A520M-A PRO MOTHERBOARD   
+[2025-09-27 21:06:41] local.INFO: ProductController@show - Category: BRAND NEW MOTHERBOARD (ID: 413), Product: MSI A520M-A PRO MOTHERBOARD  (ID: 461, Category: 383)  
+[2025-09-27 21:07:04] local.INFO: Category route binding - Value: brand-new-motherboard, Field: null  
+[2025-09-27 21:07:05] local.INFO: Category slug lookup (stored) result: BRAND NEW MOTHERBOARD  
+[2025-09-27 21:07:05] local.INFO: Product route binding - Value: msi-a520m-a-pro-motherboard, Field: null  
+[2025-09-27 21:07:05] local.INFO: Product slug lookup - searching for: msi a520m a pro motherboard  
+[2025-09-27 21:07:05] local.INFO: Product slug lookup result: MSI A520M-A PRO MOTHERBOARD   
+[2025-09-27 21:07:05] local.INFO: ProductController@show - Category: BRAND NEW MOTHERBOARD (ID: 413), Product: MSI A520M-A PRO MOTHERBOARD  (ID: 461, Category: 383)  
+[2025-09-27 21:08:30] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 21:08:30] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 21:08:31] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 21:08:31] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 21:08:31] local.INFO: Product route binding - Value: amd-ryzen-5-5500-processor-not-sold-separately, Field: null  
+[2025-09-27 21:08:31] local.INFO: Product slug lookup - searching for: amd ryzen 5 5500 processor not sold separately  
+[2025-09-27 21:08:31] local.INFO: Product slug lookup result: AMD RYZEN 5 5500 PROCESSOR ( Not Sold Separately )  
+[2025-09-27 21:08:31] local.INFO: ProductController@show - Category: BRAND NEW PROCESSOR (ID: 412), Product: AMD RYZEN 5 5500 PROCESSOR ( Not Sold Separately ) (ID: 426, Category: 382)  
+[2025-09-27 21:21:55] local.INFO: Category route binding - Value: brand-new-pc-build, Field: null  
+[2025-09-27 21:21:55] local.INFO: Category slug lookup (stored) result: BRAND NEW PC BUILD  
+[2025-09-27 21:22:05] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 21:22:05] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 21:22:07] local.INFO: Category route binding - Value: brand-new-processor, Field: null  
+[2025-09-27 21:22:07] local.INFO: Category slug lookup (stored) result: BRAND NEW PROCESSOR  
+[2025-09-27 21:22:07] local.INFO: Product route binding - Value: amd-ryzen-5-5500-processor-not-sold-separately, Field: null  
+[2025-09-27 21:22:07] local.INFO: Product slug lookup - searching for: amd ryzen 5 5500 processor not sold separately  
+[2025-09-27 21:22:07] local.INFO: Product slug lookup result: AMD RYZEN 5 5500 PROCESSOR ( Not Sold Separately )  
+[2025-09-27 21:22:07] local.INFO: ProductController@show - Category: BRAND NEW PROCESSOR (ID: 412), Product: AMD RYZEN 5 5500 PROCESSOR ( Not Sold Separately ) (ID: 426, Category: 382)  
+[2025-09-27 21:23:05] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-27 21:23:05] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-27 21:23:07] local.INFO: Category route binding - Value: brand-new-graphic-card-vga, Field: null  
+[2025-09-27 21:23:07] local.INFO: Category slug lookup (stored) result: BRAND NEW GRAPHIC CARD (VGA)  
+[2025-09-27 21:23:07] local.INFO: Product route binding - Value: msi-geforce-rtx-5050-ventus-2x-oc-8gb-gddr7x-graphics-card, Field: null  
+[2025-09-27 21:23:07] local.INFO: Product slug lookup - searching for: msi geforce rtx 5050 ventus 2x oc 8gb gddr7x graphics card  
+[2025-09-27 21:23:07] local.INFO: Product slug lookup result: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD  
+[2025-09-27 21:23:07] local.INFO: ProductController@show - Category: BRAND NEW GRAPHIC CARD (VGA) (ID: 415), Product: MSI GEFORCE RTX 5050 VENTUS 2X OC 8GB GDDR7X GRAPHICS CARD (ID: 3222, Category: 385)  
+[2025-09-27 21:28:55] local.INFO: Category route binding - Value: gaming-pc, Field: null  
+[2025-09-27 21:28:55] local.INFO: Category slug lookup - searching for: gaming pc  
+[2025-09-27 21:28:55] local.INFO: Category slug lookup result: not found  
+[2025-09-27 21:31:14] local.INFO: Category route binding - Value: gaming-pc, Field: null  
+[2025-09-27 21:31:14] local.INFO: Category slug lookup - searching for: gaming pc  
+[2025-09-27 21:31:14] local.INFO: Category slug lookup result: not found  
+[2025-09-27 21:31:15] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 21:31:15] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 21:31:16] local.INFO: Category route binding - Value: computer-parts, Field: null  
+[2025-09-27 21:31:16] local.INFO: Category slug lookup - searching for: computer parts  
+[2025-09-27 21:31:16] local.INFO: Category slug lookup result: not found  
+[2025-09-27 21:32:18] local.INFO: Category route binding - Value: gaming-pc, Field: null  
+[2025-09-27 21:32:18] local.INFO: Category slug lookup - searching for: gaming pc  
+[2025-09-27 21:32:18] local.INFO: Category slug lookup result: not found  
+[2025-09-27 21:32:19] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 21:32:19] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 21:32:20] local.INFO: Category route binding - Value: computer-parts, Field: null  
+[2025-09-27 21:32:20] local.INFO: Category slug lookup - searching for: computer parts  
+[2025-09-27 21:32:20] local.INFO: Category slug lookup result: not found  
+[2025-09-27 21:40:31] local.INFO: Category route binding - Value: gaming-pc, Field: null  
+[2025-09-27 21:40:31] local.INFO: Category slug lookup - searching for: gaming pc  
+[2025-09-27 21:40:31] local.INFO: Category slug lookup result: not found  
+[2025-09-27 21:41:30] local.INFO: Category route binding - Value: brand-new-pc-build, Field: null  
+[2025-09-27 21:41:30] local.INFO: Category slug lookup (stored) result: BRAND NEW PC BUILD  
+[2025-09-27 21:41:34] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 21:41:35] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 21:41:56] local.INFO: Category route binding - Value: keyboard-and-mouse, Field: null  
+[2025-09-27 21:41:56] local.INFO: Category slug lookup (stored) result: KEYBOARD & MOUSE  
+[2025-09-27 21:51:05] local.INFO: Category route binding - Value: brand-new-pc-build, Field: null  
+[2025-09-27 21:51:05] local.INFO: Category slug lookup (stored) result: BRAND NEW PC BUILD  
+[2025-09-27 21:51:06] local.INFO: Category route binding - Value: brand-new-laptop, Field: null  
+[2025-09-27 21:51:06] local.INFO: Category slug lookup (stored) result: BRAND NEW LAPTOP  
+[2025-09-27 21:51:06] local.INFO: Category route binding - Value: keyboard-and-mouse, Field: null  
+[2025-09-27 21:51:06] local.INFO: Category slug lookup (stored) result: KEYBOARD & MOUSE  

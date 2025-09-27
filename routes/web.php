@@ -292,7 +292,6 @@ Route::get('/{category}/{product}', [ProductController::class, 'show'])->name('p
 // Cart Routes
 Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
-    Route::get('/count', [CartController::class, 'count'])->name('count');
     Route::post('/add', [CartController::class, 'add'])->name('add');
     Route::put('/update/{cart}', [CartController::class, 'update'])->name('update');
     Route::delete('/remove/{cart}', [CartController::class, 'remove'])->name('remove');
