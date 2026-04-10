@@ -13,49 +13,53 @@ return [
     */
 
     'main_categories' => [
-        // Primary Categories (1-11)
-        'PC BUILD' => 1,
-        'LAPTOP' => 2,
-        'PROCESSOR' => 3,
-        'MOTHERBOARD' => 4,
-        'MEMORY (RAM)' => 5,
-        'GRAPHIC CARD (VGA)' => 6,
-        'POWER SUPPLY' => 7,
-        'UPS & BATTERIES' => 8,
-        'STORAGE(HDD,SSD,NVME)' => 9,
-        'COOLING (FAN,AIR,LIQUID)' => 10,
-        'CASING' => 11,
+        // Featured brands (top priority)
+        'BASEUS' => 0,
+        'UGREEN' => 1,
+
+        // Primary Categories (2-12)
+        'PC BUILD' => 2,
+        'LAPTOP' => 3,
+        'PROCESSOR' => 4,
+        'MOTHERBOARD' => 5,
+        'MEMORY (RAM)' => 6,
+        'GRAPHIC CARD (VGA)' => 7,
+        'POWER SUPPLY' => 8,
+        'UPS & BATTERIES' => 9,
+        'STORAGE(HDD,SSD,NVME)' => 10,
+        'COOLING (FAN,AIR,LIQUID)' => 11,
+        'CASING' => 12,
         
-        // Peripherals & Accessories (12-17)
-        'MONITORS & ACCESSORIES' => 12,
-        'KEYBOARD & MOUSE' => 13,
-        'SPEAKERS & HEADPHONES' => 14,
-        'WEB CAM & MIC' => 15,
-        'GAMING CHAIRS & TABLES' => 16,
-        'GAMING CONTROLLERS' => 17,
+        // Peripherals & Accessories (13-18)
+        'MONITORS & ACCESSORIES' => 13,
+        'KEYBOARD & MOUSE' => 14,
+        'SPEAKERS & HEADPHONES' => 15,
+        'WEB CAM & MIC' => 16,
+        'GAMING CHAIRS & TABLES' => 17,
+        'GAMING CONTROLLERS' => 18,
         
-        // Mobile & Networking (18-20)
-        'MOBILE ACCESSORIES' => 18,
-        'CABLES & CONVERTORS' => 19,
-        'EXPANSION CARDS AND NETWORKING' => 20,
+        // Mobile & Networking (19-21)
+        'MOBILE ACCESSORIES' => 19,
+        'CABLES & CONVERTORS' => 20,
+        'EXPANSION CARDS AND NETWORKING' => 21,
         
-        // Laptop & External (21-22)
-        'LAPTOP ACCESSORIES' => 21,
-        'EXTERNAL (PEN,SSD,HDD)' => 22,
+        // Laptop & External (22-23)
+        'LAPTOP ACCESSORIES' => 22,
+        'EXTERNAL (PEN,SSD,HDD)' => 23,
         
-        // Other Categories (23-34)
-        'PRINTERS' => 23,
-        'SOFTWARE & GAMES' => 24,
-        'OPTICAL DRIVES' => 25,
-        'SUBWOOFERS' => 26,
-        'STUDIO & RECORDING' => 27,
-        'SPORTS' => 28,
-        'TOYS' => 29,
-        'TELEVITION' => 30,
-        'PHONES' => 31,
-        'SERVICES' => 32,
-        'VOUCHERS' => 33,
-        'OTHER' => 34,
+        // Other Categories (24-35)
+        'PRINTERS' => 24,
+        'SOFTWARE & GAMES' => 25,
+        'OPTICAL DRIVES' => 26,
+        'SUBWOOFERS' => 27,
+        'STUDIO & RECORDING' => 28,
+        'SPORTS' => 29,
+        'TOYS' => 30,
+        'TELEVITION' => 31,
+        'PHONES' => 32,
+        'SERVICES' => 33,
+        'VOUCHERS' => 34,
+        'OTHER' => 35,
     ],
 
     'subcategory_ordering' => [
@@ -120,6 +124,9 @@ return [
         'SPORTS' => [
             'RC Products' => 1,
             'GEL BLASTERS' => 2,
+        ],
+        'UGREEN' => [
+            'Type C Cable' => 1,
         ],
     ],
 

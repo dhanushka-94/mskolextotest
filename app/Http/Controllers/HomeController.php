@@ -79,6 +79,75 @@ class HomeController extends Controller
             $happyCustomerImages = array_values($happyCustomerImages);
         }
 
-        return view('home', compact('promotionProducts', 'categories', 'latestProducts', 'sliders', 'happyCustomerImages'));
+        $brandShowcase = $this->brandShowcaseCategories();
+
+        return view('home', compact('promotionProducts', 'categories', 'latestProducts', 'sliders', 'happyCustomerImages', 'brandShowcase'));
+    }
+
+    /**
+     * Baseus & Ugreen for homepage (SEO-friendly URLs from live categories).
+     */
+    private function brandShowcaseCategories(): array
+    {
+        $order = ['BASEUS', 'UGREEN'];
+
+        $categories = SmaCategory::query()
+            ->whereIn('name', $order)
+            ->where(function ($q) {
+                $q->whereNull('parent_id')
+                    ->orWhere('parent_id', '')
+                    ->orWhere('parent_id', 0);
+            })
+            ->with(['subcategories' => function ($q) {
+                $q->select(['id', 'name', 'slug', 'parent_id'])
+                    ->orderBy('name');
+            }])
+            ->get()
+            ->keyBy(fn ($c) => strtoupper(trim($c->name)));
+
+        $fallbacks = [
+            'BASEUS' => ['slug' => 'baseus', 'id' => 510],
+            'UGREEN' => ['slug' => 'ugreen', 'id' => 512],
+        ];
+
+        $result = [];
+        foreach ($order as $name) {
+            $cat = $categories->get($name);
+            $fb = $fallbacks[$name] ?? null;
+
+            $key = strtolower($name);
+            $url = $cat
+                ? route('categories.show', $cat->slug ?: $cat->id)
+                : ($fb ? route('categories.show', $fb['slug'] ?: $fb['id']) : '#');
+
+            $subs = [];
+            if ($cat && $cat->subcategories->isNotEmpty()) {
+                foreach ($cat->subcategories as $sub) {
+                    $subs[] = [
+                        'name' => $sub->name,
+                        'url' => route('categories.show', $sub->slug ?: $sub->id),
+                    ];
+                }
+            } elseif ($name === 'UGREEN' && ! $cat) {
+                $subs[] = [
+                    'name' => 'Type C Cable',
+                    'url' => route('categories.show', 'type-c-cable'),
+                ];
+            } elseif ($name === 'BASEUS' && ! $cat) {
+                $subs[] = [
+                    'name' => 'Power Bank',
+                    'url' => route('categories.show', 'power-bank'),
+                ];
+            }
+
+            $result[] = [
+                'key' => $key,
+                'name' => $cat?->name ?? $name,
+                'url' => $url,
+                'subcategories' => $subs,
+            ];
+        }
+
+        return $result;
     }
 }

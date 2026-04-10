@@ -8,19 +8,71 @@
 @section('og_type', 'product.group')
 
 @section('content')
+@php
+    $isBaseusCategory = strtoupper(trim($category->name)) === 'BASEUS' || (optional($category->parent)->name && strtoupper(trim(optional($category->parent)->name)) === 'BASEUS');
+    $isUgreenCategory = strtoupper(trim($category->name)) === 'UGREEN' || (optional($category->parent)->name && strtoupper(trim(optional($category->parent)->name)) === 'UGREEN');
+@endphp
 <!-- Compact Category Header -->
-<section class="relative bg-[#0f0f0f] border-b border-gray-800/30 py-4 md:py-6">
+<section class="relative bg-[#0f0f0f] border-b border-gray-800/30 py-4 md:py-6 {{ $isBaseusCategory ? 'baseus-category-theme' : ($isUgreenCategory ? 'ugreen-category-theme' : '') }}">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumb -->
         <nav class="mb-3 md:mb-4">
             <ol class="flex items-center space-x-1 md:space-x-2 text-xs text-gray-500 overflow-x-auto">
-                <li><a href="{{ route('home') }}" class="hover:text-[#f59e0b] transition-colors whitespace-nowrap">Home</a></li>
+                <li><a href="{{ route('home') }}" class="{{ $isBaseusCategory ? 'hover:text-[#facc15]' : ($isUgreenCategory ? 'hover:text-[#5ee9a8]' : 'hover:text-[#f59e0b]') }} transition-colors whitespace-nowrap">Home</a></li>
                 <li><span class="mx-1">/</span></li>
-                <li><a href="{{ route('categories.index') }}" class="hover:text-[#f59e0b] transition-colors whitespace-nowrap">Categories</a></li>
+                <li><a href="{{ route('categories.index') }}" class="{{ $isBaseusCategory ? 'hover:text-[#facc15]' : ($isUgreenCategory ? 'hover:text-[#5ee9a8]' : 'hover:text-[#f59e0b]') }} transition-colors whitespace-nowrap">Categories</a></li>
                 <li><span class="mx-1">/</span></li>
-                <li class="text-[#f59e0b] font-medium truncate">{{ $category->name }}</li>
+                <li class="{{ $isBaseusCategory ? 'text-[#facc15]' : ($isUgreenCategory ? 'text-[#5ee9a8]' : 'text-[#f59e0b]') }} font-medium truncate">{{ $category->name }}</li>
             </ol>
         </nav>
+
+        @if($isBaseusCategory)
+            <div class="mb-3 md:mb-4 bg-gradient-to-r from-[#facc15]/20 via-[#fde047]/10 to-[#facc15]/20 border border-[#facc15]/40 rounded-lg p-3">
+                <div class="flex items-center gap-3">
+                    <img src="{{ asset('images/baseus_logo.png') }}" alt="Baseus" class="h-8 md:h-10 w-auto object-contain">
+                    <div>
+                        <h3 class="text-[#facc15] font-semibold text-sm md:text-base">Official Baseus Collection</h3>
+                        <p class="text-yellow-100/80 text-xs md:text-sm">Premium Baseus accessories with trusted MSK support and warranty.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 md:mb-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div class="rounded-lg border border-[#facc15]/35 bg-[#facc15]/10 px-3 py-2 text-xs text-yellow-100/90">
+                    <span class="font-semibold text-[#fde047]">Premium Design</span> - Modern accessories for daily use
+                </div>
+                <div class="rounded-lg border border-[#facc15]/35 bg-[#facc15]/10 px-3 py-2 text-xs text-yellow-100/90">
+                    <span class="font-semibold text-[#fde047]">Fast Charging</span> - Reliable and safe power delivery
+                </div>
+                <div class="rounded-lg border border-[#facc15]/35 bg-[#facc15]/10 px-3 py-2 text-xs text-yellow-100/90">
+                    <span class="font-semibold text-[#fde047]">MSK Warranty</span> - Local support and trusted service
+                </div>
+            </div>
+        @elseif($isUgreenCategory)
+            <div class="mb-3 md:mb-4 bg-gradient-to-r from-[#00c65e]/18 via-emerald-500/10 to-[#00c65e]/18 border border-[#00c65e]/40 rounded-lg p-3">
+                <div class="flex items-center gap-3">
+                    <div class="flex-shrink-0 rounded-lg bg-black/35 border border-[#00c65e]/35 p-2 flex items-center justify-center shadow-lg shadow-emerald-900/25">
+                        <img src="{{ asset('images/ugreen_logo.svg') }}" alt="Ugreen — official accessories at MSK Computers Sri Lanka" width="140" height="40" class="h-8 md:h-10 w-auto object-contain" loading="lazy" decoding="async">
+                    </div>
+                    <div>
+                        <h3 class="text-[#5ee9a8] font-semibold text-sm md:text-base">Official UGREEN Collection</h3>
+                        <p class="text-emerald-100/80 text-xs md:text-sm">Quality cables &amp; accessories — MSK Computers authorized range.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 md:mb-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div class="rounded-lg border border-[#00c65e]/35 bg-[#00c65e]/10 px-3 py-2 text-xs text-emerald-100/90">
+                    <span class="font-semibold text-[#5ee9a8]">Certified quality</span> - Built for durability &amp; safety
+                </div>
+                <div class="rounded-lg border border-[#00c65e]/35 bg-[#00c65e]/10 px-3 py-2 text-xs text-emerald-100/90">
+                    <span class="font-semibold text-[#5ee9a8]">Fast data &amp; charging</span> - USB-C &amp; connectivity
+                </div>
+                <div class="rounded-lg border border-[#00c65e]/35 bg-[#00c65e]/10 px-3 py-2 text-xs text-emerald-100/90">
+                    <span class="font-semibold text-[#5ee9a8]">MSK support</span> - Local warranty &amp; service
+                </div>
+            </div>
+        @endif
         
         <!-- Laptop Expert Banner (Show only for laptop-related categories) -->
         @if(str_contains(strtolower($category->name), 'laptop'))
@@ -71,13 +123,19 @@
         <div class="flex items-center justify-between">
             <!-- Category Info -->
             <div class="flex items-center gap-3 md:gap-4 min-w-0 flex-1">
-                <div class="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-4 h-4 md:w-6 md:h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+                <div class="w-8 h-8 md:w-10 md:h-10 {{ $isBaseusCategory ? 'bg-gradient-to-br from-[#facc15] to-[#eab308]' : ($isUgreenCategory ? 'bg-gradient-to-br from-[#00c65e] to-emerald-700' : 'bg-gradient-to-br from-[#f59e0b] to-[#d97706]') }} rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    @if($isBaseusCategory)
+                        <img src="{{ asset('images/baseus_logo.png') }}" alt="Baseus" class="h-6 md:h-7 w-auto object-contain">
+                    @elseif($isUgreenCategory)
+                        <img src="{{ asset('images/ugreen_logo.svg') }}" alt="Ugreen" class="h-6 md:h-7 w-auto max-w-[2.75rem] object-contain" width="44" height="28" loading="lazy" decoding="async">
+                    @else
+                        <svg class="w-4 h-4 md:w-6 md:h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    @endif
                 </div>
                 <div class="min-w-0 flex-1">
-                    <h1 class="text-lg md:text-2xl font-bold text-white truncate">{{ $category->name }}</h1>
+                    <h1 class="text-lg md:text-2xl font-bold {{ $isBaseusCategory ? 'text-[#fde047]' : ($isUgreenCategory ? 'text-[#5ee9a8]' : 'text-white') }} truncate">{{ $category->name }}</h1>
                     <p class="text-xs md:text-sm text-gray-400">{{ $products->total() }} products available</p>
                 </div>
             </div>
@@ -86,14 +144,14 @@
 </section>
 
 <!-- Products Section -->
-<section class="py-8 md:py-16 bg-black min-h-screen">
+<section class="py-8 md:py-16 bg-black min-h-screen {{ $isBaseusCategory ? 'baseus-products-theme' : ($isUgreenCategory ? 'ugreen-products-theme' : '') }}">
     <div class="w-full px-4 sm:px-6 lg:px-8">
         
         <!-- Mobile Filter Toggle -->
         <div class="lg:hidden mb-4">
             <button id="mobile-filter-toggle" class="w-full bg-[#1c1c1e] border border-gray-800/30 rounded-lg px-4 py-3 flex items-center justify-between text-white hover:bg-[#2c2c2e] transition-colors">
                 <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5 text-[#f59e0b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 {{ $isBaseusCategory ? 'text-[#facc15]' : ($isUgreenCategory ? 'text-[#00c65e]' : 'text-[#f59e0b]') }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z"/>
                     </svg>
                     <span class="font-medium">Filters & Sort</span>
@@ -423,6 +481,134 @@
 
 @push('styles')
 <style>
+    .baseus-category-theme {
+        background: linear-gradient(180deg, #111111 0%, #1a1606 100%);
+        border-bottom-color: rgba(250, 204, 21, 0.25) !important;
+    }
+
+    /* Brand accent adjustments for Baseus category pages only */
+    .baseus-category-theme + section .product-card:hover {
+        border-color: rgba(250, 204, 21, 0.4) !important;
+        box-shadow: 0 10px 30px rgba(250, 204, 21, 0.12) !important;
+    }
+
+    .baseus-category-theme + section .text-\[\#f59e0b\],
+    .baseus-category-theme + section .group-hover\:text-\[\#f59e0b\]:hover {
+        color: #facc15 !important;
+    }
+
+    .baseus-category-theme + section .hover\:bg-\[\#f59e0b\]:hover {
+        background-color: #facc15 !important;
+        border-color: #facc15 !important;
+        color: #111827 !important;
+    }
+
+    .baseus-products-theme #mobile-filter-toggle,
+    .baseus-products-theme #filter-sidebar > div,
+    .baseus-products-theme .bg-\[\#1c1c1e\].rounded-lg.border,
+    .baseus-products-theme .bg-\[\#1c1c1e\].rounded-xl.border {
+        border-color: rgba(250, 204, 21, 0.22) !important;
+    }
+
+    .baseus-products-theme #mobile-filter-toggle svg,
+    .baseus-products-theme #clear-filters:hover,
+    .baseus-products-theme #reset-price:hover {
+        color: #facc15 !important;
+    }
+
+    .baseus-products-theme .price-range-track-active {
+        background: linear-gradient(90deg, #facc15, #eab308) !important;
+    }
+
+    .baseus-products-theme .price-range-input::-webkit-slider-thumb,
+    .baseus-products-theme .price-range-input::-moz-range-thumb {
+        background: #facc15 !important;
+        box-shadow: 0 4px 12px rgba(250, 204, 21, 0.35), 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .baseus-products-theme .quick-price-btn:hover,
+    .baseus-products-theme .quick-price-btn.active {
+        background: #facc15 !important;
+        border-color: #facc15 !important;
+        color: #111827 !important;
+        box-shadow: 0 4px 10px rgba(250, 204, 21, 0.25) !important;
+    }
+
+    .baseus-products-theme .product-card .bg-gradient-to-r.from-primary-500\/15.to-amber-500\/15 {
+        background: linear-gradient(90deg, rgba(250, 204, 21, 0.22), rgba(234, 179, 8, 0.18)) !important;
+        border-color: rgba(250, 204, 21, 0.55) !important;
+        color: #fde68a !important;
+    }
+
+    .baseus-products-theme .product-card .bg-gradient-to-r.from-primary-500\/15.to-amber-500\/15:hover {
+        background: linear-gradient(90deg, rgba(250, 204, 21, 0.32), rgba(234, 179, 8, 0.24)) !important;
+        box-shadow: 0 10px 24px rgba(250, 204, 21, 0.2) !important;
+    }
+
+    /* UGREEN brand (category + listing page) */
+    .ugreen-category-theme {
+        background: linear-gradient(180deg, #0f1412 0%, #0a1f16 100%);
+        border-bottom-color: rgba(0, 198, 94, 0.28) !important;
+    }
+
+    .ugreen-category-theme + section .product-card:hover {
+        border-color: rgba(0, 198, 94, 0.45) !important;
+        box-shadow: 0 10px 30px rgba(0, 198, 94, 0.14) !important;
+    }
+
+    .ugreen-category-theme + section .text-\[\#f59e0b\],
+    .ugreen-category-theme + section .group-hover\:text-\[\#f59e0b\]:hover {
+        color: #5ee9a8 !important;
+    }
+
+    .ugreen-category-theme + section .hover\:bg-\[\#f59e0b\]:hover {
+        background-color: #00c65e !important;
+        border-color: #00c65e !important;
+        color: #052e16 !important;
+    }
+
+    .ugreen-products-theme #mobile-filter-toggle,
+    .ugreen-products-theme #filter-sidebar > div,
+    .ugreen-products-theme .bg-\[\#1c1c1e\].rounded-lg.border,
+    .ugreen-products-theme .bg-\[\#1c1c1e\].rounded-xl.border {
+        border-color: rgba(0, 198, 94, 0.22) !important;
+    }
+
+    .ugreen-products-theme #mobile-filter-toggle svg:first-of-type,
+    .ugreen-products-theme #clear-filters:hover,
+    .ugreen-products-theme #reset-price:hover {
+        color: #00c65e !important;
+    }
+
+    .ugreen-products-theme .price-range-track-active {
+        background: linear-gradient(90deg, #00c65e, #059669) !important;
+    }
+
+    .ugreen-products-theme .price-range-input::-webkit-slider-thumb,
+    .ugreen-products-theme .price-range-input::-moz-range-thumb {
+        background: #00c65e !important;
+        box-shadow: 0 4px 12px rgba(0, 198, 94, 0.35), 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .ugreen-products-theme .quick-price-btn:hover,
+    .ugreen-products-theme .quick-price-btn.active {
+        background: #00c65e !important;
+        border-color: #00c65e !important;
+        color: #052e16 !important;
+        box-shadow: 0 4px 10px rgba(0, 198, 94, 0.25) !important;
+    }
+
+    .ugreen-products-theme .product-card .bg-gradient-to-r.from-primary-500\/15.to-amber-500\/15 {
+        background: linear-gradient(90deg, rgba(0, 198, 94, 0.22), rgba(5, 150, 105, 0.18)) !important;
+        border-color: rgba(0, 198, 94, 0.5) !important;
+        color: #a7f3d0 !important;
+    }
+
+    .ugreen-products-theme .product-card .bg-gradient-to-r.from-primary-500\/15.to-amber-500\/15:hover {
+        background: linear-gradient(90deg, rgba(0, 198, 94, 0.32), rgba(5, 150, 105, 0.26)) !important;
+        box-shadow: 0 10px 24px rgba(0, 198, 94, 0.18) !important;
+    }
+
     /* 4:3 aspect ratio for product images */
     .aspect-\[4\/3\] {
         aspect-ratio: 4 / 3;

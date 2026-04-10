@@ -29,6 +29,8 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
 
+    @stack('structured_data')
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KKQL508WYS"></script>
     <script>
@@ -431,15 +433,35 @@
                             <!-- Categories List with Scrolling -->
                             <div class="py-2 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
                                 @foreach($menuCategories as $category)
+                                    @php
+                                        $isBaseusCategory = strtoupper(trim($category->name)) === 'BASEUS';
+                                        $isUgreenCategory = strtoupper(trim($category->name)) === 'UGREEN';
+                                        $menuFeaturedRow = $isBaseusCategory
+                                            ? 'bg-primary-500/15 border border-primary-400/50 rounded-lg text-primary-300'
+                                            : ($isUgreenCategory
+                                                ? 'bg-emerald-500/15 border border-[#00c65e]/45 rounded-lg text-emerald-200'
+                                                : 'text-gray-300');
+                                        $menuFeaturedLink = $isBaseusCategory
+                                            ? 'bg-primary-500/15 border border-primary-400/50 rounded-lg text-primary-300 hover:bg-primary-500/20'
+                                            : ($isUgreenCategory
+                                                ? 'bg-emerald-500/15 border border-[#00c65e]/45 rounded-lg text-emerald-200 hover:bg-emerald-500/25'
+                                                : 'text-gray-300 hover:bg-gray-900 hover:text-primary-400');
+                                        $menuCatIcon = $isUgreenCategory ? 'text-emerald-400' : 'text-primary-400';
+                                    @endphp
                                     <!-- Main Category -->
                                     <div class="mb-1">
                                         @if($category->subcategories->count() > 0)
                                             <!-- Main Category with Subcategories (Non-clickable) -->
-                                            <div class="flex items-center px-4 py-2 text-gray-300 cursor-default">
-                                                <svg class="w-4 h-4 mr-3 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
+                                            <div class="flex items-center px-4 py-2 cursor-default {{ $menuFeaturedRow }}">
+                                                <svg class="w-4 h-4 mr-3 {{ $menuCatIcon }}" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
                                                 </svg>
                                                 <span class="font-medium text-sm">{{ $category->name }}</span>
+                                                @if($isBaseusCategory)
+                                                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary-500 text-black">Featured</span>
+                                                @elseif($isUgreenCategory)
+                                                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#00c65e] text-white">UGREEN</span>
+                                                @endif
                                                 <svg class="w-3 h-3 ml-auto text-gray-500" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
                                                 </svg>
@@ -447,11 +469,16 @@
                                         @else
                                             <!-- Main Category without Subcategories (Clickable) -->
                                             <a href="{{ route('categories.show', $category->slug ?: $category->id) }}" 
-                                               class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-900 hover:text-primary-400 transition-colors group">
-                                                <svg class="w-4 h-4 mr-3 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
+                                               class="flex items-center px-4 py-2 transition-colors group {{ $menuFeaturedLink }}">
+                                                <svg class="w-4 h-4 mr-3 {{ $menuCatIcon }}" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
                                                 </svg>
                                                 <span class="font-medium text-sm">{{ $category->name }}</span>
+                                                @if($isBaseusCategory)
+                                                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary-500 text-black">Featured</span>
+                                                @elseif($isUgreenCategory)
+                                                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#00c65e] text-white">UGREEN</span>
+                                                @endif
                                             </a>
                                         @endif
                                         
@@ -460,8 +487,8 @@
                                             <div class="ml-6 mt-1 space-y-1">
                                                 @foreach($category->subcategories as $subcategory)
                                                     <a href="{{ route('categories.show', $subcategory->slug ?: $subcategory->id) }}" 
-                                                       class="flex items-center px-4 py-1.5 text-gray-400 hover:bg-gray-900 hover:text-primary-400 transition-colors text-sm group">
-                                                            <svg class="w-3 h-3 mr-3 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                                                       class="flex items-center px-4 py-1.5 text-sm group transition-colors {{ $isUgreenCategory ? 'text-emerald-200/80 hover:bg-emerald-950/50 hover:text-[#5ee9a8]' : 'text-gray-400 hover:bg-gray-900 hover:text-primary-400' }}">
+                                                            <svg class="w-3 h-3 mr-3 {{ $isUgreenCategory ? 'text-emerald-500/80' : 'text-gray-600' }}" fill="currentColor" viewBox="0 0 24 24">
                                                                 <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
                                                             </svg>
                                                             <span>{{ $subcategory->name }}</span>
@@ -569,16 +596,36 @@
 
                     <!-- Main Categories with Subcategories -->
                     @foreach($menuCategories as $category)
+                        @php
+                            $isBaseusCategory = strtoupper(trim($category->name)) === 'BASEUS';
+                            $isUgreenCategory = strtoupper(trim($category->name)) === 'UGREEN';
+                            $mFeaturedRow = $isBaseusCategory
+                                ? 'bg-primary-500/15 border border-primary-400/50 text-primary-300'
+                                : ($isUgreenCategory
+                                    ? 'bg-emerald-500/15 border border-[#00c65e]/45 text-emerald-200'
+                                    : 'text-gray-300');
+                            $mFeaturedLink = $isBaseusCategory
+                                ? 'bg-primary-500/15 border border-primary-400/50 text-primary-300 hover:bg-primary-500/20'
+                                : ($isUgreenCategory
+                                    ? 'bg-emerald-500/15 border border-[#00c65e]/45 text-emerald-200 hover:bg-emerald-500/25'
+                                    : 'text-gray-300 hover:text-white hover:bg-gray-800');
+                            $mCatIcon = $isUgreenCategory ? 'text-emerald-400' : 'text-primary-400';
+                        @endphp
                         <!-- Main Category -->
                         <div class="mb-1">
                             <div class="flex items-center">
                                 @if($category->subcategories->count() > 0)
                                     <!-- Main Category with Subcategories (Non-clickable) -->
-                                    <div class="flex-1 flex items-center py-2 px-3 text-gray-300 cursor-default rounded-lg">
-                                        <svg class="w-4 h-4 mr-3 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <div class="flex-1 flex items-center py-2 px-3 cursor-default rounded-lg {{ $mFeaturedRow }}">
+                                        <svg class="w-4 h-4 mr-3 {{ $mCatIcon }}" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
                                         </svg>
                                         <span class="font-medium text-sm">{{ $category->name }}</span>
+                                        @if($isBaseusCategory)
+                                            <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary-500 text-black">Featured</span>
+                                        @elseif($isUgreenCategory)
+                                            <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#00c65e] text-white">UGREEN</span>
+                                        @endif
                                     </div>
                                     <button class="p-2 text-gray-400 hover:text-white transition-colors mobile-category-toggle" data-category="{{ $category->id }}">
                                         <svg class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -588,11 +635,16 @@
                                 @else
                                     <!-- Main Category without Subcategories (Clickable) -->
                                     <a href="{{ route('categories.show', $category->slug ?: $category->id) }}" 
-                                       class="flex-1 flex items-center py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors rounded-lg group">
-                                        <svg class="w-4 h-4 mr-3 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
+                                       class="flex-1 flex items-center py-2 px-3 transition-colors rounded-lg group {{ $mFeaturedLink }}">
+                                        <svg class="w-4 h-4 mr-3 {{ $mCatIcon }}" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
                                         </svg>
                                         <span class="font-medium text-sm">{{ $category->name }}</span>
+                                        @if($isBaseusCategory)
+                                            <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary-500 text-black">Featured</span>
+                                        @elseif($isUgreenCategory)
+                                            <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#00c65e] text-white">UGREEN</span>
+                                        @endif
                                     </a>
                                 @endif
                             </div>
@@ -602,8 +654,8 @@
                                 <div class="mobile-subcategories ml-6 mt-1 space-y-1 hidden" id="mobile-subcategories-{{ $category->id }}">
                                     @foreach($category->subcategories->take(10) as $subcategory)
                                <a href="{{ route('categories.show', $subcategory->slug ?: $subcategory->id) }}" 
-                                  class="flex items-center px-3 py-1.5 text-gray-400 hover:text-primary-400 hover:bg-gray-800/50 transition-colors text-sm rounded group">
-                                   <svg class="w-3 h-3 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                                  class="flex items-center px-3 py-1.5 transition-colors text-sm rounded group {{ $isUgreenCategory ? 'text-emerald-200/80 hover:text-[#5ee9a8] hover:bg-emerald-950/40' : 'text-gray-400 hover:text-primary-400 hover:bg-gray-800/50' }}">
+                                   <svg class="w-3 h-3 mr-2 {{ $isUgreenCategory ? 'text-emerald-500/80' : 'text-gray-600' }}" fill="currentColor" viewBox="0 0 24 24">
                                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
                                    </svg>
                                    <span>{{ $subcategory->name }}</span>

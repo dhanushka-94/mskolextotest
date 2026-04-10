@@ -19,9 +19,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
             @foreach($categories as $category)
+                @php($isUgreenCategory = strtoupper(trim($category->name)) === 'UGREEN')
                 <div class="group">
                     <a href="{{ route('categories.show', $category->id) }}" class="block">
-                        <div class="card card-hover overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary-500/20">
+                        <div class="card card-hover overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl {{ $isUgreenCategory ? 'ring-2 ring-[#00c65e]/60 ring-offset-2 ring-offset-black hover:shadow-[#00c65e]/25' : 'hover:shadow-primary-500/20' }}">
                             <!-- Icon Section -->
                             <div class="relative p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50">
                                 <div class="flex flex-col items-center">

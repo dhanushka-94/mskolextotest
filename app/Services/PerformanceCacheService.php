@@ -19,7 +19,7 @@ class PerformanceCacheService
      */
     public static function getMainCategories()
     {
-        return Cache::remember('main_categories_with_counts', self::CATEGORY_CACHE_DURATION, function () {
+        return Cache::remember('main_categories_with_counts_v4', self::CATEGORY_CACHE_DURATION, function () {
             $categories = SmaCategory::mainCategories()
                 ->withCount(['products as total_products_count' => function($query) {
                     $query->where('hide', 0);
@@ -43,7 +43,7 @@ class PerformanceCacheService
      */
     public static function getNavigationCategories()
     {
-        return Cache::remember('navigation_categories', self::CATEGORY_CACHE_DURATION, function () {
+        return Cache::remember('navigation_categories_v4', self::CATEGORY_CACHE_DURATION, function () {
             $categories = SmaCategory::mainCategories()
                 ->select(['id', 'name', 'slug'])
                 ->get();
@@ -177,7 +177,9 @@ class PerformanceCacheService
     public static function clearCategoryCaches()
     {
         Cache::forget('main_categories_with_counts');
+        Cache::forget('main_categories_with_counts_v4');
         Cache::forget('navigation_categories');
+        Cache::forget('navigation_categories_v4');
     }
 
     /**
