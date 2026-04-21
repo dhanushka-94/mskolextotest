@@ -295,8 +295,8 @@ class SmaProduct extends Model
             }
         }
         
-        // Additional checks: must be active and have stock
-        return $this->hide == 0 && $this->quantity > 0;
+        // Additional checks: must be active and have stock (float-safe; quantity may be decimal)
+        return (int) $this->hide === 0 && (float) ($this->quantity ?? 0) > 0;
     }
 
     /**
@@ -318,11 +318,40 @@ class SmaProduct extends Model
             }
         }
         
-        if ($this->quantity <= 0) {
+        if ((float) ($this->quantity ?? 0) <= 0) {
             return 'Out of stock';
         }
         
         return null;
+    }
+
+    /**
+     * Parse raw `quantity` from DB / attributes (category listings use partial selects — use this, not casts only).
+     */
+    public static function listingQuantityFromRaw(mixed $raw): float
+    {
+        if ($raw === null || $raw === '') {
+            return 0.0;
+        }
+        if (is_string($raw)) {
+            $t = trim($raw);
+            if ($t === '' || strcasecmp($t, 'null') === 0) {
+                return 0.0;
+            }
+            if (! is_numeric($t)) {
+                return 0.0;
+            }
+
+            return max(0.0, (float) $t);
+        }
+        if (is_bool($raw)) {
+            return $raw ? 1.0 : 0.0;
+        }
+        if (! is_numeric($raw)) {
+            return 0.0;
+        }
+
+        return max(0.0, (float) $raw);
     }
 
     /**
@@ -331,7 +360,23 @@ class SmaProduct extends Model
      */
     public function getStockQuantityAttribute()
     {
-        return (int) ($this->quantity ?: 0);
+        if (array_key_exists('quantity', $this->getAttributes())) {
+            return self::listingQuantityFromRaw($this->getAttributes()['quantity']);
+        }
+
+        return self::listingQuantityFromRaw($this->quantity ?? null);
+    }
+
+    /**
+     * Sellable quantity for listings / JSON (always derived from stored `quantity` on this row).
+     */
+    public function shelfQuantity(): float
+    {
+        if (! array_key_exists('quantity', $this->getAttributes())) {
+            return 0.0;
+        }
+
+        return self::listingQuantityFromRaw($this->getAttributes()['quantity']);
     }
 
     /**
@@ -384,6 +429,24 @@ class SmaProduct extends Model
     }
 
     /**
+     * When the route includes a resolved SmaCategory, only bind products in that branch
+     * (matches ProductController@show and prevents wrong row on duplicate/ambiguous slugs).
+     */
+    protected function newRouteBindingQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = $this->newQuery();
+        $category = request()->route('category');
+        if ($category instanceof SmaCategory) {
+            $query->where(function ($q) use ($category) {
+                $q->where('category_id', $category->id)
+                    ->orWhere('subcategory_id', $category->id);
+            });
+        }
+
+        return $query;
+    }
+
+    /**
      * Resolve route binding using both slug and ID
      */
     public function resolveRouteBinding($value, $field = null)
@@ -392,13 +455,13 @@ class SmaProduct extends Model
         
         // If it's numeric, treat as ID
         if (is_numeric($value)) {
-            $result = $this->where('id', $value)->first();
+            $result = $this->newRouteBindingQuery()->where('id', $value)->first();
             \Log::info("Product ID lookup result: " . ($result ? $result->name : 'not found'));
             return $result;
         }
         
         // First, try to find by the stored slug in database (most efficient)
-        $result = $this->where('slug', $value)->first();
+        $result = $this->newRouteBindingQuery()->where('slug', $value)->first();
         
         if ($result) {
             \Log::info("Product found via database slug: " . $result->name);
@@ -409,9 +472,11 @@ class SmaProduct extends Model
         $searchTerms = str_replace('-', ' ', $value);
         \Log::info("Product slug lookup - searching for: $searchTerms");
         
-        $result = $this->where('name', 'like', '%' . $searchTerms . '%')->first();
+        $result = $this->newRouteBindingQuery()->where('name', 'like', '%' . $searchTerms . '%')->first();
         if (!$result) {
-            $result = $this->whereRaw('REPLACE(LOWER(name), " ", "-") LIKE ?', ['%' . $value . '%'])->first();
+            $result = $this->newRouteBindingQuery()
+                ->whereRaw('REPLACE(LOWER(name), " ", "-") LIKE ?', ['%' . $value . '%'])
+                ->first();
         }
         
         // Try more flexible search if still not found
@@ -419,7 +484,7 @@ class SmaProduct extends Model
             // Split search terms and try individual words
             $words = explode(' ', $searchTerms);
             if (count($words) > 1) {
-                $query = $this->newQuery();
+                $query = $this->newRouteBindingQuery();
                 foreach ($words as $word) {
                     if (strlen($word) > 2) { // Skip very short words
                         $query->where('name', 'like', '%' . $word . '%');
@@ -465,7 +530,7 @@ class SmaProduct extends Model
                 });
                 
                 if (count($importantKeywords) >= 3) {
-                    $query = $this->newQuery();
+                    $query = $this->newRouteBindingQuery();
                     foreach ($importantKeywords as $keyword) {
                         $query->where('name', 'like', '%' . $keyword . '%');
                     }
@@ -484,7 +549,7 @@ class SmaProduct extends Model
                     });
                     
                     if (count($essentialKeywords) >= 2) {
-                        $query = $this->newQuery();
+                        $query = $this->newRouteBindingQuery();
                         foreach ($essentialKeywords as $keyword) {
                             $query->where('name', 'like', '%' . $keyword . '%');
                         }
@@ -510,7 +575,7 @@ class SmaProduct extends Model
             foreach ($variations as $pattern => $alternatives) {
                 if (stripos($searchTerms, str_replace(' ', '', $pattern)) !== false) {
                     foreach (array_merge([$pattern], $alternatives) as $alt) {
-                        $result = $this->where('name', 'like', '%' . $alt . '%')->first();
+                        $result = $this->newRouteBindingQuery()->where('name', 'like', '%' . $alt . '%')->first();
                         if ($result) {
                             \Log::info("Product variation found: " . $result->name . " for input: $value");
                             break 2;

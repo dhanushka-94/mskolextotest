@@ -1,6 +1,16 @@
 @if($product->status)
     @php
         $statusName = $product->status->status_name;
+
+        // Quantity is the source of truth; LE/POS status rows may still say "In Stock" when qty is 0/null.
+        $qtyRaw = $product->getAttributes()['quantity'] ?? null;
+        $qty = ($qtyRaw === null || $qtyRaw === '') ? 0.0 : (float) $qtyRaw;
+        $normalized = strtolower(trim((string) $statusName));
+        $special = in_array($normalized, ['coming soon', 'pre order', 'pre-order'], true);
+        $misleadingAvailable = in_array($normalized, ['in stock', 'available'], true);
+        if ($qty <= 0.0 && ! $special && $misleadingAvailable) {
+            $statusName = 'Out of Stock';
+        }
         
         // Define status colors and styles with glass effect
         $statusConfig = [

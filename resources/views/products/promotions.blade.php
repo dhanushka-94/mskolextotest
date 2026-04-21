@@ -246,7 +246,8 @@ function addToCartFromPromo(productId, productName = 'Promotional Item') {
         },
         body: JSON.stringify({
             product_id: productId,
-            quantity: 1
+            quantity: 1,
+            catalog: document.documentElement.dataset.catalogSource || 'msk'
         })
     })
     .then(response => response.json())

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\SmaProduct;
 use App\Services\WebXPayService;
 use App\Services\KokoPayService;
 use Illuminate\Http\Request;
@@ -184,8 +183,9 @@ class PaymentController extends Controller
             $originalSubtotal = 0;
             $totalDiscount = 0;
             
+            $order->loadMissing('orderItems.product');
             foreach ($order->orderItems as $item) {
-                $product = SmaProduct::find($item->product_id);
+                $product = $item->product;
                 if ($product) {
                     $lineTotal = $item->quantity * $product->final_price;
                     $originalLineTotal = $item->quantity * $product->price;

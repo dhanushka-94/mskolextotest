@@ -120,10 +120,12 @@ class CartController extends Controller
             
             $request->validate([
                 'product_id' => 'required|integer|min:1',
-                'quantity' => 'required|integer|min:1'
+                'quantity' => 'required|integer|min:1',
+                'catalog' => 'nullable|string|in:msk,laptopexpert',
             ]);
 
-            $product = SmaProduct::find($request->product_id);
+            $productClass = Cart::productClassFromCatalog($request->input('catalog'));
+            $product = $productClass::find($request->product_id);
             \Log::info('Product found:', ['product' => $product ? $product->id : 'null']);
             
             if (!$product) {
@@ -150,9 +152,10 @@ class CartController extends Controller
 
         $sessionId = Session::getId();
         
-        // Check if item already in cart
+        // Check if item already in cart (same id can exist on MSK and LaptopExpert DBs)
         $existingItem = Cart::where('session_id', $sessionId)
                            ->where('product_id', $request->product_id)
+                           ->where('product_type', $productClass)
                            ->first();
 
         if ($existingItem) {
@@ -175,18 +178,19 @@ class CartController extends Controller
             Cart::create([
                 'session_id' => $sessionId,
                 'product_id' => $request->product_id,
+                'product_type' => $productClass,
                 'quantity' => $request->quantity,
                 'price' => $product->final_price
             ]);
         }
 
         // Calculate cart total for response
-        $cartItems = Cart::where('session_id', session()->getId())->get();
+        $cartItems = Cart::where('session_id', session()->getId())->with('product')->get();
         $cartTotal = 0;
         foreach ($cartItems as $item) {
-            $product = SmaProduct::find($item->product_id);
-            if ($product) {
-                $cartTotal += $item->quantity * $product->final_price;
+            $lineProduct = $item->product;
+            if ($lineProduct) {
+                $cartTotal += $item->quantity * $lineProduct->final_price;
             }
         }
 

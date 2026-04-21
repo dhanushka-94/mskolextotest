@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\UsesConfiguredProductsConnection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SmaWarehouseProduct extends Model
 {
+    use UsesConfiguredProductsConnection;
+
     protected $connection = 'products_db';
     protected $table = 'sma_warehouses_products';
     

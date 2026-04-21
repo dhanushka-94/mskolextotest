@@ -88,7 +88,7 @@
                     $originalSubtotal = 0;
                     $currentSubtotal = 0;
                     foreach($order->orderItems as $item) {
-                        $product = \App\Models\SmaProduct::find($item->product_id);
+                        $product = $item->product;
                         if ($product) {
                             $originalSubtotal += $item->quantity * $product->price;
                             $currentSubtotal += $item->quantity * $product->final_price;

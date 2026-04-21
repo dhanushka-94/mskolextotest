@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\SmaProduct;
 use App\Models\ActivityLog;
 use Carbon\Carbon;
 
@@ -251,6 +252,7 @@ class ComprehensiveSystemSeeder extends Seeder
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => rand(1, 100), // Random product ID (we're not touching products table)
+                    'product_type' => SmaProduct::class,
                     'product_name' => $product['name'],
                     'product_code' => $product['sku'],
                     'quantity' => $quantity,

@@ -22,7 +22,7 @@ class OrderController extends Controller
 
             $order = Order::where('order_number', $request->order_number)
                 ->where('customer_email', $request->email)
-                ->with('orderItems')
+                ->with('orderItems.product')
                 ->first();
 
             if (!$order) {
@@ -41,7 +41,7 @@ class OrderController extends Controller
     public function show($orderNumber)
     {
         $order = Order::where('order_number', $orderNumber)
-            ->with('orderItems')
+            ->with('orderItems.product')
             ->firstOrFail();
 
         // For guests, check if they have access via session
@@ -65,7 +65,7 @@ class OrderController extends Controller
     public function invoice($orderNumber)
     {
         $order = Order::where('order_number', $orderNumber)
-            ->with('orderItems')
+            ->with('orderItems.product')
             ->firstOrFail();
 
         // Check access permissions
@@ -93,14 +93,15 @@ class OrderController extends Controller
 
         $addedItems = 0;
 
+        $order->loadMissing('orderItems.product');
+
         foreach ($order->orderItems as $item) {
-            // Check if product still exists and is available
-            $product = \App\Models\SmaProduct::find($item->product_id);
-            
+            $product = $item->product;
+
             if ($product && $product->stock_quantity > 0) {
-                // Add to cart
                 $existingCartItem = \App\Models\Cart::where('user_id', Auth::id())
                     ->where('product_id', $product->id)
+                    ->where('product_type', $item->product_type)
                     ->first();
 
                 if ($existingCartItem) {
@@ -118,6 +119,7 @@ class OrderController extends Controller
                             'user_id' => Auth::id(),
                             'session_id' => session()->getId(),
                             'product_id' => $product->id,
+                            'product_type' => $item->product_type,
                             'quantity' => $item->quantity,
                             'price' => $product->final_price,
                         ]);

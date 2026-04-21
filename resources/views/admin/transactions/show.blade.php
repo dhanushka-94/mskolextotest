@@ -246,7 +246,7 @@
                     @foreach($transaction->order->orderItems as $item)
                     @php
                         // Get product details to check for discounts
-                        $product = \App\Models\SmaProduct::find($item->product_id);
+                        $product = $item->product;
                         $hasDiscount = false;
                         $originalPrice = $item->unit_price;
                         $discountAmount = 0;
@@ -329,7 +329,7 @@
                     $originalSubtotal = 0;
                     $currentSubtotal = 0;
                     foreach($order->orderItems as $item) {
-                        $product = \App\Models\SmaProduct::find($item->product_id);
+                        $product = $item->product;
                         if ($product) {
                             $originalSubtotal += $item->quantity * $product->price;
                             $currentSubtotal += $item->quantity * $product->final_price;

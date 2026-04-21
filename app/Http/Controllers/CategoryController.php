@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SmaCategory;
 use App\Models\SmaProduct;
+use App\Models\LaptopExpertCategory;
+use App\Models\LaptopExpertProduct;
+use App\Models\LaptopExpertProductStatus;
 use App\Models\SmaAttribute;
 
 class CategoryController extends Controller
@@ -17,16 +20,48 @@ class CategoryController extends Controller
         return view('categories.index', compact('categories'));
     }
 
-    public function show(SmaCategory $category, Request $request)
+    public function show(string $category, Request $request)
     {
+        $mskCategory = SmaCategory::where('slug', $category)->orWhere('id', $category)->first();
+        $lpCategory = LaptopExpertCategory::where('slug', $category)->orWhere('id', $category)->first();
+
+        $isLaptopExpert = false;
+        if ($mskCategory) {
+            $category = $mskCategory;
+            $productModel = SmaProduct::class;
+        } elseif ($lpCategory) {
+            $category = $lpCategory;
+            $productModel = LaptopExpertProduct::class;
+            $isLaptopExpert = true;
+        } else {
+            abort(404);
+        }
+
+        view()->share('catalogSource', $isLaptopExpert ? 'laptopexpert' : 'msk');
         
         // Get products query
-        $productsQuery = SmaProduct::where(function($query) use ($category) {
+        $productsQuery = $productModel::where(function($query) use ($category) {
             $query->where('category_id', $category->id)
                   ->orWhere('subcategory_id', $category->id);
         })
         ->where('hide', 0)
-        ->select(['id', 'name', 'code', 'price', 'promo_price', 'quantity', 'category_id', 'subcategory_id', 'product_status', 'image', 'promotion', 'details', 'slug'])
+        ->select([
+            'id',
+            'name',
+            'code',
+            'price',
+            'promo_price',
+            'quantity',
+            'track_quantity',
+            'hide',
+            'category_id',
+            'subcategory_id',
+            'product_status',
+            'image',
+            'promotion',
+            'details',
+            'slug',
+        ])
         ->with([
             'category:id,name,slug',
             'photos:id,product_id,photo',
@@ -35,7 +70,7 @@ class CategoryController extends Controller
         ]);
 
         // Apply product status filter (separate from attributes)
-        $this->applyStatusFilters($productsQuery, $request);
+        $this->applyStatusFilters($productsQuery, $request, $productModel);
 
         // Apply attribute filters
         $this->applyAttributeFilters($productsQuery, $request);
@@ -97,47 +132,49 @@ class CategoryController extends Controller
         }
         
         // Get available attributes for this category
-        $availableAttributes = $this->getCategoryAttributes($category->id);
+        $availableAttributes = $isLaptopExpert ? collect() : $this->getCategoryAttributes($category->id);
         
         // Get available product statuses for this category
-        $availableStatuses = $this->getCategoryStatuses($category->id);
+        $availableStatuses = $isLaptopExpert ? collect() : $this->getCategoryStatuses($category->id);
         
         // Get price range for this category
-        $priceRange = $this->getPriceRange($category->id);
+        $priceRange = $this->getPriceRange($category->id, $productModel);
 
         // Handle AJAX requests
         if ($request->ajax() || $request->wantsJson()) {
             // Transform products for JSON response
             $transformedProducts = $products->getCollection()->map(function ($product) {
                 $product->append([
-                    'main_image', 
+                    'main_image',
                     'final_price',
                     'is_on_sale',
                     'stock_quantity',
-                    'slug'
+                    'slug',
                 ]);
-                
+
                 // Ensure status is loaded and included in response
-                // Make status relationship visible for JSON serialization
                 if ($product->relationLoaded('status')) {
                     if ($product->status) {
                         $product->status_data = [
                             'id' => $product->status->id,
-                            'status_name' => $product->status->status_name
+                            'status_name' => $product->status->status_name,
                         ];
                     }
                 } else {
-                    // If status wasn't loaded, try to load it
                     $product->load('status:id,status_name');
                     if ($product->status) {
                         $product->status_data = [
                             'id' => $product->status->id,
-                            'status_name' => $product->status->status_name
+                            'status_name' => $product->status->status_name,
                         ];
                     }
                 }
-                
-                return $product;
+
+                // Arrays: force stock_quantity from raw selected `quantity` only (LE + MSK; avoids accessor/cast/JSON quirks).
+                $payload = $product->toArray();
+                $payload['stock_quantity'] = SmaProduct::listingQuantityFromRaw($product->getAttributes()['quantity'] ?? null);
+
+                return $payload;
             });
             
             return response()->json([
@@ -162,7 +199,7 @@ class CategoryController extends Controller
     /**
      * Apply product status filters (Pre Order, Coming Soon, etc.)
      */
-    private function applyStatusFilters($query, $request)
+    private function applyStatusFilters($query, $request, $productModel = SmaProduct::class)
     {
         $statusNames = [];
         
@@ -194,7 +231,10 @@ class CategoryController extends Controller
         // Apply status filter if any status names were found
         if (!empty($statusNames)) {
             $statusNames = array_unique($statusNames); // Remove duplicates
-            $statusIds = \App\Models\SmaProductStatus::whereIn('status_name', $statusNames)
+            $statusModel = $productModel === LaptopExpertProduct::class
+                ? LaptopExpertProductStatus::class
+                : \App\Models\SmaProductStatus::class;
+            $statusIds = $statusModel::whereIn('status_name', $statusNames)
                 ->pluck('id')
                 ->toArray();
             
@@ -373,9 +413,9 @@ class CategoryController extends Controller
     /**
      * Get price range for products in a category
      */
-    private function getPriceRange($categoryId)
+    private function getPriceRange($categoryId, $productModel = SmaProduct::class)
     {
-        $priceData = SmaProduct::where(function($query) use ($categoryId) {
+        $priceData = $productModel::where(function($query) use ($categoryId) {
             $query->where('category_id', $categoryId)
                   ->orWhere('subcategory_id', $categoryId);
         })

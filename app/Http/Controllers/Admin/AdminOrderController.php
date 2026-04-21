@@ -99,7 +99,7 @@ class AdminOrderController extends Controller
      */
     public function show(Order $order)
     {
-        $order->load(['user', 'orderItems']);
+        $order->load(['user', 'orderItems.product']);
         
         // Mark order as viewed by current admin
         if (!$order->isViewedByAdmin()) {

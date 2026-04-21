@@ -113,7 +113,7 @@
                         <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
                         <span class="text-blue-400 font-medium">{{ $product->status->status_name }}</span>
                     </div>
-                @elseif($product->stock_quantity > 0)
+                @elseif($product->shelfQuantity() > 0)
                     <div class="flex items-center gap-2 mb-4">
                         <span class="w-3 h-3 bg-green-500 rounded-full"></span>
                         <span class="text-green-400 font-medium">In Stock</span>
@@ -542,7 +542,7 @@
                                         <span class="w-2 h-2 bg-blue-500 rounded-full mr-1"></span>
                                         {{ $relatedProduct->status->status_name }}
                                     </span>
-                                @elseif($relatedProduct->stock_quantity > 0)
+                                @elseif($relatedProduct->shelfQuantity() > 0)
                                     <span class="text-xs text-green-400 flex items-center">
                                         <span class="w-2 h-2 bg-green-500 rounded-full mr-1"></span>
                                         In Stock
@@ -628,7 +628,8 @@
             },
             body: JSON.stringify({
                 product_id: productId,
-                quantity: parseInt(quantity)
+                quantity: parseInt(quantity),
+                catalog: document.documentElement.dataset.catalogSource || 'msk'
             })
         })
         .then(response => {

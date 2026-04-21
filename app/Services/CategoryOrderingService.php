@@ -127,4 +127,35 @@ class CategoryOrderingService
         
         return $rules['others_priority'];
     }
+
+    /**
+     * Remove configured MSK main categories from nav / category index (e.g. LAPTOP when Laptops menu is LaptopExpert).
+     */
+    public static function filterMskMainCategoriesHiddenFromMenu(Collection $categories): Collection
+    {
+        $excludeNames = config('laptopexpert.exclude_msk_menu_category_names', ['LAPTOP']);
+        $excludeSlugs = config('laptopexpert.exclude_msk_menu_category_slugs', []);
+        if (! is_array($excludeNames)) {
+            $excludeNames = ['LAPTOP'];
+        }
+        if (! is_array($excludeSlugs)) {
+            $excludeSlugs = [];
+        }
+
+        $nameSet = array_map('strtoupper', array_map('trim', $excludeNames));
+        $slugSet = array_map('strtolower', array_map('trim', array_filter($excludeSlugs)));
+
+        return $categories->filter(function ($category) use ($nameSet, $slugSet) {
+            $name = strtoupper(trim($category->name ?? ''));
+            if (in_array($name, $nameSet, true)) {
+                return false;
+            }
+            $slug = strtolower(trim((string) ($category->slug ?? '')));
+            if ($slug !== '' && in_array($slug, $slugSet, true)) {
+                return false;
+            }
+
+            return true;
+        })->values();
+    }
 }

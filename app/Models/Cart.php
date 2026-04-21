@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Cart extends Model
 {
@@ -12,6 +13,7 @@ class Cart extends Model
         'user_id',
         'session_id',
         'product_id',
+        'product_type',
         'quantity',
         'price'
     ];
@@ -26,9 +28,19 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function product(): BelongsTo
+    /**
+     * MSK or LaptopExpert product (same numeric id can exist on both DBs).
+     */
+    public function product(): MorphTo
     {
-        return $this->belongsTo(SmaProduct::class, 'product_id');
+        return $this->morphTo();
+    }
+
+    public static function productClassFromCatalog(?string $catalog): string
+    {
+        return $catalog === 'laptopexpert'
+            ? LaptopExpertProduct::class
+            : SmaProduct::class;
     }
 
     public function getTotalPriceAttribute()

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\SmaProduct;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +26,7 @@ class CheckoutController extends Controller
                     $query->where('user_id', Auth::id());
                 }
             })
+            ->with('product')
             ->get();
 
         if ($cartItems->isEmpty()) {
@@ -39,7 +39,7 @@ class CheckoutController extends Controller
         $cartProducts = [];
         
         foreach ($cartItems as $item) {
-            $product = SmaProduct::find($item->product_id);
+            $product = $item->product;
             if ($product) {
                 // Calculate original price (before discounts)
                 $originalLineTotal = $item->quantity * $product->price;
@@ -185,6 +185,7 @@ class CheckoutController extends Controller
                     $query->where('user_id', Auth::id());
                 }
             })
+            ->with('product')
             ->get();
 
         if ($cartItems->isEmpty()) {
@@ -199,13 +200,14 @@ class CheckoutController extends Controller
             $orderItems = [];
 
             foreach ($cartItems as $item) {
-                $product = SmaProduct::find($item->product_id);
+                $product = $item->product;
                 if ($product) {
                     $lineTotal = $item->quantity * $product->final_price;
                     $subtotal += $lineTotal;
                     
                     $orderItems[] = [
                         'product_id' => $product->id,
+                        'product_type' => $item->product_type,
                         'product_name' => $product->name,
                         'product_code' => $product->code,
                         'product_image' => $product->main_image,
@@ -440,6 +442,8 @@ class CheckoutController extends Controller
             // Remove the session flag
             session()->forget('payment_success_order');
         }
+
+        $order->load('orderItems.product');
 
         return view('checkout.success', compact('order'));
     }

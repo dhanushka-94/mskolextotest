@@ -365,7 +365,7 @@
                                 <div class="absolute top-3 left-3 bg-[#3b82f6] text-white text-xs font-medium px-2.5 py-1 rounded-lg backdrop-blur-sm">
                                     {{ strtoupper($product->status->status_name) }}
                                 </div>
-                            @elseif($product->stock_quantity > 0)
+                            @elseif(\App\Models\SmaProduct::listingQuantityFromRaw($product->getAttributes()['quantity'] ?? null) > 0)
                                 <div class="absolute top-3 left-3 bg-[#34d399] text-white text-xs font-medium px-2.5 py-1 rounded-lg backdrop-blur-sm">
                                     IN STOCK
                                 </div>
@@ -835,6 +835,19 @@
         isInitialized: false
     };
 
+    /** Category slug (or id) for the listing page — must match server-rendered links, not product.category (parent). */
+    const listingCategorySlug = @json($category->slug ?: (string) $category->id);
+
+    /** Match SmaProduct::listingQuantityFromRaw — JSON may send numbers or strings */
+    function listingStockQty(product) {
+        const v = product.stock_quantity ?? product.quantity;
+        if (v === null || v === undefined || v === '') {
+            return 0;
+        }
+        const n = parseFloat(String(v).trim());
+        return (Number.isFinite(n) && !Number.isNaN(n)) ? Math.max(0, n) : 0;
+    }
+
     // Initialize filters when DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
         if (FilterSystem.isInitialized) {
@@ -1007,7 +1020,7 @@
                 
                 if (statusName && ['Coming Soon', 'Pre Order'].includes(statusName)) {
                     stockBadge = `<div class="absolute top-3 left-3 bg-[#3b82f6] text-white text-xs font-medium px-2.5 py-1 rounded-lg backdrop-blur-sm">${statusName.toUpperCase()}</div>`;
-                } else if (product.stock_quantity > 0) {
+                } else if (listingStockQty(product) > 0) {
                     stockBadge = '<div class="absolute top-3 left-3 bg-[#34d399] text-white text-xs font-medium px-2.5 py-1 rounded-lg backdrop-blur-sm">IN STOCK</div>';
                 } else {
                     stockBadge = '<div class="absolute top-3 left-3 bg-[#ef4444] text-white text-xs font-medium px-2.5 py-1 rounded-lg backdrop-blur-sm">OUT OF STOCK</div>';
@@ -1038,10 +1051,9 @@
                     }
                 }
 
-                // Generate proper product URL using category and product slugs
-                const categorySlug = product.category?.slug || product.category?.id || 'uncategorized';
+                // Same segment as Blade route('products.show', ['category' => $category, ...]) — current listing, not product.category (main).
                 const productSlug = product.slug || product.id;
-                const productUrl = `/${categorySlug}/${productSlug}`;
+                const productUrl = `/${listingCategorySlug}/${productSlug}`;
                 
                 gridHTML += `
                     <a href="${productUrl}" class="product-card block bg-[#1c1c1e] rounded-xl border border-gray-800/30 overflow-hidden hover:border-[#f59e0b]/30 transition-all duration-300 group shadow-lg hover:shadow-xl hover:shadow-[#f59e0b]/10 cursor-pointer">
@@ -1070,7 +1082,7 @@
                                         const statusName = product.status_data.status_name.replace(/'/g, "\\'");
                                         const productName = product.name.replace(/'/g, "\\'");
                                         return `<button onclick="event.preventDefault(); event.stopPropagation(); showSpecialOrderContact('${statusName}', '${productName}')" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-blue-500/20 hover:-translate-y-0.5 tracking-wide">Contact Us</button>`;
-                                    } else if (product.stock_quantity > 0) {
+                                    } else if (listingStockQty(product) > 0) {
                                         return `<button onclick="event.preventDefault(); event.stopPropagation(); addToCart(${product.id})" class="w-full bg-gradient-to-r from-primary-500/15 to-amber-500/15 backdrop-blur-sm border border-primary-400/40 hover:from-primary-500/25 hover:to-amber-500/25 hover:border-primary-400/60 text-primary-200 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-primary-500/20 hover:-translate-y-0.5 tracking-wide">Add to Cart</button>`;
                                     } else {
                                         return `<button disabled class="w-full bg-[#2c2c2e] text-gray-500 px-4 py-2.5 rounded-lg text-sm font-medium cursor-not-allowed border border-gray-700">Out of Stock</button>`;
@@ -1443,7 +1455,8 @@
             },
             body: JSON.stringify({
                 product_id: productId,
-                quantity: 1
+                quantity: 1,
+                catalog: document.documentElement.dataset.catalogSource || 'msk'
             })
         })
         .then(response => response.json())

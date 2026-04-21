@@ -19,22 +19,26 @@ class PerformanceCacheService
      */
     public static function getMainCategories()
     {
-        return Cache::remember('main_categories_with_counts_v4', self::CATEGORY_CACHE_DURATION, function () {
-            $categories = SmaCategory::mainCategories()
+        return Cache::remember('main_categories_with_counts_v7', self::CATEGORY_CACHE_DURATION, function () {
+            $mskCategories = SmaCategory::mainCategories()
                 ->withCount(['products as total_products_count' => function($query) {
                     $query->where('hide', 0);
                 }])
                 ->withCount(['subcategoryProducts as subcategory_products_count' => function($query) {
                     $query->where('hide', 0);
                 }])
-                ->get()
-                ->map(function($category) {
-                    $category->active_products_count = $category->total_products_count + $category->subcategory_products_count;
-                    return $category;
-                });
+                ->get();
 
-            // Apply config-based ordering without touching database
-            return \App\Services\CategoryOrderingService::sortCategories($categories);
+            $mskCategories = \App\Services\CategoryOrderingService::filterMskMainCategoriesHiddenFromMenu($mskCategories);
+
+            $mskCategories = $mskCategories->map(function ($category) {
+                $category->active_products_count = $category->total_products_count + $category->subcategory_products_count;
+                $category->source = 'msk';
+
+                return $category;
+            });
+
+            return \App\Services\CategoryOrderingService::sortCategories($mskCategories);
         });
     }
 
@@ -43,13 +47,18 @@ class PerformanceCacheService
      */
     public static function getNavigationCategories()
     {
-        return Cache::remember('navigation_categories_v4', self::CATEGORY_CACHE_DURATION, function () {
-            $categories = SmaCategory::mainCategories()
-                ->select(['id', 'name', 'slug'])
+        return Cache::remember('navigation_categories_v7', self::CATEGORY_CACHE_DURATION, function () {
+            $mskCategories = SmaCategory::mainCategories()
+                ->select(['id', 'name', 'slug', 'parent_id'])
                 ->get();
 
-            // Apply config-based ordering without touching database
-            return \App\Services\CategoryOrderingService::sortCategories($categories);
+            $mskCategories = \App\Services\CategoryOrderingService::filterMskMainCategoriesHiddenFromMenu($mskCategories);
+
+            return \App\Services\CategoryOrderingService::sortCategories($mskCategories)
+                ->map(function ($category) {
+                    $category->source = 'msk';
+                    return $category;
+                });
         });
     }
 
@@ -178,8 +187,14 @@ class PerformanceCacheService
     {
         Cache::forget('main_categories_with_counts');
         Cache::forget('main_categories_with_counts_v4');
+        Cache::forget('main_categories_with_counts_v5');
+        Cache::forget('main_categories_with_counts_v6');
+        Cache::forget('main_categories_with_counts_v7');
         Cache::forget('navigation_categories');
         Cache::forget('navigation_categories_v4');
+        Cache::forget('navigation_categories_v5');
+        Cache::forget('navigation_categories_v6');
+        Cache::forget('navigation_categories_v7');
     }
 
     /**

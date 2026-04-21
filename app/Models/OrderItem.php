@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class OrderItem extends Model
 {
@@ -12,6 +13,7 @@ class OrderItem extends Model
     protected $fillable = [
         'order_id',
         'product_id',
+        'product_type',
         'product_name',
         'product_code',
         'product_image',
@@ -51,21 +53,11 @@ class OrderItem extends Model
     }
 
     /**
-     * Get product from products database
-     * Note: This connects to the read-only products database
+     * MSK or LaptopExpert product snapshot is stored on the row; this resolves the live model when needed.
      */
-    public function getProductAttribute()
+    public function product(): MorphTo
     {
-        return SmaProduct::find($this->product_id);
-    }
-
-    /**
-     * Eloquent relationship to product
-     * This allows using ->with('product') in queries
-     */
-    public function product()
-    {
-        return $this->belongsTo(SmaProduct::class, 'product_id');
+        return $this->morphTo();
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\SmaProduct;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +30,7 @@ class QuotationController extends Controller
                     $query->where('user_id', Auth::id());
                 }
             })
+            ->with('product')
             ->get();
 
         if ($cartItems->isEmpty()) {
@@ -44,7 +44,7 @@ class QuotationController extends Controller
         $cartProducts = [];
 
         foreach ($cartItems as $item) {
-            $product = SmaProduct::find($item->product_id);
+            $product = $item->product;
             if ($product) {
                 $lineTotal = $item->quantity * $product->final_price;
                 $originalLineTotal = $item->quantity * $product->price;

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SmaProduct;
 use App\Models\SmaCategory;
+use App\Models\LaptopExpertProduct;
+use App\Models\LaptopExpertCategory;
 
 class ProductController extends Controller
 {
@@ -69,20 +71,48 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'categories'));
     }
 
-    public function show(SmaCategory $category, SmaProduct $product)
+    public function show(string $category, string $product)
     {
-        \Log::info("ProductController@show - Category: {$category->name} (ID: {$category->id}), Product: {$product->name} (ID: {$product->id}, Category: {$product->category_id})");
-        
-        // Verify product belongs to this category
-        if ($product->category_id !== $category->id && $product->subcategory_id !== $category->id) {
-            \Log::error("Product {$product->id} does not belong to category {$category->id}. Product category: {$product->category_id}, subcategory: {$product->subcategory_id}");
-            abort(404, 'Product not found in this category');
+        $categoryModel = SmaCategory::where('slug', $category)->orWhere('id', $category)->first();
+        $productModelClass = SmaProduct::class;
+        $categoryModelClass = SmaCategory::class;
+
+        if (!$categoryModel) {
+            $categoryModel = LaptopExpertCategory::where('slug', $category)->orWhere('id', $category)->first();
+            $productModelClass = LaptopExpertProduct::class;
+            $categoryModelClass = LaptopExpertCategory::class;
         }
+
+        if (!$categoryModel) {
+            abort(404);
+        }
+
+        $categoryId = $categoryModel->id;
+
+        // Resolve product within this category only. A global (id OR slug) match can pick the wrong row
+        // when numeric slugs collide with another product's id, or when the same code/slug exists elsewhere.
+        $productModel = $productModelClass::query()
+            ->where(function ($q) use ($product) {
+                $q->where('id', $product)->orWhere('slug', $product);
+            })
+            ->where(function ($q) use ($categoryId) {
+                $q->where('category_id', $categoryId)
+                    ->orWhere('subcategory_id', $categoryId);
+            })
+            ->firstOrFail();
+
+        \Log::info("ProductController@show - Category: {$categoryModel->name} (ID: {$categoryModel->id}), Product: {$productModel->name} (ID: {$productModel->id}, Category: {$productModel->category_id})");
         
-        $product->load(['category', 'photos', 'attributes.parent', 'status']);
+        $productModel->load(['category', 'photos', 'attributes.parent', 'status']);
+        if (!$productModel->category) {
+            $productModel->setRelation('category', $categoryModelClass::find($productModel->category_id));
+        }
+        $product = $productModel;
+
+        view()->share('catalogSource', $productModelClass === LaptopExpertProduct::class ? 'laptopexpert' : 'msk');
 
         // Get related products from same category
-        $relatedProducts = SmaProduct::where('category_id', $product->category_id)
+        $relatedProducts = $productModelClass::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->active()
             ->with(['category', 'photos', 'status'])

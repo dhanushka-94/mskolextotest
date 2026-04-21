@@ -2,47 +2,39 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\UsesConfiguredProductsConnection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class SmaProductStatus extends Model
+/**
+ * Product statuses for LaptopExpert catalog (laptopexpert_products_db).
+ * MSK SmaProductStatus must not be used for LaptopExpertProduct rows — IDs differ per database.
+ */
+class LaptopExpertProductStatus extends Model
 {
-    use UsesConfiguredProductsConnection;
-
-    protected $connection = 'products_db';
+    protected $connection = 'laptopexpert_products_db';
     protected $table = 'sma_product_status';
-    
+
     public $timestamps = false;
-    
+
     protected $fillable = [
         'status_name',
-        'status'
+        'status',
     ];
 
     protected $casts = [
-        'status' => 'integer'
+        'status' => 'integer',
     ];
 
-    /**
-     * Get products with this status
-     */
     public function products(): HasMany
     {
-        return $this->hasMany(SmaProduct::class, 'product_status');
+        return $this->hasMany(LaptopExpertProduct::class, 'product_status');
     }
 
-    /**
-     * Scope for active statuses
-     */
     public function scopeActive($query)
     {
         return $query->where('status', 1);
     }
 
-    /**
-     * Scope ordered by ID
-     */
     public function scopeOrdered($query)
     {
         return $query->orderBy('id');
