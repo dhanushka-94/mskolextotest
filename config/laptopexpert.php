@@ -31,7 +31,7 @@ return [
 
     'exclude_msk_menu_category_names' => array_values(array_filter(array_map(
         'trim',
-        explode(',', (string) env('EXCLUDE_MSK_MENU_CATEGORY_NAMES', 'LAPTOP'))
+        explode(',', (string) env('EXCLUDE_MSK_MENU_CATEGORY_NAMES', ''))
     ))),
 
     'exclude_msk_menu_category_slugs' => array_values(array_filter(array_map(

@@ -37,6 +37,9 @@ class SmaCategory extends Model
         // Step 1: Convert to lowercase
         $slug = strtolower($text);
 
+        // Keep readable connector for & (matches product/billing slug style)
+        $slug = preg_replace('/\s*&\s*/', '-and-', $slug);
+
         // Step 2: Replace special characters with hyphens
         // Handle parentheses, brackets, underscores, and other special chars
         $specialChars = ['(', ')', '[', ']', '{', '}', '_', '=', '+', '&', '%', '$', '#', '@', '!', '?', ':', ';', '"', "'", '`', '~', '^', '*', '|', '\\', '/', '<', '>', ',', '.'];
@@ -101,15 +104,17 @@ class SmaCategory extends Model
     }
 
     /**
-     * Scope for main categories (parent_id is null or empty) excluding Services
+     * Scope for main categories (parent_id is null/empty/0), excluding Services and Powered By Asus.
      */
     public function scopeMainCategories($query)
     {
-        return $query->where(function($q) {
+        return $query->where(function ($q) {
             $q->whereNull('parent_id')
               ->orWhere('parent_id', '')
               ->orWhere('parent_id', 0);
-        })->where('name', 'NOT LIKE', '%Service%')
+        })->whereRaw('UPPER(TRIM(name)) != ?', ['SERVICES'])
+          ->whereRaw('UPPER(TRIM(name)) != ?', ['POWERED BY ASUS'])
+          ->where('name', 'NOT LIKE', '%Service%')
           ->where('name', 'NOT LIKE', '%service%');
     }
 

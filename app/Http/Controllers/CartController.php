@@ -121,7 +121,7 @@ class CartController extends Controller
             $request->validate([
                 'product_id' => 'required|integer|min:1',
                 'quantity' => 'required|integer|min:1',
-                'catalog' => 'nullable|string|in:msk,laptopexpert',
+                'catalog' => 'nullable|string|in:msk',
             ]);
 
             $productClass = Cart::productClassFromCatalog($request->input('catalog'));
@@ -152,7 +152,7 @@ class CartController extends Controller
 
         $sessionId = Session::getId();
         
-        // Check if item already in cart (same id can exist on MSK and LaptopExpert DBs)
+        // Check if item already in cart
         $existingItem = Cart::where('session_id', $sessionId)
                            ->where('product_id', $request->product_id)
                            ->where('product_type', $productClass)

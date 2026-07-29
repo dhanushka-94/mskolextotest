@@ -19,7 +19,7 @@ class PerformanceCacheService
      */
     public static function getMainCategories()
     {
-        return Cache::remember('main_categories_with_counts_v7', self::CATEGORY_CACHE_DURATION, function () {
+        return Cache::remember('main_categories_with_counts_v8', self::CATEGORY_CACHE_DURATION, function () {
             $mskCategories = SmaCategory::mainCategories()
                 ->withCount(['products as total_products_count' => function($query) {
                     $query->where('hide', 0);
@@ -28,8 +28,6 @@ class PerformanceCacheService
                     $query->where('hide', 0);
                 }])
                 ->get();
-
-            $mskCategories = \App\Services\CategoryOrderingService::filterMskMainCategoriesHiddenFromMenu($mskCategories);
 
             $mskCategories = $mskCategories->map(function ($category) {
                 $category->active_products_count = $category->total_products_count + $category->subcategory_products_count;
@@ -47,12 +45,10 @@ class PerformanceCacheService
      */
     public static function getNavigationCategories()
     {
-        return Cache::remember('navigation_categories_v7', self::CATEGORY_CACHE_DURATION, function () {
+        return Cache::remember('navigation_categories_v8', self::CATEGORY_CACHE_DURATION, function () {
             $mskCategories = SmaCategory::mainCategories()
                 ->select(['id', 'name', 'slug', 'parent_id'])
                 ->get();
-
-            $mskCategories = \App\Services\CategoryOrderingService::filterMskMainCategoriesHiddenFromMenu($mskCategories);
 
             return \App\Services\CategoryOrderingService::sortCategories($mskCategories)
                 ->map(function ($category) {

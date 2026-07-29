@@ -28,19 +28,17 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * MSK or LaptopExpert product (same numeric id can exist on both DBs).
-     */
     public function product(): MorphTo
     {
         return $this->morphTo();
     }
 
+    /**
+     * Resolve product model class for a cart catalog key (MSK products DB only).
+     */
     public static function productClassFromCatalog(?string $catalog): string
     {
-        return $catalog === 'laptopexpert'
-            ? LaptopExpertProduct::class
-            : SmaProduct::class;
+        return SmaProduct::class;
     }
 
     public function getTotalPriceAttribute()

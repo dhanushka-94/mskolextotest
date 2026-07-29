@@ -400,6 +400,10 @@ class SmaProduct extends Model
         // Step 1: Convert to lowercase
         $slug = strtolower($text);
 
+        // Step 1b: Keep readable words for common connectors (must match billing DB slugs)
+        // e.g. "BOX & COOLER" => "box-and-cooler" (not "box-cooler")
+        $slug = preg_replace('/\s*&\s*/', '-and-', $slug);
+
         // Step 2: Replace special characters with hyphens
         // Handle parentheses, brackets, underscores, and other special chars
         $specialChars = ['(', ')', '[', ']', '{', '}', '_', '=', '+', '&', '%', '$', '#', '@', '!', '?', ':', ';', '"', "'", '`', '~', '^', '*', '|', '\\', '/', '<', '>', ',', '.'];

@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SmaProduct;
 use App\Models\SmaCategory;
-use App\Models\LaptopExpertProduct;
-use App\Models\LaptopExpertCategory;
 
 class ProductController extends Controller
 {
@@ -20,11 +18,16 @@ class ProductController extends Controller
                 'status:id,status_name'
             ]);
 
-        // Filter by category
+        // Filter by category or subcategory (slug or id)
         if ($request->has('category') && $request->category) {
-            $category = SmaCategory::where('slug', $request->category)->first();
+            $category = SmaCategory::where('slug', $request->category)
+                ->orWhere('id', $request->category)
+                ->first();
             if ($category) {
-                $query->where('category_id', $category->id);
+                $query->where(function ($q) use ($category) {
+                    $q->where('category_id', $category->id)
+                        ->orWhere('subcategory_id', $category->id);
+                });
             }
         }
 
@@ -67,52 +70,70 @@ class ProductController extends Controller
 
         $products = $query->paginate(12);
         $categories = \App\Services\PerformanceCacheService::getNavigationCategories();
+        $mainCategories = SmaCategory::mainCategories()
+            ->select(['id', 'name', 'slug'])
+            ->get();
 
-        return view('products.index', compact('products', 'categories'));
+        $subcategories = SmaCategory::query()
+            ->select(['id', 'name', 'slug', 'parent_id'])
+            ->whereIn('parent_id', $mainCategories->pluck('id'))
+            ->orderBy('name')
+            ->get()
+            ->groupBy('parent_id');
+
+        return view('products.index', compact('products', 'categories', 'mainCategories', 'subcategories'));
     }
 
     public function show(string $category, string $product)
     {
-        $categoryModel = SmaCategory::where('slug', $category)->orWhere('id', $category)->first();
-        $productModelClass = SmaProduct::class;
-        $categoryModelClass = SmaCategory::class;
-
-        if (!$categoryModel) {
-            $categoryModel = LaptopExpertCategory::where('slug', $category)->orWhere('id', $category)->first();
-            $productModelClass = LaptopExpertProduct::class;
-            $categoryModelClass = LaptopExpertCategory::class;
-        }
-
-        if (!$categoryModel) {
-            abort(404);
-        }
-
+        $categoryModel = SmaCategory::where('slug', $category)->orWhere('id', $category)->firstOrFail();
         $categoryId = $categoryModel->id;
 
         // Resolve product within this category only. A global (id OR slug) match can pick the wrong row
         // when numeric slugs collide with another product's id, or when the same code/slug exists elsewhere.
-        $productModel = $productModelClass::query()
-            ->where(function ($q) use ($product) {
-                $q->where('id', $product)->orWhere('slug', $product);
-            })
+        $productQuery = SmaProduct::query()
             ->where(function ($q) use ($categoryId) {
                 $q->where('category_id', $categoryId)
                     ->orWhere('subcategory_id', $categoryId);
+            });
+
+        $productModel = (clone $productQuery)
+            ->where(function ($q) use ($product) {
+                $q->where('id', $product)->orWhere('slug', $product);
             })
-            ->firstOrFail();
+            ->first();
+
+        // Legacy / mistaken URLs that strip "&" instead of using "-and-"
+        // e.g. ...without-box-cooler... → canonical ...without-box-and-cooler...
+        if (!$productModel && !is_numeric($product) && str_contains($product, '-')) {
+            $productModel = (clone $productQuery)
+                ->whereRaw("REPLACE(slug, '-and-', '-') = ?", [$product])
+                ->first();
+
+            if ($productModel && $productModel->slug && $productModel->slug !== $product) {
+                return redirect()->route('products.show', [
+                    'category' => $categoryModel->slug ?: $categoryModel->id,
+                    'product' => $productModel->slug,
+                ], 301);
+            }
+        }
+
+        if (!$productModel) {
+            abort(404);
+        }
 
         \Log::info("ProductController@show - Category: {$categoryModel->name} (ID: {$categoryModel->id}), Product: {$productModel->name} (ID: {$productModel->id}, Category: {$productModel->category_id})");
         
         $productModel->load(['category', 'photos', 'attributes.parent', 'status']);
         if (!$productModel->category) {
-            $productModel->setRelation('category', $categoryModelClass::find($productModel->category_id));
+            $productModel->setRelation('category', SmaCategory::find($productModel->category_id));
         }
         $product = $productModel;
 
-        view()->share('catalogSource', $productModelClass === LaptopExpertProduct::class ? 'laptopexpert' : 'msk');
+        view()->share('catalogSource', 'msk');
 
         // Get related products from same category
-        $relatedProducts = $productModelClass::where('category_id', $product->category_id)
+        $relatedProducts = SmaProduct::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->active()
             ->with(['category', 'photos', 'status'])

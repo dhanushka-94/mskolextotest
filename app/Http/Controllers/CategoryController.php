@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SmaCategory;
 use App\Models\SmaProduct;
-use App\Models\LaptopExpertCategory;
-use App\Models\LaptopExpertProduct;
-use App\Models\LaptopExpertProductStatus;
 use App\Models\SmaAttribute;
 
 class CategoryController extends Controller
@@ -17,27 +14,34 @@ class CategoryController extends Controller
         // Use cached categories with product counts for better performance
         $categories = \App\Services\PerformanceCacheService::getMainCategories();
 
-        return view('categories.index', compact('categories'));
+        // Load all subcategories for listed main categories in one query
+        $subcategoriesByParent = SmaCategory::query()
+            ->select(['id', 'name', 'slug', 'parent_id'])
+            ->whereIn('parent_id', $categories->pluck('id'))
+            ->withCount([
+                'products as total_products_count' => function ($query) {
+                    $query->where('hide', 0);
+                },
+                'subcategoryProducts as subcategory_products_count' => function ($query) {
+                    $query->where('hide', 0);
+                },
+            ])
+            ->get()
+            ->map(function ($subcategory) {
+                $subcategory->active_products_count = ($subcategory->total_products_count ?? 0) + ($subcategory->subcategory_products_count ?? 0);
+                return $subcategory;
+            })
+            ->groupBy('parent_id');
+
+        return view('categories.index', compact('categories', 'subcategoriesByParent'));
     }
 
     public function show(string $category, Request $request)
     {
-        $mskCategory = SmaCategory::where('slug', $category)->orWhere('id', $category)->first();
-        $lpCategory = LaptopExpertCategory::where('slug', $category)->orWhere('id', $category)->first();
+        $category = SmaCategory::where('slug', $category)->orWhere('id', $category)->firstOrFail();
+        $productModel = SmaProduct::class;
 
-        $isLaptopExpert = false;
-        if ($mskCategory) {
-            $category = $mskCategory;
-            $productModel = SmaProduct::class;
-        } elseif ($lpCategory) {
-            $category = $lpCategory;
-            $productModel = LaptopExpertProduct::class;
-            $isLaptopExpert = true;
-        } else {
-            abort(404);
-        }
-
-        view()->share('catalogSource', $isLaptopExpert ? 'laptopexpert' : 'msk');
+        view()->share('catalogSource', 'msk');
         
         // Get products query
         $productsQuery = $productModel::where(function($query) use ($category) {
@@ -132,10 +136,10 @@ class CategoryController extends Controller
         }
         
         // Get available attributes for this category
-        $availableAttributes = $isLaptopExpert ? collect() : $this->getCategoryAttributes($category->id);
+        $availableAttributes = $this->getCategoryAttributes($category->id);
         
         // Get available product statuses for this category
-        $availableStatuses = $isLaptopExpert ? collect() : $this->getCategoryStatuses($category->id);
+        $availableStatuses = $this->getCategoryStatuses($category->id);
         
         // Get price range for this category
         $priceRange = $this->getPriceRange($category->id, $productModel);
@@ -231,10 +235,7 @@ class CategoryController extends Controller
         // Apply status filter if any status names were found
         if (!empty($statusNames)) {
             $statusNames = array_unique($statusNames); // Remove duplicates
-            $statusModel = $productModel === LaptopExpertProduct::class
-                ? LaptopExpertProductStatus::class
-                : \App\Models\SmaProductStatus::class;
-            $statusIds = $statusModel::whereIn('status_name', $statusNames)
+            $statusIds = \App\Models\SmaProductStatus::whereIn('status_name', $statusNames)
                 ->pluck('id')
                 ->toArray();
             

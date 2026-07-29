@@ -74,52 +74,6 @@
             </div>
         @endif
         
-        <!-- Laptop Expert Banner (Show only for laptop-related categories) -->
-        @if(str_contains(strtolower($category->name), 'laptop'))
-        <div class="mb-3 md:mb-4 bg-gradient-to-r from-blue-600/15 via-blue-500/8 to-blue-600/15 border border-blue-500/25 rounded-lg p-3">
-            <div class="flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3 flex-1 min-w-0">
-                    <!-- Compact Icon -->
-                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M20,18C20.5,18 21,17.5 21,17V7C21,6.5 20.5,6 20,6H4C3.5,6 3,6.5 3,7V17C3,17.5 3.5,18 4,18H1V20H23V18M5,8H19V16H5V8Z"/>
-                        </svg>
-                    </div>
-                    
-                    <!-- Compact Text -->
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center gap-2 mb-1">
-                            <h3 class="text-sm md:text-base font-bold text-white truncate">Expert Laptop Service</h3>
-                            <span class="bg-blue-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">PRO</span>
-                        </div>
-                        <p class="text-xs text-gray-300 truncate">Professional repairs, upgrades & data recovery</p>
-                    </div>
-                </div>
-                
-                <!-- Compact Buttons -->
-                <div class="flex gap-2 flex-shrink-0">
-                    <a href="https://www.laptopexpert.lk/" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-semibold rounded-md hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm hover:shadow-md">
-                        <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                        </svg>
-                        <span class="hidden sm:inline">Visit</span>
-                        <span class="sm:hidden">Go</span>
-                    </a>
-                    <a href="tel:+94777506939" 
-                       class="inline-flex items-center px-3 py-2 border border-blue-500 text-blue-400 text-xs font-semibold rounded-md hover:bg-blue-500 hover:text-white transition-all duration-200">
-                        <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                        </svg>
-                        Call
-                    </a>
-                </div>
-            </div>
-        </div>
-        @endif
-        
         <div class="flex items-center justify-between">
             <!-- Category Info -->
             <div class="flex items-center gap-3 md:gap-4 min-w-0 flex-1">

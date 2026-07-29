@@ -412,10 +412,7 @@
             <!-- Bottom Row: Navigation Menu -->
             <div class="hidden md:flex items-center justify-center space-x-4 lg:space-x-8 h-12">
                 @php
-                    $leNavActive = isset($catalogSource) && $catalogSource === 'laptopexpert'
-                        && (request()->routeIs('categories.show') || request()->routeIs('products.show'));
-                    $mskCatalogNavActive = request()->routeIs('categories.*')
-                        && (!isset($catalogSource) || $catalogSource === 'msk');
+                    $mskCatalogNavActive = request()->routeIs('categories.*');
                 @endphp
                 <a href="{{ route('home') }}" class="text-gray-300 hover:text-primary-400 transition-colors text-sm font-medium whitespace-nowrap {{ request()->routeIs('home') ? 'text-primary-400' : '' }}">Home</a>
                 
@@ -519,63 +516,6 @@
                         </div>
                     </div>
                 </div>
-
-                @if(isset($laptopExpertMenuCategories) && $laptopExpertMenuCategories->isNotEmpty())
-                <!-- Laptops catalog (additional source) -->
-                <div class="relative group">
-                    <button type="button" class="text-gray-300 hover:text-blue-400 transition-colors text-sm font-medium flex items-center whitespace-nowrap {{ $leNavActive ? 'text-blue-400' : '' }}" id="laptops-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-                        {{ $laptopExpertMenuLabel ?? 'Laptops' }}
-                        <svg class="w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </button>
-                    <div class="absolute top-full left-0 w-80 md:w-96 bg-black border border-blue-800/50 rounded-lg shadow-xl opacity-0 invisible md:group-hover:opacity-100 md:group-hover:visible transition-all duration-200 z-[9999] dropdown-menu max-h-[70vh] overflow-hidden" id="laptops-dropdown-menu">
-                        <div class="py-3">
-                            <div class="px-4 pb-3 border-b border-blue-900/40">
-                                <h3 class="text-blue-400 font-semibold text-sm">{{ $laptopExpertMenuLabel ?? 'Laptops' }}</h3>
-                            </div>
-                            <div class="py-2 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-blue-900 scrollbar-track-gray-900">
-                                @foreach($laptopExpertMenuCategories as $category)
-                                    <div class="mb-1">
-                                        @if($category->subcategories->count() > 0)
-                                            <div class="flex items-center px-4 py-2 cursor-default bg-blue-500/10 border border-blue-500/25 rounded-lg text-blue-100">
-                                                <svg class="w-4 h-4 mr-3 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
-                                                </svg>
-                                                <span class="font-medium text-sm">{{ $category->name }}</span>
-                                                <svg class="w-3 h-3 ml-auto text-blue-300/70" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
-                                                </svg>
-                                            </div>
-                                        @else
-                                            <a href="{{ route('categories.show', $category->slug ?: $category->id) }}"
-                                               class="flex items-center px-4 py-2 transition-colors group bg-blue-500/10 border border-blue-500/25 rounded-lg text-blue-100 hover:bg-blue-500/20">
-                                                <svg class="w-4 h-4 mr-3 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
-                                                </svg>
-                                                <span class="font-medium text-sm">{{ $category->name }}</span>
-                                            </a>
-                                        @endif
-                                        @if($category->subcategories->count() > 0)
-                                            <div class="ml-6 mt-1 space-y-1">
-                                                @foreach($category->subcategories as $subcategory)
-                                                    <a href="{{ route('categories.show', $subcategory->slug ?: $subcategory->id) }}"
-                                                       class="flex items-center px-4 py-1.5 text-sm text-blue-200/90 hover:bg-blue-950/50 hover:text-blue-100 transition-colors group">
-                                                        <svg class="w-3 h-3 mr-3 text-blue-400/80" fill="currentColor" viewBox="0 0 24 24">
-                                                            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
-                                                        </svg>
-                                                        <span>{{ $subcategory->name }}</span>
-                                                    </a>
-                                                @endforeach
-                                            </div>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endif
                 
                 <a href="{{ route('promotions.index') }}" class="text-gray-300 hover:text-primary-400 transition-colors text-sm font-medium whitespace-nowrap {{ request()->routeIs('promotions.*') ? 'text-primary-400' : '' }}">Promotions</a>
                 <a href="{{ route('orders.track') }}" class="text-gray-300 hover:text-primary-400 transition-colors text-sm font-medium whitespace-nowrap {{ request()->routeIs('orders.track') ? 'text-primary-400' : '' }}">Track Order</a>
@@ -715,7 +655,7 @@
                             <!-- Subcategories (Collapsible) -->
                             @if($category->subcategories->count() > 0)
                                 <div class="mobile-subcategories ml-6 mt-1 space-y-1 hidden" id="mobile-subcategories-{{ $category->id }}">
-                                    @foreach($category->subcategories->take(10) as $subcategory)
+                                    @foreach($category->subcategories as $subcategory)
                                <a href="{{ route('categories.show', $subcategory->slug ?: $subcategory->id) }}" 
                                   class="flex items-center px-3 py-1.5 transition-colors text-sm rounded group {{ $isUgreenCategory ? 'text-emerald-200/80 hover:text-[#5ee9a8] hover:bg-emerald-950/40' : 'text-gray-400 hover:text-primary-400 hover:bg-gray-800/50' }}">
                                    <svg class="w-3 h-3 mr-2 {{ $isUgreenCategory ? 'text-emerald-500/80' : 'text-gray-600' }}" fill="currentColor" viewBox="0 0 24 24">
@@ -724,64 +664,12 @@
                                    <span>{{ $subcategory->name }}</span>
                                         </a>
                                     @endforeach
-                                    @if($category->subcategories->count() > 10)
-                                        <a href="{{ route('categories.show', $category->slug ?: $category->id) }}" 
-                                           class="block px-3 py-1 text-xs text-primary-400 hover:text-primary-300 transition-colors">
-                                            +{{ $category->subcategories->count() - 10 }} more subcategories
-                                        </a>
-                                    @endif
                                 </div>
                             @endif
                         </div>
                     @endforeach
                 </div>
 
-                @if(isset($laptopExpertMenuCategories) && $laptopExpertMenuCategories->isNotEmpty())
-                <div class="space-y-3">
-                    <h3 class="text-blue-400 font-semibold text-sm uppercase tracking-wider border-b border-blue-900/40 pb-2">{{ $laptopExpertMenuLabel ?? 'Laptops' }}</h3>
-                    @foreach($laptopExpertMenuCategories as $category)
-                        <div class="mb-1">
-                            <div class="flex items-center">
-                                @if($category->subcategories->count() > 0)
-                                    <div class="flex-1 flex items-center py-2 px-3 cursor-default rounded-lg bg-blue-500/10 border border-blue-500/25 text-blue-100">
-                                        <svg class="w-4 h-4 mr-3 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
-                                        </svg>
-                                        <span class="font-medium text-sm">{{ $category->name }}</span>
-                                    </div>
-                                    <button type="button" class="p-2 text-blue-300 hover:text-white transition-colors mobile-category-toggle" data-category="le-{{ $category->id }}">
-                                        <svg class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                        </svg>
-                                    </button>
-                                @else
-                                    <a href="{{ route('categories.show', $category->slug ?: $category->id) }}"
-                                       class="flex-1 flex items-center py-2 px-3 transition-colors rounded-lg group bg-blue-500/10 border border-blue-500/25 text-blue-100 hover:bg-blue-500/20">
-                                        <svg class="w-4 h-4 mr-3 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
-                                        </svg>
-                                        <span class="font-medium text-sm">{{ $category->name }}</span>
-                                    </a>
-                                @endif
-                            </div>
-                            @if($category->subcategories->count() > 0)
-                                <div class="mobile-subcategories ml-6 mt-1 space-y-1 hidden" id="mobile-subcategories-le-{{ $category->id }}">
-                                    @foreach($category->subcategories as $subcategory)
-                                        <a href="{{ route('categories.show', $subcategory->slug ?: $subcategory->id) }}"
-                                           class="flex items-center px-3 py-1.5 text-sm rounded text-blue-200/90 hover:text-blue-100 hover:bg-blue-950/40">
-                                            <svg class="w-3 h-3 mr-2 text-blue-400/80" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
-                                            </svg>
-                                            <span>{{ $subcategory->name }}</span>
-                                        </a>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
-                    @endforeach
-                </div>
-                @endif
-                
                 <!-- Services & Support -->
                 <div class="space-y-3">
                     <h3 class="text-primary-400 font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2">Services & Support</h3>
@@ -1122,6 +1010,8 @@
             </div>
         </div>
     </footer>
+
+    @include('partials.topweb-badge')
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/94777506939?text=Hello%2C%20I%20would%20like%20to%20inquire%20about%20your%20products." 

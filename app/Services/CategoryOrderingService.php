@@ -133,10 +133,10 @@ class CategoryOrderingService
      */
     public static function filterMskMainCategoriesHiddenFromMenu(Collection $categories): Collection
     {
-        $excludeNames = config('laptopexpert.exclude_msk_menu_category_names', ['LAPTOP']);
+        $excludeNames = config('laptopexpert.exclude_msk_menu_category_names', []);
         $excludeSlugs = config('laptopexpert.exclude_msk_menu_category_slugs', []);
         if (! is_array($excludeNames)) {
-            $excludeNames = ['LAPTOP'];
+            $excludeNames = [];
         }
         if (! is_array($excludeSlugs)) {
             $excludeSlugs = [];

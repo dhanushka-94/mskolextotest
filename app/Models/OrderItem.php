@@ -53,7 +53,7 @@ class OrderItem extends Model
     }
 
     /**
-     * MSK or LaptopExpert product snapshot is stored on the row; this resolves the live model when needed.
+     * Live product relation (MSK products DB). Snapshot fields are stored on the row.
      */
     public function product(): MorphTo
     {

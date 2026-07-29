@@ -158,20 +158,8 @@ return [
         /** Label for the dedicated main navigation dropdown */
         'menu_label' => 'Laptops',
 
-        'main_category_order' => [
-            90, // BRAND NEW LAPTOPS
-            89, // USED LAPTOPS
-            69, // CABLES
-            91, // FANTECH PRODUCTS
-            88, // LAPTOP ACCESSORIES
-            82, // LAPTOP BAG
-            62, // LAPTOP RAM
-            71, // VIRUS GUARD
-            73, // POUCH
-        ],
-        'subcategory_order' => [
-            91 => [96, 94, 95, 92, 98, 93, 97],
-            88 => [74, 66, 85, 70, 86, 57, 81, 83, 87, 78, 84, 56, 64, 55, 58],
-        ],
+        // Disabled: site uses MSK products DB only
+        'main_category_order' => [],
+        'subcategory_order' => [],
     ],
 ];
