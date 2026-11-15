@@ -63,11 +63,10 @@
 <!-- Product Details -->
 <section class="py-6 sm:py-12 bg-black">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {{-- Mobile order: gallery → buy box → attrs/specs. Desktop: gallery + attrs left, buy box right. --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-start">
-            <!-- Left column: gallery + attributes/specs under images -->
-            <div class="space-y-4">
             <!-- Product Images -->
-            <div class="p-3 sm:p-6 bg-gradient-to-br from-gray-900 to-black rounded-xl border border-gray-800 relative">
+            <div class="order-1 lg:col-start-1 lg:row-start-1 p-3 sm:p-6 bg-gradient-to-br from-gray-900 to-black rounded-xl border border-gray-800 relative">
                 <!-- Main Image -->
                 <div class="mb-4 sm:mb-6 p-2 sm:p-4 bg-black/30 rounded-xl border border-gray-700/50 relative">
                     <img id="mainImage" 
@@ -105,8 +104,233 @@
                 @endif
             </div>
 
-            <!-- Attributes & Specs directly under product images -->
-            <div class="space-y-4">
+            <!-- Product Info (title, price, add to cart) -->
+            <div class="order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2 flex flex-col">
+                <!-- Breadcrumb -->
+                <nav class="order-first text-sm mb-4" aria-label="Breadcrumb">
+                    <!-- Desktop Breadcrumb -->
+                    <ol class="hidden sm:flex items-center space-x-2 text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a itemprop="item" href="{{ route('home') }}" class="hover:text-primary-400 transition-colors"><span itemprop="name">Home</span></a>
+                            <meta itemprop="position" content="1">
+                        </li>
+                        <li>/</li>
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a itemprop="item" href="{{ route('products.index') }}" class="hover:text-primary-400 transition-colors"><span itemprop="name">Products</span></a>
+                            <meta itemprop="position" content="2">
+                        </li>
+                        <li>/</li>
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a itemprop="item" href="{{ route('categories.show', $product->category->slug ?: $product->category->id) }}" class="hover:text-primary-400 transition-colors"><span itemprop="name">{{ $product->category->name }}</span></a>
+                            <meta itemprop="position" content="3">
+                        </li>
+                        <li>/</li>
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-500">
+                            <span itemprop="name">{{ $product->name }}</span>
+                            <meta itemprop="position" content="4">
+                        </li>
+                    </ol>
+                    
+                    <!-- Mobile Breadcrumb -->
+                    <div class="sm:hidden">
+                        <div class="flex items-center gap-2 mb-2">
+                            <a href="{{ route('categories.show', $product->category->slug ?: $product->category->id) }}" class="inline-flex items-center gap-1 text-gray-400 hover:text-primary-400 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                </svg>
+                                <span class="text-xs font-medium">{{ $product->category->name }}</span>
+                            </a>
+                        </div>
+                        <div class="text-xs text-gray-500 leading-relaxed">
+                            {{ $product->name }}
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Product Title (keep above cart on all screens) -->
+                <div class="order-1 lg:order-1 mb-4 sm:mb-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
+                        <span class="text-sm text-primary-400 font-medium">{{ $product->category->name }}</span>
+                        @if($product->is_on_sale)
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-2 sm:px-3 py-1 rounded-full animate-pulse">
+                                    HOT DEAL
+                                </span>
+                                <span class="bg-primary-500 text-black text-xs font-bold px-2 py-1 rounded">
+                                    SAVE LKR {{ number_format($product->price - $product->promo_price, 2) }}
+                                </span>
+                            </div>
+                        @endif
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">{{ $product->name }}</h1>
+                </div>
+
+                {{-- Buy blurb + product code: after Add to Cart on mobile; under title on desktop --}}
+                <div class="order-6 lg:order-2 mb-4 sm:mb-6">
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Buy <strong class="text-gray-300">{{ $product->name }}</strong> online in Sri Lanka from MSK Computers{{ $product->category ? ' — ' . $product->category->name : '' }}.
+                        @if($product->final_price > 0)
+                            Current price <strong class="text-primary-400">LKR {{ number_format($product->final_price, 2) }}</strong>.
+                        @endif
+                        Official warranty, island-wide delivery, and expert local support.
+                    </p>
+
+                    @if($product->code)
+                        <div class="mt-3">
+                            <div class="inline-flex items-center px-3 py-1.5 bg-gray-800/50 border border-gray-700 rounded-lg">
+                                <svg class="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                                </svg>
+                                <span class="text-sm text-gray-400 mr-2">Product Code:</span>
+                                <span class="text-sm font-mono text-white font-medium">{{ $product->code }}</span>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Stock Status -->
+                <div class="order-2 lg:order-3">
+                @if($product->status && in_array($product->status->status_name, ['Coming Soon', 'Pre Order']))
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+                        <span class="text-blue-400 font-medium">{{ $product->status->status_name }}</span>
+                    </div>
+                @elseif($product->shelfQuantity() > 0)
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                        <span class="text-green-400 font-medium">In Stock</span>
+                    </div>
+                @else
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+                        <span class="text-red-400 font-medium">Out of Stock</span>
+                    </div>
+                @endif
+                </div>
+
+                <!-- Price -->
+                <div class="order-3 lg:order-4 mb-4 sm:mb-6">
+                    @if($product->is_on_sale)
+                        <div class="bg-gradient-to-r from-primary-500/10 to-red-500/10 border border-primary-500/20 rounded-xl p-3 sm:p-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                                <span class="text-2xl sm:text-3xl font-bold text-primary-400">LKR {{ number_format($product->promo_price, 2) }}</span>
+                                <span class="text-lg sm:text-xl text-gray-400 line-through">LKR {{ number_format($product->price, 2) }}</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                                <span class="text-green-400 font-semibold text-xs sm:text-sm">
+                                    💰 You Save: LKR {{ number_format($product->price - $product->promo_price, 2) }}
+                                </span>
+                                <span class="text-green-400 font-semibold text-xs sm:text-sm">
+                                    ({{ round((($product->price - $product->promo_price) / $product->price) * 100) }}% OFF)
+                                </span>
+                            </div>
+                        </div>
+                    @else
+                        <div class="bg-black/50 border border-gray-800 rounded-xl p-3 sm:p-4">
+                            @if($product->price > 0)
+                                <span class="text-2xl sm:text-3xl font-bold text-primary-400">LKR {{ number_format($product->price, 2) }}</span>
+                            @else
+                                <span class="text-2xl sm:text-3xl font-bold text-primary-400">Contact for Price</span>
+                            @endif
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Payment method price cards (product detail only) -->
+                <div class="order-4 lg:order-5">
+                @if($product->final_price > 0)
+                    @include('components.product-payment-methods', ['product' => $product])
+                @endif
+                </div>
+
+                <!-- Product Status / Add to Cart -->
+                <div class="order-5 lg:order-6 mb-6">
+                    @if($product->status)
+                        <div class="mb-4">
+                            <h4 class="text-sm font-medium text-gray-400 mb-2">Product Status:</h4>
+                            @include('components.product-status-badge', ['product' => $product])
+                        </div>
+                    @endif
+
+                    <!-- Add to Cart Section -->
+                    @if($product->can_add_to_cart)
+                        <div class="@if($product->is_on_sale) bg-gradient-to-r from-primary-500/5 to-red-500/5 border border-primary-500/20 @else bg-black/50 border border-gray-800 @endif rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
+                            @if($product->is_on_sale)
+                                <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-3 sm:mb-4">
+                                    <span class="text-red-400 font-semibold text-xs sm:text-sm animate-pulse">⚡ Limited Time Offer!</span>
+                                    <span class="text-gray-400 text-xs sm:text-sm">Act fast before it's gone!</span>
+                                </div>
+                            @endif
+                            
+                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                                <div class="flex items-center border border-gray-600 rounded-lg self-start sm:self-auto">
+                                    <button type="button" class="px-2 sm:px-3 py-2 text-gray-300 hover:text-primary-400" onclick="decreaseQuantity()">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                        </svg>
+                                    </button>
+                                    <input type="number" id="quantity" value="1" min="1" max="99" 
+                                           class="w-12 sm:w-16 py-2 text-center bg-transparent text-white border-0 focus:outline-none text-sm sm:text-base">
+                                    <button type="button" class="px-2 sm:px-3 py-2 text-gray-300 hover:text-primary-400" onclick="increaseQuantity()">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <button class="@if($product->is_on_sale) bg-gradient-to-r from-primary-500 to-red-500 hover:from-primary-600 hover:to-red-600 @else btn-primary @endif flex-1 text-base sm:text-lg py-3 font-semibold transition-all transform hover:scale-105" onclick="addToCart({{ $product->id }})">
+                                    @if($product->is_on_sale)
+                                        Add to Cart (SALE!)
+                                    @else
+                                        Add to Cart
+                                    @endif
+                                </button>
+                                <button class="btn-outline px-4 sm:px-6 py-3" onclick="addToWishlist({{ $product->id }})">
+                                    <svg class="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    @else
+                        @if($product->status && in_array($product->status->status_name, ['Coming Soon', 'Pre Order']))
+                            <!-- Special Contact Button for Coming Soon and Pre Order -->
+                            <div class="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl p-6 text-center mb-6">
+                                <div class="text-blue-400 text-xl font-semibold mb-2">{{ $product->status->status_name }}</div>
+                                <p class="text-gray-400 mb-4">{{ $product->cart_restriction_reason }}</p>
+                                <button onclick="showSpecialOrderContact('{{ $product->status->status_name }}', '{{ addslashes($product->name) }}')" 
+                                        class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg">
+                                    <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                    </svg>
+                                    Contact Us for This Product
+                                </button>
+                            </div>
+                        @else
+                            <!-- Regular Unavailable Message -->
+                            <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 text-center mb-6">
+                                <div class="text-red-400 text-xl font-semibold mb-2">{{ $product->cart_restriction_reason ?: 'Unavailable' }}</div>
+                                <p class="text-gray-400">This product is currently unavailable.</p>
+                            </div>
+                        @endif
+                    @endif
+                </div>
+
+                <!-- Product Description -->
+                @if($product->description)
+                    <div class="order-7 lg:order-7 mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
+                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            Description
+                        </h3>
+                        <p class="text-gray-300 leading-relaxed">{{ $product->description }}</p>
+                    </div>
+                @endif
+            </div>
+
+            <!-- Attributes & Specs: after Add to Cart on mobile; under gallery on desktop -->
+            <div class="order-3 lg:col-start-1 lg:row-start-2 space-y-4">
                 @if($product->grouped_attributes && count($product->grouped_attributes) > 0)
                     <section class="p-4 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-lg border border-gray-800/50" aria-labelledby="product-attributes-heading">
                         <h2 id="product-attributes-heading" class="text-lg font-semibold text-white mb-3 flex items-center">
@@ -230,225 +454,6 @@
                             @endif
                         </dl>
                     </section>
-                @endif
-            </div>
-            </div>{{-- end left column --}}
-
-            <!-- Product Info -->
-            <div>
-                <!-- Breadcrumb -->
-                <nav class="text-sm mb-4" aria-label="Breadcrumb">
-                    <!-- Desktop Breadcrumb -->
-                    <ol class="hidden sm:flex items-center space-x-2 text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
-                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                            <a itemprop="item" href="{{ route('home') }}" class="hover:text-primary-400 transition-colors"><span itemprop="name">Home</span></a>
-                            <meta itemprop="position" content="1">
-                        </li>
-                        <li>/</li>
-                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                            <a itemprop="item" href="{{ route('products.index') }}" class="hover:text-primary-400 transition-colors"><span itemprop="name">Products</span></a>
-                            <meta itemprop="position" content="2">
-                        </li>
-                        <li>/</li>
-                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                            <a itemprop="item" href="{{ route('categories.show', $product->category->slug ?: $product->category->id) }}" class="hover:text-primary-400 transition-colors"><span itemprop="name">{{ $product->category->name }}</span></a>
-                            <meta itemprop="position" content="3">
-                        </li>
-                        <li>/</li>
-                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-500">
-                            <span itemprop="name">{{ $product->name }}</span>
-                            <meta itemprop="position" content="4">
-                        </li>
-                    </ol>
-                    
-                    <!-- Mobile Breadcrumb -->
-                    <div class="sm:hidden">
-                        <div class="flex items-center gap-2 mb-2">
-                            <a href="{{ route('categories.show', $product->category->slug ?: $product->category->id) }}" class="inline-flex items-center gap-1 text-gray-400 hover:text-primary-400 transition-colors">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                                </svg>
-                                <span class="text-xs font-medium">{{ $product->category->name }}</span>
-                            </a>
-                        </div>
-                        <div class="text-xs text-gray-500 leading-relaxed">
-                            {{ $product->name }}
-                        </div>
-                    </div>
-                </nav>
-
-                <!-- Product Title -->
-                <div class="mb-4 sm:mb-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
-                        <span class="text-sm text-primary-400 font-medium">{{ $product->category->name }}</span>
-                        @if($product->is_on_sale)
-                            <div class="flex flex-wrap items-center gap-2">
-                                <span class="bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-2 sm:px-3 py-1 rounded-full animate-pulse">
-                                    HOT DEAL
-                                </span>
-                                <span class="bg-primary-500 text-black text-xs font-bold px-2 py-1 rounded">
-                                    SAVE LKR {{ number_format($product->price - $product->promo_price, 2) }}
-                                </span>
-                            </div>
-                        @endif
-                    </div>
-                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">{{ $product->name }}</h1>
-                    <p class="mt-2 text-sm text-gray-400 leading-relaxed">
-                        Buy <strong class="text-gray-300">{{ $product->name }}</strong> online in Sri Lanka from MSK Computers{{ $product->category ? ' — ' . $product->category->name : '' }}.
-                        @if($product->final_price > 0)
-                            Current price <strong class="text-primary-400">LKR {{ number_format($product->final_price, 2) }}</strong>.
-                        @endif
-                        Official warranty, island-wide delivery, and expert local support.
-                    </p>
-                    
-                    <!-- Product Code -->
-                    @if($product->code)
-                        <div class="mt-3">
-                            <div class="inline-flex items-center px-3 py-1.5 bg-gray-800/50 border border-gray-700 rounded-lg">
-                                <svg class="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-                                </svg>
-                                <span class="text-sm text-gray-400 mr-2">Product Code:</span>
-                                <span class="text-sm font-mono text-white font-medium">{{ $product->code }}</span>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-
-                <!-- Stock Status -->
-                @if($product->status && in_array($product->status->status_name, ['Coming Soon', 'Pre Order']))
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
-                        <span class="text-blue-400 font-medium">{{ $product->status->status_name }}</span>
-                    </div>
-                @elseif($product->shelfQuantity() > 0)
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-                        <span class="text-green-400 font-medium">In Stock</span>
-                    </div>
-                @else
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="w-3 h-3 bg-red-500 rounded-full"></span>
-                        <span class="text-red-400 font-medium">Out of Stock</span>
-                    </div>
-                @endif
-
-                <!-- Price -->
-                <div class="mb-4 sm:mb-6">
-                    @if($product->is_on_sale)
-                        <div class="bg-gradient-to-r from-primary-500/10 to-red-500/10 border border-primary-500/20 rounded-xl p-3 sm:p-4">
-                            <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
-                                <span class="text-2xl sm:text-3xl font-bold text-primary-400">LKR {{ number_format($product->promo_price, 2) }}</span>
-                                <span class="text-lg sm:text-xl text-gray-400 line-through">LKR {{ number_format($product->price, 2) }}</span>
-                            </div>
-                            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                                <span class="text-green-400 font-semibold text-xs sm:text-sm">
-                                    💰 You Save: LKR {{ number_format($product->price - $product->promo_price, 2) }}
-                                </span>
-                                <span class="text-green-400 font-semibold text-xs sm:text-sm">
-                                    ({{ round((($product->price - $product->promo_price) / $product->price) * 100) }}% OFF)
-                                </span>
-                            </div>
-                        </div>
-                    @else
-                        <div class="bg-black/50 border border-gray-800 rounded-xl p-3 sm:p-4">
-                            @if($product->price > 0)
-                                <span class="text-2xl sm:text-3xl font-bold text-primary-400">LKR {{ number_format($product->price, 2) }}</span>
-                            @else
-                                <span class="text-2xl sm:text-3xl font-bold text-primary-400">Contact for Price</span>
-                            @endif
-                        </div>
-                    @endif
-                </div>
-
-                <!-- Payment method price cards (product detail only) -->
-                @if($product->final_price > 0)
-                    @include('components.product-payment-methods', ['product' => $product])
-                @endif
-
-                <!-- Product Status -->
-                <div class="mb-6">
-                    @if($product->status)
-                        <div class="mb-4">
-                            <h4 class="text-sm font-medium text-gray-400 mb-2">Product Status:</h4>
-                            @include('components.product-status-badge', ['product' => $product])
-                        </div>
-                    @endif
-
-                    <!-- Add to Cart Section -->
-                    @if($product->can_add_to_cart)
-                        <div class="@if($product->is_on_sale) bg-gradient-to-r from-primary-500/5 to-red-500/5 border border-primary-500/20 @else bg-black/50 border border-gray-800 @endif rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
-                            @if($product->is_on_sale)
-                                <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-3 sm:mb-4">
-                                    <span class="text-red-400 font-semibold text-xs sm:text-sm animate-pulse">⚡ Limited Time Offer!</span>
-                                    <span class="text-gray-400 text-xs sm:text-sm">Act fast before it's gone!</span>
-                                </div>
-                            @endif
-                            
-                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                                <div class="flex items-center border border-gray-600 rounded-lg self-start sm:self-auto">
-                                    <button type="button" class="px-2 sm:px-3 py-2 text-gray-300 hover:text-primary-400" onclick="decreaseQuantity()">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
-                                        </svg>
-                                    </button>
-                                    <input type="number" id="quantity" value="1" min="1" max="99" 
-                                           class="w-12 sm:w-16 py-2 text-center bg-transparent text-white border-0 focus:outline-none text-sm sm:text-base">
-                                    <button type="button" class="px-2 sm:px-3 py-2 text-gray-300 hover:text-primary-400" onclick="increaseQuantity()">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <button class="@if($product->is_on_sale) bg-gradient-to-r from-primary-500 to-red-500 hover:from-primary-600 hover:to-red-600 @else btn-primary @endif flex-1 text-base sm:text-lg py-3 font-semibold transition-all transform hover:scale-105" onclick="addToCart({{ $product->id }})">
-                                    @if($product->is_on_sale)
-                                        Add to Cart (SALE!)
-                                    @else
-                                        Add to Cart
-                                    @endif
-                                </button>
-                                <button class="btn-outline px-4 sm:px-6 py-3" onclick="addToWishlist({{ $product->id }})">
-                                    <svg class="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    @else
-                        @if($product->status && in_array($product->status->status_name, ['Coming Soon', 'Pre Order']))
-                            <!-- Special Contact Button for Coming Soon and Pre Order -->
-                            <div class="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl p-6 text-center mb-6">
-                                <div class="text-blue-400 text-xl font-semibold mb-2">{{ $product->status->status_name }}</div>
-                                <p class="text-gray-400 mb-4">{{ $product->cart_restriction_reason }}</p>
-                                <button onclick="showSpecialOrderContact('{{ $product->status->status_name }}', '{{ addslashes($product->name) }}')" 
-                                        class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg">
-                                    <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                    </svg>
-                                    Contact Us for This Product
-                                </button>
-                            </div>
-                        @else
-                            <!-- Regular Unavailable Message -->
-                            <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6 text-center mb-6">
-                                <div class="text-red-400 text-xl font-semibold mb-2">{{ $product->cart_restriction_reason ?: 'Unavailable' }}</div>
-                                <p class="text-gray-400">This product is currently unavailable.</p>
-                            </div>
-                        @endif
-                    @endif
-                </div>
-
-                <!-- Product Description -->
-                @if($product->description)
-                    <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
-                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
-                            Description
-                        </h3>
-                        <p class="text-gray-300 leading-relaxed">{{ $product->description }}</p>
-                    </div>
                 @endif
             </div>
         </div>

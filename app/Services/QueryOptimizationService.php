@@ -14,8 +14,8 @@ class QueryOptimizationService
     {
         $query = SmaProduct::active()
             ->select([
-                'id', 'name', 'code', 'price', 'promo_price', 
-                'quantity', 'category_id', 'product_status', 
+                'id', 'name', 'code', 'slug', 'price', 'promo_price',
+                'quantity', 'category_id', 'product_status',
                 'image', 'promotion', 'details'
             ])
             ->with([
@@ -95,7 +95,7 @@ class QueryOptimizationService
         return SmaProduct::where('category_id', $categoryId)
             ->where('id', '!=', $excludeId)
             ->active()
-            ->select(['id', 'name', 'price', 'promo_price', 'quantity', 'category_id', 'product_status', 'image', 'promotion'])
+            ->select(['id', 'name', 'slug', 'price', 'promo_price', 'quantity', 'category_id', 'product_status', 'image', 'promotion'])
             ->with([
                 'category:id,name,slug',
                 'photos:id,product_id,photo',

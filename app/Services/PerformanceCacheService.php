@@ -63,10 +63,10 @@ class PerformanceCacheService
      */
     public static function getFeaturedProducts($limit = 8)
     {
-        return Cache::remember("featured_products_{$limit}", self::CACHE_DURATION, function () use ($limit) {
+        return Cache::remember("featured_products_{$limit}_v2", self::CACHE_DURATION, function () use ($limit) {
             return SmaProduct::featured()
                 ->active()
-                ->select(['id', 'name', 'price', 'promo_price', 'quantity', 'category_id', 'product_status', 'image', 'promotion'])
+                ->select(['id', 'name', 'slug', 'price', 'promo_price', 'quantity', 'category_id', 'product_status', 'image', 'promotion'])
                 ->with([
                     'category:id,name,slug',
                     'photos:id,product_id,photo',
@@ -90,9 +90,9 @@ class PerformanceCacheService
      */
     public static function getLatestProducts($limit = 4)
     {
-        return Cache::remember("latest_products_{$limit}", self::CACHE_DURATION, function () use ($limit) {
+        return Cache::remember("latest_products_{$limit}_v2", self::CACHE_DURATION, function () use ($limit) {
             return SmaProduct::active()
-                ->select(['id', 'name', 'price', 'promo_price', 'quantity', 'category_id', 'product_status', 'image'])
+                ->select(['id', 'name', 'slug', 'price', 'promo_price', 'quantity', 'category_id', 'product_status', 'image'])
                 ->with([
                     'category:id,name,slug',
                     'photos:id,product_id,photo',
@@ -116,11 +116,11 @@ class PerformanceCacheService
      */
     public static function getPromotionProducts($categoryId = null, $limit = 12)
     {
-        $cacheKey = "promotion_products_" . ($categoryId ?? 'all') . "_{$limit}";
+        $cacheKey = "promotion_products_v2_" . ($categoryId ?? 'all') . "_{$limit}";
         
         return Cache::remember($cacheKey, self::CACHE_DURATION, function () use ($categoryId, $limit) {
             $query = SmaProduct::active()
-                ->select(['id', 'name', 'price', 'promo_price', 'quantity', 'category_id', 'subcategory_id', 'product_status', 'image', 'promotion'])
+                ->select(['id', 'name', 'slug', 'price', 'promo_price', 'quantity', 'category_id', 'subcategory_id', 'product_status', 'image', 'promotion'])
                 ->where('promotion', 1)
                 ->where('promo_price', '>', 0)
                 ->where('quantity', '>', 0)

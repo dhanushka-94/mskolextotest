@@ -13,7 +13,7 @@ class HomeController extends Controller
     {
         // Get promotion products directly (bypassing cache for debugging)
         $promotionProducts = SmaProduct::active()
-            ->select(['id', 'name', 'price', 'promo_price', 'quantity', 'category_id', 'subcategory_id', 'product_status', 'image', 'promotion'])
+            ->select(['id', 'name', 'slug', 'price', 'promo_price', 'quantity', 'category_id', 'subcategory_id', 'product_status', 'image', 'promotion'])
             ->where('promotion', 1)
             ->where('promo_price', '>', 0)
             ->where('quantity', '>', 0)

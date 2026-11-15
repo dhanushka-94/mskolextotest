@@ -69,7 +69,7 @@
                     <span class="font-semibold text-[#5ee9a8]">Fast data &amp; charging</span> - USB-C &amp; connectivity
                 </div>
                 <div class="rounded-lg border border-[#00c65e]/35 bg-[#00c65e]/10 px-3 py-2 text-xs text-emerald-100/90">
-                    <span class="font-semibold text-[#5ee9a8]">MSK support</span> - Local warranty &amp; service
+                    <span class="font-semibold text-[#5ee9a8]">MSK support</span> - After-sales warranty &amp; service
                 </div>
             </div>
         @endif

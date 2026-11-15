@@ -4,7 +4,7 @@
 @section('description', 'Buy brand-new and used laptops and custom PC builds in Sri Lanka at MSK Computers. Gaming PCs, student & business notebooks, warranty support — plus Baseus and Ugreen accessories.')
 @section('keywords', 'MSK Computers, laptops Sri Lanka, PC builds Sri Lanka, gaming laptop, brand new laptop, used laptop, gaming PC, custom PC build, Baseus Sri Lanka, Ugreen Sri Lanka, Ragama computer store')
 @section('og_title', 'MSK COMPUTERS - Laptops & PC Builds | Sri Lanka')
-@section('og_description', 'Shop laptops and custom PC builds at MSK Computers Sri Lanka — brand-new and used options with local warranty. Also Baseus and Ugreen accessories.')
+@section('og_description', 'Shop laptops and custom PC builds at MSK Computers Sri Lanka — brand-new and used options with MSK warranty support. Also Baseus and Ugreen accessories.')
 @section('og_type', 'website')
 
 @section('content')
@@ -89,7 +89,7 @@
                 Shop <span class="text-[#3b82f6]">Laptops</span> &amp; <span class="text-[#f59e0b]">PC Builds</span> in Sri Lanka
             </h1>
             <p class="text-sm sm:text-base text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                Find brand-new and used <strong class="text-gray-300">laptops</strong> and custom <strong class="text-gray-300">PC builds</strong> at MSK Computers — gaming, study, and office setups with local warranty and expert support.
+                Find brand-new and used <strong class="text-gray-300">laptops</strong> and custom <strong class="text-gray-300">PC builds</strong> at MSK Computers — gaming, study, and office setups with MSK warranty support and expert help.
             </p>
         </header>
 
