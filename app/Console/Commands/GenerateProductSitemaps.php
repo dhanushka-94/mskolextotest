@@ -12,9 +12,23 @@ class GenerateProductSitemaps extends Command
     protected $signature = 'sitemap:generate-all';
     protected $description = 'Generate comprehensive sitemaps including ALL products';
 
+    /** Canonical public site used in sitemap <loc> (never localhost for Google). */
+    protected string $seoBaseUrl = 'https://mskcomputers.lk';
+
+    protected function seoUrl(string $path = '/'): string
+    {
+        return rtrim($this->seoBaseUrl, '/') . '/' . ltrim($path, '/');
+    }
+
     public function handle()
     {
+        $configured = rtrim((string) config('app.url'), '/');
+        if ($configured !== '' && !str_contains($configured, '127.0.0.1') && !str_contains($configured, 'localhost')) {
+            $this->seoBaseUrl = $configured;
+        }
+
         $this->info('Generating comprehensive sitemaps with ALL products...');
+        $this->line('🔗 Sitemap base URL: ' . $this->seoBaseUrl);
         $this->newLine();
 
         // Create public/sitemaps directory if it doesn't exist
@@ -31,7 +45,7 @@ class GenerateProductSitemaps extends Command
 
         $this->newLine();
         $this->info('🚀 All sitemaps generated successfully!');
-        $this->line('📍 Main sitemap index: ' . url('/sitemap-index.xml'));
+        $this->line('📍 Main sitemap index: ' . $this->seoUrl('/sitemap.xml'));
         $this->line('🌐 Submit this URL to Google Search Console');
 
         return 0;
@@ -45,21 +59,21 @@ class GenerateProductSitemaps extends Command
 
         // Main pages with high priority
         $mainPages = [
-            ['url' => url('/'), 'priority' => '1.0', 'changefreq' => 'daily'],
-            ['url' => url('/categories'), 'priority' => '0.9', 'changefreq' => 'weekly'],
-            ['url' => url('/products'), 'priority' => '0.9', 'changefreq' => 'daily'],
-            ['url' => url('/promotions'), 'priority' => '0.8', 'changefreq' => 'weekly'],
-            ['url' => url('/about-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
-            ['url' => url('/contact-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
-            ['url' => url('/services'), 'priority' => '0.7', 'changefreq' => 'monthly'],
-            ['url' => url('/e-services'), 'priority' => '0.6', 'changefreq' => 'monthly'],
-            ['url' => url('/bank-details'), 'priority' => '0.6', 'changefreq' => 'monthly'],
-            ['url' => url('/warranty'), 'priority' => '0.6', 'changefreq' => 'monthly'],
-            ['url' => url('/track-order'), 'priority' => '0.6', 'changefreq' => 'weekly'],
-            ['url' => url('/register'), 'priority' => '0.5', 'changefreq' => 'yearly'],
-            ['url' => url('/login'), 'priority' => '0.5', 'changefreq' => 'yearly'],
-            ['url' => url('/privacy-policy'), 'priority' => '0.4', 'changefreq' => 'yearly'],
-            ['url' => url('/terms-of-service'), 'priority' => '0.4', 'changefreq' => 'yearly'],
+            ['url' => $this->seoUrl('/'), 'priority' => '1.0', 'changefreq' => 'daily'],
+            ['url' => $this->seoUrl('/categories'), 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['url' => $this->seoUrl('/products'), 'priority' => '0.9', 'changefreq' => 'daily'],
+            ['url' => $this->seoUrl('/promotions'), 'priority' => '0.8', 'changefreq' => 'weekly'],
+            ['url' => $this->seoUrl('/about-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
+            ['url' => $this->seoUrl('/contact-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
+            ['url' => $this->seoUrl('/services'), 'priority' => '0.7', 'changefreq' => 'monthly'],
+            ['url' => $this->seoUrl('/e-services'), 'priority' => '0.6', 'changefreq' => 'monthly'],
+            ['url' => $this->seoUrl('/bank-details'), 'priority' => '0.6', 'changefreq' => 'monthly'],
+            ['url' => $this->seoUrl('/warranty'), 'priority' => '0.6', 'changefreq' => 'monthly'],
+            ['url' => $this->seoUrl('/track-order'), 'priority' => '0.6', 'changefreq' => 'weekly'],
+            ['url' => $this->seoUrl('/register'), 'priority' => '0.5', 'changefreq' => 'yearly'],
+            ['url' => $this->seoUrl('/login'), 'priority' => '0.5', 'changefreq' => 'yearly'],
+            ['url' => $this->seoUrl('/privacy-policy'), 'priority' => '0.4', 'changefreq' => 'yearly'],
+            ['url' => $this->seoUrl('/terms-of-service'), 'priority' => '0.4', 'changefreq' => 'yearly'],
         ];
 
         foreach ($mainPages as $page) {
@@ -89,7 +103,7 @@ class GenerateProductSitemaps extends Command
                 ->get();
 
             foreach ($categories as $category) {
-                $categoryUrl = url('/categories/' . ($category->slug ?: $category->id));
+                $categoryUrl = $this->seoUrl('/categories/' . ($category->slug ?: $category->id));
                 $sitemap .= $this->createUrlEntry($categoryUrl, '0.8', 'weekly');
             }
 
@@ -134,7 +148,7 @@ class GenerateProductSitemaps extends Command
                     $sitemap = $this->getSitemapHeader();
 
                     foreach ($products as $product) {
-                        $productUrl = url('/' . ($product->category->slug ?: $product->category->id) . '/' . ($product->slug ?: $product->id));
+                        $productUrl = $this->seoUrl('/' . ($product->category->slug ?: $product->category->id) . '/' . ($product->slug ?: $product->id));
                         
                         // Higher priority for promotional products
                         $priority = $product->promotion == 1 ? '0.8' : '0.6';
@@ -168,10 +182,10 @@ class GenerateProductSitemaps extends Command
         $sitemapIndex .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
         
         // Add main sitemap
-        $sitemapIndex .= $this->createSitemapIndexEntry(url('/sitemaps/main-sitemap.xml'));
+        $sitemapIndex .= $this->createSitemapIndexEntry($this->seoUrl('/sitemaps/main-sitemap.xml'));
         
         // Add categories sitemap
-        $sitemapIndex .= $this->createSitemapIndexEntry(url('/sitemaps/categories-sitemap.xml'));
+        $sitemapIndex .= $this->createSitemapIndexEntry($this->seoUrl('/sitemaps/categories-sitemap.xml'));
         
         // Add all product sitemaps
         $sitemapsDir = public_path('sitemaps');
@@ -179,75 +193,17 @@ class GenerateProductSitemaps extends Command
         
         foreach ($productSitemaps as $sitemapFile) {
             $filename = basename($sitemapFile);
-            $sitemapIndex .= $this->createSitemapIndexEntry(url('/sitemaps/' . $filename));
+            $sitemapIndex .= $this->createSitemapIndexEntry($this->seoUrl('/sitemaps/' . $filename));
         }
         
         $sitemapIndex .= '</sitemapindex>';
 
-        // Save sitemap index to main public directory
+        // Save sitemap index — also as sitemap.xml so Google discovers every product URL
         File::put(public_path('sitemap-index.xml'), $sitemapIndex);
-        
-        // Also update the main sitemap.xml to point to the most important content
-        $this->generateMainSitemapXml();
+        File::put(public_path('sitemap.xml'), $sitemapIndex);
         
         $totalSitemaps = 2 + count($productSitemaps); // main + categories + product sitemaps
         $this->line("  ✅ Sitemap index: " . $totalSitemaps . " sitemaps included");
-    }
-
-    protected function generateMainSitemapXml()
-    {
-        // Create a focused main sitemap.xml with most important pages and some products
-        $sitemap = $this->getSitemapHeader();
-
-        // Add most important pages
-        $mainPages = [
-            ['url' => url('/'), 'priority' => '1.0', 'changefreq' => 'daily'],
-            ['url' => url('/categories'), 'priority' => '0.9', 'changefreq' => 'weekly'],
-            ['url' => url('/products'), 'priority' => '0.9', 'changefreq' => 'daily'],
-            ['url' => url('/promotions'), 'priority' => '0.8', 'changefreq' => 'weekly'],
-        ];
-
-        foreach ($mainPages as $page) {
-            $sitemap .= $this->createUrlEntry($page['url'], $page['priority'], $page['changefreq']);
-        }
-
-        // Add top categories
-        try {
-            $topCategories = SmaCategory::select(['id', 'name', 'slug'])
-                ->whereHas('products', function($query) {
-                    $query->where('hide', 0);
-                })
-                ->limit(50)
-                ->get();
-
-            foreach ($topCategories as $category) {
-                $categoryUrl = url('/categories/' . ($category->slug ?: $category->id));
-                $sitemap .= $this->createUrlEntry($categoryUrl, '0.8', 'weekly');
-            }
-        } catch (\Exception $e) {
-            // Handle gracefully
-        }
-
-        // Add some promotional products for immediate indexing
-        try {
-            $promotionalProducts = SmaProduct::select(['id', 'name', 'slug', 'category_id'])
-                ->where('hide', 0)
-                ->where('promotion', 1)
-                ->whereHas('category')
-                ->with('category:id,name,slug')
-                ->limit(100)
-                ->get();
-
-            foreach ($promotionalProducts as $product) {
-                $productUrl = url('/' . ($product->category->slug ?: $product->category->id) . '/' . ($product->slug ?: $product->id));
-                $sitemap .= $this->createUrlEntry($productUrl, '0.8', 'weekly');
-            }
-        } catch (\Exception $e) {
-            // Handle gracefully
-        }
-
-        $sitemap .= $this->getSitemapFooter();
-        File::put(public_path('sitemap.xml'), $sitemap);
     }
 
     protected function getSitemapHeader()

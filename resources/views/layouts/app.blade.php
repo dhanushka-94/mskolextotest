@@ -10,24 +10,41 @@
     <meta name="description" content="@yield('description', 'MSK Computers - Your trusted partner for computer hardware, gaming PCs, laptops, and technology solutions in Sri Lanka. Quality products at competitive prices.')">
     <meta name="keywords" content="@yield('keywords', 'computers, gaming PC, laptops, hardware, MSK Computers, Sri Lanka, technology, graphics cards, processors, motherboards')">
     <meta name="author" content="MSK Computers">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="@yield('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')">
+    <meta name="googlebot" content="@yield('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')">
+    <meta name="geo.region" content="LK">
+    <meta name="geo.placename" content="Ragama, Sri Lanka">
+    <meta name="language" content="en">
     
-    <!-- Open Graph Meta Tags -->
+    <!-- Open Graph Meta Tags (default share preview logo) -->
+    @php
+        $defaultShareImage = asset('images/msk-share-og.png') . '?v=' . config('assets.version', '20261116');
+    @endphp
     <meta property="og:title" content="@yield('og_title', 'MSK COMPUTERS')">
     <meta property="og:description" content="@yield('og_description', 'MSK Computers - Your trusted partner for computer hardware and technology solutions.')">
-    <meta property="og:image" content="@yield('og_image', asset('images/msk-logo.png') . '?v=' . config('assets.version', time()))">
-    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="@yield('og_image', $defaultShareImage)">
+    <meta property="og:image:secure_url" content="@yield('og_image', $defaultShareImage)">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="@yield('og_image_alt', 'MSK Computers — Your Best IT Partner')">
+    <meta property="og:url" content="@yield('canonical', url()->current())">
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:site_name" content="MSK Computers">
+    <meta property="og:locale" content="en_LK">
+    @hasSection('product_price')
+    <meta property="product:price:amount" content="@yield('product_price')">
+    <meta property="product:price:currency" content="@yield('product_currency', 'LKR')">
+    <meta property="product:availability" content="@yield('product_availability', 'in stock')">
+    @endif
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('og_title', 'MSK COMPUTERS')">
     <meta name="twitter:description" content="@yield('og_description', 'MSK Computers - Your trusted partner for computer hardware and technology solutions.')">
-    <meta name="twitter:image" content="@yield('og_image', asset('images/msk-logo.png') . '?v=' . config('assets.version', time()))">
+    <meta name="twitter:image" content="@yield('og_image', $defaultShareImage)">
+    <meta name="twitter:image:alt" content="@yield('og_image_alt', 'MSK Computers — Your Best IT Partner')">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="canonical" href="@yield('canonical', url()->current())">
 
     @stack('structured_data')
 

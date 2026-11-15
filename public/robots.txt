@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Keep admin / account / checkout out of the index
+Disallow: /admin
+Disallow: /cart
+Disallow: /checkout
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /payment/
+
+Sitemap: https://mskcomputers.lk/sitemap.xml
+Sitemap: https://mskcomputers.lk/sitemap-index.xml

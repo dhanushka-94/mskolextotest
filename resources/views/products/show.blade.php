@@ -1,12 +1,63 @@
 @extends('layouts.app')
 
-@section('title', $product->name . ' - MSK COMPUTERS')
-@section('description', $product->details ? Str::limit(strip_tags($product->details), 160) : $product->name . ' - Premium computer hardware at MSK Computers. ' . ($product->category ? $product->category->name : '') . ' with warranty and quality assurance.')
-@section('keywords', $product->name . ', ' . ($product->category ? $product->category->name : '') . ', MSK Computers, computer hardware, Sri Lanka, ' . ($product->code ? $product->code : ''))
-@section('og_title', $product->name . ' - LKR ' . number_format($product->final_price, 2) . ' at MSK COMPUTERS')
-@section('og_description', $product->details ? Str::limit(strip_tags($product->details), 200) : 'Premium ' . $product->name . ' available at MSK Computers with warranty and quality assurance.')
-@section('og_image', $product->main_image)
+@php
+    $seoCategory = $product->category?->name;
+    $seoCategorySlug = $product->category ? ($product->category->slug ?: $product->category->id) : null;
+    $seoProductUrl = $seoCategorySlug
+        ? route('products.show', ['category' => $seoCategorySlug, 'product' => $product->slug ?: $product->id])
+        : url()->current();
+    $seoPrice = (float) $product->final_price;
+    $seoInStock = $product->shelfQuantity() > 0;
+    $seoRaw = $product->product_details ?: ($product->details ?: '');
+    $seoPlain = trim(preg_replace('/\s+/', ' ', strip_tags(html_entity_decode((string) $seoRaw))));
+    $seoDescription = $seoPlain !== ''
+        ? \Illuminate\Support\Str::limit($seoPlain, 155)
+        : ('Buy ' . $product->name . ' in Sri Lanka at MSK Computers'
+            . ($seoCategory ? ' — ' . $seoCategory : '')
+            . ($seoPrice > 0 ? '. Price LKR ' . number_format($seoPrice, 0) : '')
+            . '. Warranty, island-wide delivery & expert support.');
+    $seoTitle = $product->name
+        . ($seoPrice > 0 ? ' | LKR ' . number_format($seoPrice, 0) : '')
+        . ' | Buy Online Sri Lanka - MSK Computers';
+    $seoKeywords = implode(', ', array_filter([
+        $product->name,
+        $seoCategory,
+        $product->code,
+        'buy ' . ($seoCategory ?: 'computer') . ' Sri Lanka',
+        'MSK Computers',
+        'Ragama',
+        'computer store Sri Lanka',
+        'price in Sri Lanka',
+        'online computer shop',
+    ]));
+    $seoImage = collect($product->images ?? [])->first(function ($img) {
+        return is_string($img) && $img !== '' && !str_contains($img, 'unsplash.com');
+    }) ?: ($product->main_image ?: asset('images/msk-share-og.png'));
+    $seoOgTitle = $product->name
+        . ($seoPrice > 0 ? ' - LKR ' . number_format($seoPrice, 0) : '')
+        . ' | MSK Computers Sri Lanka';
+    $seoOgImageAlt = $product->name . ' for sale at MSK Computers Sri Lanka';
+    $seoProductPrice = number_format(max($seoPrice, 0), 2, '.', '');
+    $seoAvailability = $seoInStock ? 'in stock' : 'out of stock';
+@endphp
+
+@section('title', $seoTitle)
+@section('description', $seoDescription)
+@section('keywords', $seoKeywords)
+@section('canonical', $seoProductUrl)
+@section('og_title', $seoOgTitle)
+@section('og_description', $seoDescription)
+@section('og_image', $seoImage)
+@section('og_image_alt', $seoOgImageAlt)
 @section('og_type', 'product')
+@section('product_price', $seoProductPrice)
+@section('product_currency', 'LKR')
+@section('product_availability', $seoAvailability)
+@section('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')
+
+@push('structured_data')
+    @include('products.partials.seo-structured-data', ['product' => $product])
+@endpush
 
 @section('content')
 <!-- Product Details -->
@@ -188,14 +239,26 @@
                 <!-- Breadcrumb -->
                 <nav class="text-sm mb-4" aria-label="Breadcrumb">
                     <!-- Desktop Breadcrumb -->
-                    <ol class="hidden sm:flex items-center space-x-2 text-gray-400">
-                        <li><a href="{{ route('home') }}" class="hover:text-primary-400 transition-colors">Home</a></li>
+                    <ol class="hidden sm:flex items-center space-x-2 text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a itemprop="item" href="{{ route('home') }}" class="hover:text-primary-400 transition-colors"><span itemprop="name">Home</span></a>
+                            <meta itemprop="position" content="1">
+                        </li>
                         <li>/</li>
-                        <li><a href="{{ route('products.index') }}" class="hover:text-primary-400 transition-colors">Products</a></li>
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a itemprop="item" href="{{ route('products.index') }}" class="hover:text-primary-400 transition-colors"><span itemprop="name">Products</span></a>
+                            <meta itemprop="position" content="2">
+                        </li>
                         <li>/</li>
-                        <li><a href="{{ route('categories.show', $product->category->slug ?: $product->category->id) }}" class="hover:text-primary-400 transition-colors">{{ $product->category->name }}</a></li>
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a itemprop="item" href="{{ route('categories.show', $product->category->slug ?: $product->category->id) }}" class="hover:text-primary-400 transition-colors"><span itemprop="name">{{ $product->category->name }}</span></a>
+                            <meta itemprop="position" content="3">
+                        </li>
                         <li>/</li>
-                        <li class="text-gray-500">{{ $product->name }}</li>
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="text-gray-500">
+                            <span itemprop="name">{{ $product->name }}</span>
+                            <meta itemprop="position" content="4">
+                        </li>
                     </ol>
                     
                     <!-- Mobile Breadcrumb -->
@@ -230,6 +293,13 @@
                         @endif
                     </div>
                     <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">{{ $product->name }}</h1>
+                    <p class="mt-2 text-sm text-gray-400 leading-relaxed">
+                        Buy <strong class="text-gray-300">{{ $product->name }}</strong> online in Sri Lanka from MSK Computers{{ $product->category ? ' — ' . $product->category->name : '' }}.
+                        @if($product->final_price > 0)
+                            Current price <strong class="text-primary-400">LKR {{ number_format($product->final_price, 2) }}</strong>.
+                        @endif
+                        Official warranty, island-wide delivery, and expert local support.
+                    </p>
                     
                     <!-- Product Code -->
                     @if($product->code)
@@ -291,94 +361,9 @@
                     @endif
                 </div>
 
-                <!-- Enhanced Payment Options Section -->
+                <!-- Payment method price cards (product detail only) -->
                 @if($product->final_price > 0)
-                    @php
-                        $finalPrice = $product->final_price;
-                        $kokoPayTotal = $finalPrice * 1.10; // Add 10% transaction charge
-                        $splitAmount = ceil($kokoPayTotal / 3); // Round up to avoid decimals
-                        $lastSplitAmount = $kokoPayTotal - ($splitAmount * 2); // Adjust last payment for exact total
-                    @endphp
-                    
-                    <!-- KOKO Pay - Buy Now Pay Later (Ultra Compact) -->
-                    <div class="mb-3">
-                        <div class="bg-gradient-to-r from-purple-600/15 to-pink-500/15 border border-purple-500/30 rounded-lg p-2 sm:p-3 shadow-lg hover:shadow-purple-500/10 transition-all duration-300">
-                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
-                                <div class="flex items-center gap-2">
-                                    <img src="{{ asset('images/kokopay-logo.png') }}" alt="KOKO Pay" class="w-6 sm:w-8 h-6 sm:h-8 object-contain">
-                                    <div>
-                                        <h3 class="text-sm sm:text-base font-bold text-white">KOKO Pay</h3>
-                                        <p class="text-purple-300 text-xs font-medium">Buy Now, Pay Later</p>
-                                    </div>
-                                </div>
-                                <div class="bg-purple-500/20 px-2 py-1 rounded-full self-start sm:self-center">
-                                    <span class="text-purple-300 text-xs font-semibold">Transaction fee included</span>
-                                </div>
-                            </div>
-                            
-                            <div class="grid grid-cols-3 gap-1 sm:gap-2 mb-2">
-                                <div class="text-center p-1 sm:p-2 bg-purple-500/10 rounded border border-purple-400/20">
-                                    <div class="text-xs text-purple-300 font-medium">Today</div>
-                                    <div class="text-xs sm:text-sm font-bold text-white">LKR {{ number_format($splitAmount, 0) }}</div>
-                                </div>
-                                <div class="text-center p-1 sm:p-2 bg-purple-500/10 rounded border border-purple-400/20">
-                                    <div class="text-xs text-purple-300 font-medium">30 days</div>
-                                    <div class="text-xs sm:text-sm font-bold text-white">LKR {{ number_format($splitAmount, 0) }}</div>
-                                </div>
-                                <div class="text-center p-1 sm:p-2 bg-purple-500/10 rounded border border-purple-400/20">
-                                    <div class="text-xs text-purple-300 font-medium">60 days</div>
-                                    <div class="text-xs sm:text-sm font-bold text-white">LKR {{ number_format($lastSplitAmount, 0) }}</div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 pt-2 border-t border-purple-500/20">
-                                <div class="flex items-center gap-1 text-purple-300">
-                                    <svg class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span class="text-xs font-medium">No credit check</span>
-                                </div>
-                                <div class="text-xs text-gray-400">
-                                    Total: LKR {{ number_format($kokoPayTotal, 0) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Credit Card Installments (Ultra Compact) -->
-                    <div class="mb-3">
-                        <div class="bg-gradient-to-r from-blue-600/15 to-indigo-500/15 border border-blue-500/30 rounded-lg p-2 sm:p-3 shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
-                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                                        <svg class="w-4 sm:w-5 h-4 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                                        </svg>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h3 class="text-sm sm:text-base font-bold text-white">Credit Card Installments</h3>
-                                        <p class="text-blue-300 text-xs font-medium">Available via WebXPay Gateway</p>
-                                    </div>
-                                </div>
-                                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 self-start sm:self-center">
-                                    <div class="bg-blue-500/20 px-2 py-1 rounded-full">
-                                        <span class="text-blue-300 text-xs font-semibold">Bank Rates Apply</span>
-                                    </div>
-                                    <div class="flex items-center gap-2 shrink-0" role="img" aria-label="Visa and Mastercard accepted at MSK Computers">
-                                        <span class="inline-flex items-center justify-center h-5 min-w-[3.25rem] px-2 rounded-sm bg-[#1A1F71] text-white text-[10px] font-extrabold tracking-widest shadow-sm" title="Visa" style="background-color:#1A1F71;color:#fff;">VISA</span>
-                                        <span class="inline-flex items-center justify-center h-5 min-w-[3.25rem] px-1.5 rounded bg-black border border-gray-600" title="Mastercard">
-                                            <svg width="28" height="16" viewBox="0 0 28 16" aria-hidden="true" focusable="false">
-                                                <circle cx="10" cy="8" r="6" fill="#EB001B"/>
-                                                <circle cx="18" cy="8" r="6" fill="#F79E1B"/>
-                                                <path fill="#FF5F00" d="M14 3.2c-1.1.9-1.8 2.3-1.8 3.8s.7 2.9 1.8 3.8c1.1-.9 1.8-2.3 1.8-3.8s-.7-2.9-1.8-3.8z"/>
-                                            </svg>
-                                            <span class="sr-only">Mastercard</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('components.product-payment-methods', ['product' => $product])
                 @endif
 
                 <!-- Product Status -->
@@ -567,6 +552,43 @@
         </div>
     </section>
 @endif
+{{-- Unique SEO content for Google (product-specific, indexable copy) --}}
+<section class="py-8 bg-black border-t border-gray-900" aria-labelledby="product-seo-summary-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <article class="rounded-xl border border-gray-800/60 bg-[#0f0f10] p-5 sm:p-7">
+            <h2 id="product-seo-summary-heading" class="text-xl sm:text-2xl font-bold text-white mb-3">
+                {{ $product->name }} — Buy in Sri Lanka at MSK Computers
+            </h2>
+            <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-4">
+                Looking for <strong>{{ $product->name }}</strong>
+                @if($product->category)
+                    in the <a href="{{ route('categories.show', $product->category->slug ?: $product->category->id) }}" class="text-primary-400 hover:underline">{{ $product->category->name }}</a> category
+                @endif?
+                Shop at <strong>MSK Computers</strong> (Ragama) for genuine products, competitive Sri Lanka pricing,
+                @if($product->warranty)
+                    {{ $product->warranty }} warranty,
+                @endif
+                secure checkout, and island-wide delivery.
+                @if($product->code)
+                    Product code: <span class="font-mono text-gray-200">{{ $product->code }}</span>.
+                @endif
+            </p>
+            <ul class="grid sm:grid-cols-2 gap-2 text-sm text-gray-400">
+                <li>✓ Authorized retailer in Sri Lanka</li>
+                <li>✓ Cash, bank deposit, Visa/Master/Amex &amp; KOKO Pay</li>
+                <li>✓ Expert advice before you buy</li>
+                <li>✓ After-sales support from MSK Computers</li>
+            </ul>
+            <p class="mt-4 text-sm text-gray-400">
+                Browse more in
+                <a href="{{ route('categories.show', $product->category->slug ?: $product->category->id) }}" class="text-primary-400 hover:underline font-medium">{{ $product->category->name }}</a>
+                or view
+                <a href="{{ route('products.index') }}" class="text-primary-400 hover:underline font-medium">all products</a>
+                at MSK Computers.
+            </p>
+        </article>
+    </div>
+</section>
 @endsection
 
 @push('scripts')

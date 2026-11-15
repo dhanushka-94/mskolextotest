@@ -121,107 +121,24 @@ Route::get('/e-services', function () {
     return view('e-services');
 })->name('e-services.index');
 
-// SEO Routes
-Route::get('/sitemap.xml', function() {
-    $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
-
-    // Helper function to create URL entries
-    $createUrlEntry = function($url, $priority, $changefreq, $lastmod = null) {
-        $lastmod = $lastmod ?: now()->format('Y-m-d\TH:i:s\Z');
-        $entry = "  <url>\n";
-        $entry .= "    <loc>" . htmlspecialchars($url) . "</loc>\n";
-        $entry .= "    <lastmod>{$lastmod}</lastmod>\n";
-        $entry .= "    <changefreq>{$changefreq}</changefreq>\n";
-        $entry .= "    <priority>{$priority}</priority>\n";
-        $entry .= "  </url>\n";
-        return $entry;
-    };
-
-    // 1. Main pages with high priority
-    $mainPages = [
-        ['url' => url('/'), 'priority' => '1.0', 'changefreq' => 'daily'],
-        ['url' => url('/categories'), 'priority' => '0.9', 'changefreq' => 'weekly'],
-        ['url' => url('/products'), 'priority' => '0.9', 'changefreq' => 'daily'],
-        ['url' => url('/promotions'), 'priority' => '0.8', 'changefreq' => 'weekly'],
-    ];
-
-    foreach ($mainPages as $page) {
-        $sitemap .= $createUrlEntry($page['url'], $page['priority'], $page['changefreq']);
+// SEO Routes — serve generated sitemap index (covers all ~3k+ product URLs)
+Route::get('/sitemap.xml', function () {
+    $indexPath = public_path('sitemap-index.xml');
+    if (is_file($indexPath)) {
+        return response(file_get_contents($indexPath), 200, [
+            'Content-Type' => 'application/xml; charset=UTF-8',
+        ]);
     }
 
-    // 2. Information pages
-    $infoPages = [
-        ['url' => url('/about-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
-        ['url' => url('/contact-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
-        ['url' => url('/services'), 'priority' => '0.7', 'changefreq' => 'monthly'],
-        ['url' => url('/e-services'), 'priority' => '0.6', 'changefreq' => 'monthly'],
-        ['url' => url('/bank-details'), 'priority' => '0.6', 'changefreq' => 'monthly'],
-        ['url' => url('/warranty'), 'priority' => '0.6', 'changefreq' => 'monthly'],
-        ['url' => url('/track-order'), 'priority' => '0.6', 'changefreq' => 'weekly'],
-    ];
-
-    foreach ($infoPages as $page) {
-        $sitemap .= $createUrlEntry($page['url'], $page['priority'], $page['changefreq']);
+    // Fallback: regenerate and serve index
+    \Illuminate\Support\Facades\Artisan::call('sitemap:generate-all');
+    if (is_file($indexPath)) {
+        return response(file_get_contents($indexPath), 200, [
+            'Content-Type' => 'application/xml; charset=UTF-8',
+        ]);
     }
 
-    // 3. User and legal pages
-    $otherPages = [
-        ['url' => url('/register'), 'priority' => '0.5', 'changefreq' => 'yearly'],
-        ['url' => url('/login'), 'priority' => '0.5', 'changefreq' => 'yearly'],
-        ['url' => url('/privacy-policy'), 'priority' => '0.4', 'changefreq' => 'yearly'],
-        ['url' => url('/terms-of-service'), 'priority' => '0.4', 'changefreq' => 'yearly'],
-    ];
-
-    foreach ($otherPages as $page) {
-        $sitemap .= $createUrlEntry($page['url'], $page['priority'], $page['changefreq']);
-    }
-
-    // 4. Categories (all categories)
-    try {
-        if (class_exists('\App\Models\SmaCategory')) {
-            $categories = \App\Models\SmaCategory::select(['id', 'name', 'slug'])
-                ->whereHas('products', function($query) {
-                    $query->where('hide', 0);
-                })
-                ->orWhereHas('subcategoryProducts', function($query) {
-                    $query->where('hide', 0);
-                })
-                ->get();
-
-            foreach ($categories as $category) {
-                $categoryUrl = url('/categories/' . ($category->slug ?: $category->id));
-                $sitemap .= $createUrlEntry($categoryUrl, '0.8', 'weekly');
-            }
-        }
-    } catch (\Exception $e) {
-        // Handle gracefully if categories table doesn't exist
-    }
-
-    // 5. Featured products (limit to avoid huge sitemap)
-    try {
-        if (class_exists('\App\Models\SmaProduct')) {
-            $products = \App\Models\SmaProduct::select(['id', 'name', 'slug', 'category_id'])
-                ->where('hide', 0)
-                ->where('promotion', 1) // Only promotional products for sitemap
-                ->whereHas('category')
-                ->with('category:id,name,slug')
-                ->orderBy('id', 'desc')
-                ->limit(200) // Limit to featured/promotional products
-                ->get();
-
-            foreach ($products as $product) {
-                $productUrl = url('/' . ($product->category->slug ?: $product->category->id) . '/' . ($product->slug ?: $product->id));
-                $sitemap .= $createUrlEntry($productUrl, '0.7', 'weekly');
-            }
-        }
-    } catch (\Exception $e) {
-        // Handle gracefully if products table doesn't exist
-    }
-
-    $sitemap .= '</urlset>';
-
-    return response($sitemap, 200, ['Content-Type' => 'application/xml']);
+    return response('Sitemap not available', 503);
 })->name('sitemap');
 
 Route::get('/robots.txt', function() {
