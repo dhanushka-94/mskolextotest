@@ -79,9 +79,95 @@ class HomeController extends Controller
             $happyCustomerImages = array_values($happyCustomerImages);
         }
 
+        $coreShowcase = $this->coreShowcaseCategories();
         $brandShowcase = $this->brandShowcaseCategories();
 
-        return view('home', compact('promotionProducts', 'categories', 'latestProducts', 'sliders', 'happyCustomerImages', 'brandShowcase'));
+        return view('home', compact('promotionProducts', 'categories', 'latestProducts', 'sliders', 'happyCustomerImages', 'coreShowcase', 'brandShowcase'));
+    }
+
+    /**
+     * Laptops & PC Builds for homepage top (SEO-friendly URLs from live categories).
+     */
+    private function coreShowcaseCategories(): array
+    {
+        $order = ['LAPTOP', 'PC BUILD'];
+
+        $categories = SmaCategory::query()
+            ->whereIn('name', $order)
+            ->where(function ($q) {
+                $q->whereNull('parent_id')
+                    ->orWhere('parent_id', '')
+                    ->orWhere('parent_id', 0);
+            })
+            ->with(['subcategories' => function ($q) {
+                $q->select(['id', 'name', 'slug', 'parent_id'])
+                    ->orderBy('name');
+            }])
+            ->get()
+            ->keyBy(fn ($c) => strtoupper(trim($c->name)));
+
+        $fallbacks = [
+            'LAPTOP' => [
+                'slug' => 'laptop',
+                'id' => 381,
+                'subs' => [
+                    ['name' => 'Brand New Laptop', 'slug' => 'brand-new-laptop'],
+                    ['name' => 'Used Laptop', 'slug' => 'used-laptop'],
+                ],
+            ],
+            'PC BUILD' => [
+                'slug' => 'pc-build',
+                'id' => 380,
+                'subs' => [
+                    ['name' => 'Brand New PC Build', 'slug' => 'brand-new-pc-build'],
+                    ['name' => 'Used PC Build', 'slug' => 'used-pc-build'],
+                ],
+            ],
+        ];
+
+        $preferredUrls = [
+            'LAPTOP' => 'brand-new-laptop',
+            'PC BUILD' => 'brand-new-pc-build',
+        ];
+
+        $result = [];
+        foreach ($order as $name) {
+            $cat = $categories->get($name);
+            $fb = $fallbacks[$name] ?? null;
+            $key = $name === 'PC BUILD' ? 'pc-build' : 'laptop';
+
+            $url = isset($preferredUrls[$name])
+                ? route('categories.show', $preferredUrls[$name])
+                : ($cat
+                    ? route('categories.show', $cat->slug ?: $cat->id)
+                    : ($fb ? route('categories.show', $fb['slug'] ?: $fb['id']) : '#'));
+
+            $subs = [];
+            if ($cat && $cat->subcategories->isNotEmpty()) {
+                foreach ($cat->subcategories as $sub) {
+                    $subs[] = [
+                        'name' => $sub->name,
+                        'url' => route('categories.show', $sub->slug ?: $sub->id),
+                    ];
+                }
+            } elseif ($fb && ! empty($fb['subs'])) {
+                foreach ($fb['subs'] as $sub) {
+                    $subs[] = [
+                        'name' => $sub['name'],
+                        'url' => route('categories.show', $sub['slug']),
+                    ];
+                }
+            }
+
+            $result[] = [
+                'key' => $key,
+                'name' => $cat?->name ?? $name,
+                'url' => $url,
+                'subcategories' => $subs,
+            ];
+        }
+
+        return $result;
     }
 
     /**

@@ -12,20 +12,25 @@
 <!-- Product Details -->
 <section class="py-6 sm:py-12 bg-black">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-start">
+            <!-- Left column: gallery + attributes/specs under images -->
+            <div class="space-y-4">
             <!-- Product Images -->
             <div class="p-3 sm:p-6 bg-gradient-to-br from-gray-900 to-black rounded-xl border border-gray-800 relative">
                 <!-- Main Image -->
                 <div class="mb-4 sm:mb-6 p-2 sm:p-4 bg-black/30 rounded-xl border border-gray-700/50 relative">
                     <img id="mainImage" 
                          src="{{ $product->images[0] ?? 'https://via.placeholder.com/600x400?text=No+Image' }}" 
-                         alt="{{ $product->name }}" 
-                         class="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-contain rounded-lg shadow-2xl p-2 sm:p-4 bg-white/5 backdrop-blur-sm">
+                         alt="{{ $product->name }} — buy at MSK Computers Sri Lanka"
+                         width="600"
+                         height="600"
+                         class="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-contain rounded-lg shadow-2xl p-2 sm:p-4 bg-white/5 backdrop-blur-sm"
+                         fetchpriority="high">
                     
                     <!-- Christmas Sale Badge Overlay -->
                     @if(isset($isChristmasActive) && $isChristmasActive && $product->is_on_sale)
                         <div class="christmas-sale-badge">
-                            <img src="{{ asset('images/christmas-sale-badge.png') }}" alt="Christmas Sale">
+                            <img src="{{ asset('images/christmas-sale-badge.png') }}" alt="Christmas Sale at MSK Computers">
                         </div>
                     @endif
                 </div>
@@ -36,7 +41,11 @@
                         @foreach($product->images as $index => $image)
                             <div class="p-1 sm:p-2 bg-black/20 rounded-lg border border-gray-700/30 hover:border-primary-500/50 transition-all">
                                 <img src="{{ $image }}" 
-                                     alt="{{ $product->name }} - Image {{ $index + 1 }}"
+                                     alt="{{ $product->name }} gallery image {{ $index + 1 }} — MSK Computers"
+                                     width="120"
+                                     height="120"
+                                     loading="lazy"
+                                     decoding="async"
                                      class="w-full h-12 sm:h-16 md:h-20 object-contain rounded cursor-pointer hover:opacity-80 transition-opacity p-1 bg-white/5 {{ $index === 0 ? 'ring-2 ring-primary-500' : '' }}"
                                      onclick="changeMainImage('{{ $image }}', this)">
                             </div>
@@ -45,10 +54,139 @@
                 @endif
             </div>
 
+            <!-- Attributes & Specs directly under product images -->
+            <div class="space-y-4">
+                @if($product->grouped_attributes && count($product->grouped_attributes) > 0)
+                    <section class="p-4 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-lg border border-gray-800/50" aria-labelledby="product-attributes-heading">
+                        <h2 id="product-attributes-heading" class="text-lg font-semibold text-white mb-3 flex items-center">
+                            <svg class="w-4 h-4 text-primary-400 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                            </svg>
+                            {{ $product->name }} — Product Attributes
+                        </h2>
+                        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            @foreach($product->grouped_attributes as $attributeName => $attributeValues)
+                                <div class="bg-black/20 rounded-md p-3 border border-gray-700/30 hover:border-primary-500/20 transition-colors">
+                                    <dt class="text-xs font-semibold text-primary-400 mb-2 block uppercase tracking-wider">{{ $attributeName }}</dt>
+                                    <dd class="flex flex-wrap gap-1.5 m-0">
+                                        @foreach($attributeValues as $value)
+                                            <span class="inline-block bg-gray-800/50 text-gray-300 text-xs font-medium px-2 py-1 rounded border border-gray-700/30">
+                                                {{ $value }}
+                                            </span>
+                                        @endforeach
+                                    </dd>
+                                </div>
+                            @endforeach
+                        </dl>
+                    </section>
+                @endif
+
+                @if($product->product_details && trim(strip_tags($product->product_details)))
+                    @php
+                        $htmlContent = $product->product_details;
+                        $htmlContent = str_replace(['<p>', '<div>'], '', $htmlContent);
+                        $htmlContent = str_replace(['</p>', '</div>'], "\n", $htmlContent);
+                        $htmlContent = str_replace(['<br>', '<br/>', '<br />'], "\n", $htmlContent);
+                        $htmlContent = str_replace('<ul>', "\n", $htmlContent);
+                        $htmlContent = str_replace('</ul>', "\n", $htmlContent);
+                        $htmlContent = str_replace('<li>', "• ", $htmlContent);
+                        $htmlContent = str_replace('</li>', "\n", $htmlContent);
+                        $cleanContent = strip_tags($htmlContent);
+                        $cleanContent = html_entity_decode($cleanContent);
+                        $cleanContent = preg_replace('/\n\s*\n/', "\n\n", $cleanContent);
+                        $cleanContent = preg_replace('/\n{3,}/', "\n\n", $cleanContent);
+                        $cleanContent = trim($cleanContent);
+                        $lines = array_filter(array_map('trim', explode("\n", $cleanContent)));
+                    @endphp
+
+                    <section class="p-5 sm:p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50" aria-labelledby="product-specs-heading">
+                        <h2 id="product-specs-heading" class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                            </svg>
+                            {{ $product->name }} — Details &amp; Specifications
+                        </h2>
+
+                        <div class="space-y-3">
+                            @foreach($lines as $line)
+                                @if(!empty($line))
+                                    @if(preg_match('/^\d+\.\s/', $line) || str_starts_with($line, '•'))
+                                        <div class="flex items-start py-2 px-4 bg-black/20 rounded-lg border border-gray-700/30">
+                                            <p class="text-gray-300 leading-relaxed m-0">{{ $line }}</p>
+                                        </div>
+                                    @elseif(strpos($line, ':') !== false && strlen($line) < 100)
+                                        @php
+                                            $parts = explode(':', $line, 2);
+                                            $key = trim($parts[0]);
+                                            $value = isset($parts[1]) ? trim($parts[1]) : '';
+                                        @endphp
+                                        @if(!empty($value))
+                                            <dl class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30 m-0">
+                                                <dt class="text-gray-400 font-medium mb-1 sm:mb-0">{{ $key }}</dt>
+                                                <dd class="text-white font-semibold sm:text-right m-0">{{ $value }}</dd>
+                                            </dl>
+                                        @else
+                                            <h3 class="py-2 px-4 bg-primary-500/10 rounded-lg border border-primary-500/30 text-primary-400 font-bold text-center text-base">{{ $key }}</h3>
+                                        @endif
+                                    @elseif(preg_match('/^[A-Z\s]+$/', $line) && strlen($line) < 50)
+                                        <h3 class="py-2 px-4 bg-primary-500/10 rounded-lg border border-primary-500/30 text-primary-400 font-bold text-center text-base">{{ $line }}</h3>
+                                    @else
+                                        <div class="py-3 px-4 bg-black/10 rounded-lg border border-gray-700/20">
+                                            <p class="text-gray-300 leading-relaxed m-0">{{ $line }}</p>
+                                        </div>
+                                    @endif
+                                @endif
+                            @endforeach
+                        </div>
+
+                        @if($product->warranty || $product->model)
+                            <dl class="mt-6 pt-4 border-t border-gray-700/50 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                @if($product->warranty)
+                                    <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
+                                        <dt class="text-gray-400 font-medium">Warranty</dt>
+                                        <dd class="text-white font-semibold m-0">{{ $product->warranty }}</dd>
+                                    </div>
+                                @endif
+                                @if($product->model)
+                                    <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
+                                        <dt class="text-gray-400 font-medium">Model</dt>
+                                        <dd class="text-white font-semibold m-0">{{ $product->model }}</dd>
+                                    </div>
+                                @endif
+                            </dl>
+                        @endif
+                    </section>
+                @else
+                    <section class="p-5 sm:p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50" aria-labelledby="product-info-heading">
+                        <h2 id="product-info-heading" class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            {{ $product->name }} — Product Information
+                        </h2>
+                        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            @if($product->warranty)
+                                <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
+                                    <dt class="text-gray-400 font-medium">Warranty</dt>
+                                    <dd class="text-white font-semibold m-0">{{ $product->warranty }}</dd>
+                                </div>
+                            @endif
+                            @if($product->model)
+                                <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
+                                    <dt class="text-gray-400 font-medium">Model</dt>
+                                    <dd class="text-white font-semibold m-0">{{ $product->model }}</dd>
+                                </div>
+                            @endif
+                        </dl>
+                    </section>
+                @endif
+            </div>
+            </div>{{-- end left column --}}
+
             <!-- Product Info -->
             <div>
                 <!-- Breadcrumb -->
-                <nav class="text-sm mb-4">
+                <nav class="text-sm mb-4" aria-label="Breadcrumb">
                     <!-- Desktop Breadcrumb -->
                     <ol class="hidden sm:flex items-center space-x-2 text-gray-400">
                         <li><a href="{{ route('home') }}" class="hover:text-primary-400 transition-colors">Home</a></li>
@@ -226,9 +364,16 @@
                                     <div class="bg-blue-500/20 px-2 py-1 rounded-full">
                                         <span class="text-blue-300 text-xs font-semibold">Bank Rates Apply</span>
                                     </div>
-                                    <div class="flex items-center gap-1">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa" class="h-3 sm:h-4 opacity-70">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard" class="h-3 sm:h-4 opacity-70">
+                                    <div class="flex items-center gap-2 shrink-0" role="img" aria-label="Visa and Mastercard accepted at MSK Computers">
+                                        <span class="inline-flex items-center justify-center h-5 min-w-[3.25rem] px-2 rounded-sm bg-[#1A1F71] text-white text-[10px] font-extrabold tracking-widest shadow-sm" title="Visa" style="background-color:#1A1F71;color:#fff;">VISA</span>
+                                        <span class="inline-flex items-center justify-center h-5 min-w-[3.25rem] px-1.5 rounded bg-black border border-gray-600" title="Mastercard">
+                                            <svg width="28" height="16" viewBox="0 0 28 16" aria-hidden="true" focusable="false">
+                                                <circle cx="10" cy="8" r="6" fill="#EB001B"/>
+                                                <circle cx="18" cy="8" r="6" fill="#F79E1B"/>
+                                                <path fill="#FF5F00" d="M14 3.2c-1.1.9-1.8 2.3-1.8 3.8s.7 2.9 1.8 3.8c1.1-.9 1.8-2.3 1.8-3.8s-.7-2.9-1.8-3.8z"/>
+                                            </svg>
+                                            <span class="sr-only">Mastercard</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -320,162 +465,6 @@
                         <p class="text-gray-300 leading-relaxed">{{ $product->description }}</p>
                     </div>
                 @endif
-
-
-                <!-- Product Attributes (Compact) -->
-                @if($product->grouped_attributes && count($product->grouped_attributes) > 0)
-                    <div class="mb-4 p-4 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-lg border border-gray-800/50">
-                        <h3 class="text-lg font-semibold text-white mb-3 flex items-center">
-                            <svg class="w-4 h-4 text-primary-400 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-                            </svg>
-                            Product Attributes
-                        </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                            @foreach($product->grouped_attributes as $attributeName => $attributeValues)
-                                <div class="bg-black/20 rounded-md p-3 border border-gray-700/30 hover:border-primary-500/20 transition-colors">
-                                    <span class="text-xs font-semibold text-primary-400 mb-2 block uppercase tracking-wider">{{ $attributeName }}</span>
-                                    <div class="flex flex-wrap gap-1.5">
-                                        @foreach($attributeValues as $value)
-                                            <span class="inline-block bg-gray-800/50 text-gray-300 text-xs font-medium px-2 py-1 rounded border border-gray-700/30 hover:bg-gray-700/50 transition-colors">
-                                                {{ $value }}
-                                            </span>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-
-                <!-- Product Details & Specifications -->
-                @if($product->product_details && trim(strip_tags($product->product_details)))
-                    @php
-                        // Clean and format HTML content for display
-                        $htmlContent = $product->product_details;
-                        
-                        // Convert HTML to readable text while preserving structure
-                        $htmlContent = str_replace(['<p>', '<div>'], '', $htmlContent);
-                        $htmlContent = str_replace(['</p>', '</div>'], "\n", $htmlContent);
-                        $htmlContent = str_replace('<br>', "\n", $htmlContent);
-                        $htmlContent = str_replace('<br/>', "\n", $htmlContent);
-                        $htmlContent = str_replace('<br />', "\n", $htmlContent);
-                        
-                        // Handle lists
-                        $htmlContent = str_replace('<ul>', "\n", $htmlContent);
-                        $htmlContent = str_replace('</ul>', "\n", $htmlContent);
-                        $htmlContent = str_replace('<li>', "• ", $htmlContent);
-                        $htmlContent = str_replace('</li>', "\n", $htmlContent);
-                        
-                        // Remove remaining HTML tags
-                        $cleanContent = strip_tags($htmlContent);
-                        
-                        // Clean up whitespace and decode entities
-                        $cleanContent = html_entity_decode($cleanContent);
-                        $cleanContent = preg_replace('/\n\s*\n/', "\n\n", $cleanContent); // Multiple newlines to double
-                        $cleanContent = preg_replace('/\n{3,}/', "\n\n", $cleanContent); // More than 2 newlines to 2
-                        $cleanContent = trim($cleanContent);
-                        
-                        // Split into lines for better formatting
-                        $lines = explode("\n", $cleanContent);
-                        $lines = array_filter(array_map('trim', $lines)); // Remove empty lines and trim
-                    @endphp
-                    
-                    <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
-                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-                            </svg>
-                            Product Details & Specifications
-                        </h3>
-                        
-                        <div class="space-y-4">
-                            @foreach($lines as $line)
-                                @if(!empty($line))
-                                    @if(preg_match('/^\d+\.\s/', $line) || str_starts_with($line, '•'))
-                                        <!-- List items -->
-                                        <div class="flex items-start py-2 px-4 bg-black/20 rounded-lg border border-gray-700/30 hover:border-primary-500/30 transition-colors">
-                                            <div class="text-gray-300 leading-relaxed">{{ $line }}</div>
-                                        </div>
-                                    @elseif(strpos($line, ':') !== false && strlen($line) < 100)
-                                        <!-- Key-value pairs (short lines with colons) -->
-                                        @php
-                                            $parts = explode(':', $line, 2);
-                                            $key = trim($parts[0]);
-                                            $value = isset($parts[1]) ? trim($parts[1]) : '';
-                                        @endphp
-                                        @if(!empty($value))
-                                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30 hover:border-primary-500/30 transition-colors">
-                                                <span class="text-gray-400 font-medium mb-1 sm:mb-0">{{ $key }}:</span>
-                                                <span class="text-white font-semibold sm:text-right">{{ $value }}</span>
-                                            </div>
-                                        @else
-                                            <!-- Header or section title -->
-                                            <div class="py-2 px-4 bg-primary-500/10 rounded-lg border border-primary-500/30">
-                                                <div class="text-primary-400 font-bold text-center">{{ $key }}</div>
-                                            </div>
-                                        @endif
-                                    @elseif(preg_match('/^[A-Z\s]+$/', $line) && strlen($line) < 50)
-                                        <!-- All caps headers -->
-                                        <div class="py-2 px-4 bg-primary-500/10 rounded-lg border border-primary-500/30">
-                                            <div class="text-primary-400 font-bold text-center">{{ $line }}</div>
-                                        </div>
-                                    @else
-                                        <!-- Regular text -->
-                                        <div class="py-3 px-4 bg-black/10 rounded-lg border border-gray-700/20">
-                                            <div class="text-gray-300 leading-relaxed">{{ $line }}</div>
-                                        </div>
-                                    @endif
-                                @endif
-                            @endforeach
-                        </div>
-                        
-                        <!-- Basic Product Info (Only Warranty and Model) -->
-                        @if($product->warranty || $product->model)
-                            <div class="mt-6 pt-4 border-t border-gray-700/50">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    @if($product->warranty)
-                                        <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
-                                            <span class="text-gray-400 font-medium">Warranty:</span>
-                                            <span class="text-white font-semibold">{{ $product->warranty }}</span>
-                                        </div>
-                                    @endif
-                                    @if($product->model)
-                                        <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
-                                            <span class="text-gray-400 font-medium">Model:</span>
-                                            <span class="text-white font-semibold">{{ $product->model }}</span>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                @else
-                    <!-- Fallback when no product details are available -->
-                    <div class="mb-6 p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-gray-800/50">
-                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                            <svg class="w-5 h-5 text-primary-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            Product Information
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            @if($product->warranty)
-                                <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
-                                    <span class="text-gray-400 font-medium">Warranty:</span>
-                                    <span class="text-white font-semibold">{{ $product->warranty }}</span>
-                                </div>
-                            @endif
-                            @if($product->model)
-                                <div class="flex justify-between items-center py-3 px-4 bg-black/20 rounded-lg border border-gray-700/30">
-                                    <span class="text-gray-400 font-medium">Model:</span>
-                                    <span class="text-white font-semibold">{{ $product->model }}</span>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                @endif
-
             </div>
         </div>
     </div>

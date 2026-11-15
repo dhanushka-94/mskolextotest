@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'MSK COMPUTERS - Baseus & Ugreen | Computer Store Sri Lanka')
-@section('description', 'MSK Computers in Sri Lanka — shop official Baseus accessories (chargers, power banks) and Ugreen cables & USB-C gear with warranty. Plus gaming PCs, laptops, PC components, and expert support.')
-@section('keywords', 'MSK Computers, Baseus Sri Lanka, Ugreen Sri Lanka, Baseus charger, Ugreen USB-C cable, computer store Sri Lanka, gaming PC, laptops, computer hardware, Ragama, technology accessories')
-@section('og_title', 'MSK COMPUTERS - Baseus & Ugreen | Sri Lanka')
-@section('og_description', 'Official Baseus and Ugreen accessories at MSK Computers Sri Lanka — fast charging, cables, hubs, and more — plus PCs, laptops, and components with local warranty.')
+@section('title', 'MSK COMPUTERS - Laptops & PC Builds | Computer Store Sri Lanka')
+@section('description', 'Buy brand-new and used laptops and custom PC builds in Sri Lanka at MSK Computers. Gaming PCs, student & business notebooks, warranty support — plus Baseus and Ugreen accessories.')
+@section('keywords', 'MSK Computers, laptops Sri Lanka, PC builds Sri Lanka, gaming laptop, brand new laptop, used laptop, gaming PC, custom PC build, Baseus Sri Lanka, Ugreen Sri Lanka, Ragama computer store')
+@section('og_title', 'MSK COMPUTERS - Laptops & PC Builds | Sri Lanka')
+@section('og_description', 'Shop laptops and custom PC builds at MSK Computers Sri Lanka — brand-new and used options with local warranty. Also Baseus and Ugreen accessories.')
 @section('og_type', 'website')
 
 @section('content')
@@ -81,66 +81,72 @@
 
 </section>
 
-<!-- Featured brands: Baseus & Ugreen (semantic / SEO) -->
-<section class="py-8 md:py-12 bg-gradient-to-b from-black via-[#111] to-black border-y border-gray-800/40" aria-labelledby="featured-brands-heading">
+<!-- Core categories: Laptops & PC Builds (semantic / SEO) -->
+<section class="py-8 md:py-12 bg-gradient-to-b from-black via-[#111] to-black border-y border-gray-800/40" aria-labelledby="core-categories-heading">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <header class="text-center mb-8 md:mb-10">
-            <h2 id="featured-brands-heading" class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
-                Shop <span class="text-[#facc15]">Baseus</span> &amp; <span class="text-[#5ee9a8]">Ugreen</span> at MSK
-            </h2>
+            <h1 id="core-categories-heading" class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
+                Shop <span class="text-[#3b82f6]">Laptops</span> &amp; <span class="text-[#f59e0b]">PC Builds</span> in Sri Lanka
+            </h1>
             <p class="text-sm sm:text-base text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                Buy authentic <strong class="text-gray-300">Baseus</strong> and <strong class="text-gray-300">Ugreen</strong> accessories in Sri Lanka — chargers, power banks, USB-C cables, hubs, and more — with MSK Computers support and warranty.
+                Find brand-new and used <strong class="text-gray-300">laptops</strong> and custom <strong class="text-gray-300">PC builds</strong> at MSK Computers — gaming, study, and office setups with local warranty and expert support.
             </p>
         </header>
 
         <div class="grid md:grid-cols-2 gap-5 md:gap-8">
-            @foreach($brandShowcase as $brand)
+            @foreach($coreShowcase as $item)
                 @php
-                    $isBaseus = $brand['key'] === 'baseus';
-                    $isUgreen = $brand['key'] === 'ugreen';
+                    $isLaptop = $item['key'] === 'laptop';
+                    $isPcBuild = $item['key'] === 'pc-build';
                 @endphp
-                <article class="rounded-2xl border overflow-hidden transition-shadow duration-300 hover:shadow-xl {{ $isBaseus ? 'border-[#facc15]/35 bg-gradient-to-br from-[#facc15]/10 via-[#1a1a1c] to-black' : 'border-[#00c65e]/35 bg-gradient-to-br from-[#00c65e]/10 via-[#1a1a1c] to-black' }}"
+                <article class="rounded-2xl border overflow-hidden transition-shadow duration-300 hover:shadow-xl {{ $isLaptop ? 'border-[#3b82f6]/40 bg-gradient-to-br from-[#3b82f6]/10 via-[#1a1a1c] to-black' : 'border-[#f59e0b]/40 bg-gradient-to-br from-[#f59e0b]/10 via-[#1a1a1c] to-black' }}"
                          itemscope itemtype="https://schema.org/CollectionPage">
-                    <meta itemprop="name" content="{{ $brand['name'] }} — MSK Computers Sri Lanka">
-                    <link itemprop="url" href="{{ $brand['url'] }}">
+                    <meta itemprop="name" content="{{ $item['name'] }} — MSK Computers Sri Lanka">
+                    <link itemprop="url" href="{{ $item['url'] }}">
 
                     <div class="p-5 md:p-7 flex flex-col sm:flex-row sm:items-start gap-4 md:gap-6">
                         <div class="flex-shrink-0 flex items-center justify-center sm:block">
-                            @if($isBaseus)
-                                <a href="{{ $brand['url'] }}" class="block rounded-xl bg-black/40 p-3 border border-[#facc15]/30" title="Browse Baseus products at MSK Computers">
-                                    <img src="{{ asset('images/baseus_logo.png') }}" alt="Baseus official accessories — MSK Computers Sri Lanka" width="160" height="48" class="h-10 md:h-12 w-auto object-contain" loading="lazy" decoding="async">
-                                </a>
-                            @else
-                                <a href="{{ $brand['url'] }}" class="block rounded-xl bg-black/40 p-3 border border-[#00c65e]/30" title="Browse Ugreen products at MSK Computers">
-                                    <img src="{{ asset('images/ugreen_logo.svg') }}" alt="Ugreen official cables and USB accessories — MSK Computers Sri Lanka" width="160" height="48" class="h-10 md:h-12 w-auto object-contain" loading="lazy" decoding="async">
-                                </a>
-                            @endif
+                            <a href="{{ $item['url'] }}"
+                               class="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-2xl border {{ $isLaptop ? 'bg-[#3b82f6]/15 border-[#3b82f6]/40 text-[#60a5fa]' : 'bg-[#f59e0b]/15 border-[#f59e0b]/40 text-[#fbbf24]' }}"
+                               title="{{ $isLaptop ? 'Browse laptops at MSK Computers' : 'Browse PC builds at MSK Computers' }}">
+                                @if($isLaptop)
+                                    <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M4,6H20V16H4M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H1V20H23V18H20Z"/>
+                                    </svg>
+                                    <span class="sr-only">Laptops</span>
+                                @else
+                                    <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M21,16V4H3V16H21M21,2A2,2 0 0,1 23,4V16A2,2 0 0,1 21,18H14L16,21V22H8V21L10,18H3A2,2 0 0,1 1,16V4A2,2 0 0,1 3,2H21Z"/>
+                                    </svg>
+                                    <span class="sr-only">PC Builds</span>
+                                @endif
+                            </a>
                         </div>
 
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-xl md:text-2xl font-bold mb-2">
-                                <a href="{{ $brand['url'] }}" class="{{ $isBaseus ? 'text-[#fde047] hover:text-[#facc15]' : 'text-[#5ee9a8] hover:text-[#6ee7b7]' }} transition-colors">
-                                    {{ $brand['name'] }} <span class="text-gray-500 font-normal text-base">— Sri Lanka</span>
+                            <h2 class="text-xl md:text-2xl font-bold mb-2">
+                                <a href="{{ $item['url'] }}" class="{{ $isLaptop ? 'text-[#93c5fd] hover:text-[#60a5fa]' : 'text-[#fcd34d] hover:text-[#fbbf24]' }} transition-colors">
+                                    {{ $isLaptop ? 'Laptops' : 'PC Builds' }} <span class="text-gray-500 font-normal text-base">— Sri Lanka</span>
                                 </a>
-                            </h3>
-                            @if($isBaseus)
+                            </h2>
+                            @if($isLaptop)
                                 <p class="text-sm text-gray-400 leading-relaxed mb-4" itemprop="description">
-                                    Baseus fast charging, power banks, hubs, and mobile &amp; laptop accessories — ideal for work, travel, and gaming setups. <a href="{{ $brand['url'] }}" class="text-[#facc15] hover:underline font-medium">View all Baseus products</a>.
+                                    Brand-new and used laptops for gaming, students, and professionals — ASUS, Acer, HP, Lenovo, and more with MSK warranty. <a href="{{ $item['url'] }}" class="text-[#60a5fa] hover:underline font-medium">Shop all laptops</a>.
                                 </p>
                             @else
                                 <p class="text-sm text-gray-400 leading-relaxed mb-4" itemprop="description">
-                                    Ugreen reliable USB-C cables, adapters, and connectivity — data and charging you can trust. <a href="{{ $brand['url'] }}" class="text-[#5ee9a8] hover:underline font-medium">View all Ugreen products</a>.
+                                    Custom and ready-made PC builds for gaming, content creation, and office work — assembled and tested by MSK Computers. <a href="{{ $item['url'] }}" class="text-[#fbbf24] hover:underline font-medium">Shop all PC builds</a>.
                                 </p>
                             @endif
 
-                            @if(!empty($brand['subcategories']))
+                            @if(!empty($item['subcategories']))
                                 <div>
-                                    <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Popular categories</p>
+                                    <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Browse by type</p>
                                     <ul class="flex flex-wrap gap-2" role="list">
-                                        @foreach($brand['subcategories'] as $sub)
+                                        @foreach($item['subcategories'] as $sub)
                                             <li>
                                                 <a href="{{ $sub['url'] }}"
-                                                   class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-colors {{ $isBaseus ? 'bg-[#facc15]/15 text-[#fde68a] border border-[#facc15]/25 hover:bg-[#facc15]/25' : 'bg-[#00c65e]/15 text-emerald-200 border border-[#00c65e]/25 hover:bg-[#00c65e]/25' }}">
+                                                   class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-colors {{ $isLaptop ? 'bg-[#3b82f6]/15 text-[#bfdbfe] border border-[#3b82f6]/30 hover:bg-[#3b82f6]/25' : 'bg-[#f59e0b]/15 text-[#fde68a] border border-[#f59e0b]/30 hover:bg-[#f59e0b]/25' }}">
                                                     {{ $sub['name'] }}
                                                 </a>
                                             </li>
@@ -487,11 +493,105 @@
     </div>
 </section>
 
+<!-- Featured brands: Baseus & Ugreen (semantic / SEO) — bottom of homepage -->
+<section class="py-8 md:py-12 bg-gradient-to-b from-black via-[#111] to-black border-t border-gray-800/40" aria-labelledby="featured-brands-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header class="text-center mb-8 md:mb-10">
+            <h2 id="featured-brands-heading" class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
+                Shop <span class="text-[#facc15]">Baseus</span> &amp; <span class="text-[#5ee9a8]">Ugreen</span> at MSK
+            </h2>
+            <p class="text-sm sm:text-base text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                Buy authentic <strong class="text-gray-300">Baseus</strong> and <strong class="text-gray-300">Ugreen</strong> accessories in Sri Lanka — chargers, power banks, USB-C cables, hubs, and more — with MSK Computers support and warranty.
+            </p>
+        </header>
+
+        <div class="grid md:grid-cols-2 gap-5 md:gap-8">
+            @foreach($brandShowcase as $brand)
+                @php
+                    $isBaseus = $brand['key'] === 'baseus';
+                    $isUgreen = $brand['key'] === 'ugreen';
+                @endphp
+                <article class="rounded-2xl border overflow-hidden transition-shadow duration-300 hover:shadow-xl {{ $isBaseus ? 'border-[#facc15]/35 bg-gradient-to-br from-[#facc15]/10 via-[#1a1a1c] to-black' : 'border-[#00c65e]/35 bg-gradient-to-br from-[#00c65e]/10 via-[#1a1a1c] to-black' }}"
+                         itemscope itemtype="https://schema.org/CollectionPage">
+                    <meta itemprop="name" content="{{ $brand['name'] }} — MSK Computers Sri Lanka">
+                    <link itemprop="url" href="{{ $brand['url'] }}">
+
+                    <div class="p-5 md:p-7 flex flex-col sm:flex-row sm:items-start gap-4 md:gap-6">
+                        <div class="flex-shrink-0 flex items-center justify-center sm:block">
+                            @if($isBaseus)
+                                <a href="{{ $brand['url'] }}" class="block rounded-xl bg-black/40 p-3 border border-[#facc15]/30" title="Browse Baseus products at MSK Computers">
+                                    <img src="{{ asset('images/baseus_logo.png') }}" alt="Baseus official accessories — MSK Computers Sri Lanka" width="160" height="48" class="h-10 md:h-12 w-auto object-contain" loading="lazy" decoding="async">
+                                </a>
+                            @else
+                                <a href="{{ $brand['url'] }}" class="block rounded-xl bg-black/40 p-3 border border-[#00c65e]/30" title="Browse Ugreen products at MSK Computers">
+                                    <img src="{{ asset('images/ugreen_logo.svg') }}" alt="Ugreen official cables and USB accessories — MSK Computers Sri Lanka" width="160" height="48" class="h-10 md:h-12 w-auto object-contain" loading="lazy" decoding="async">
+                                </a>
+                            @endif
+                        </div>
+
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">
+                                <a href="{{ $brand['url'] }}" class="{{ $isBaseus ? 'text-[#fde047] hover:text-[#facc15]' : 'text-[#5ee9a8] hover:text-[#6ee7b7]' }} transition-colors">
+                                    {{ $brand['name'] }} <span class="text-gray-500 font-normal text-base">— Sri Lanka</span>
+                                </a>
+                            </h3>
+                            @if($isBaseus)
+                                <p class="text-sm text-gray-400 leading-relaxed mb-4" itemprop="description">
+                                    Baseus fast charging, power banks, hubs, and mobile &amp; laptop accessories — ideal for work, travel, and gaming setups. <a href="{{ $brand['url'] }}" class="text-[#facc15] hover:underline font-medium">View all Baseus products</a>.
+                                </p>
+                            @else
+                                <p class="text-sm text-gray-400 leading-relaxed mb-4" itemprop="description">
+                                    Ugreen reliable USB-C cables, adapters, and connectivity — data and charging you can trust. <a href="{{ $brand['url'] }}" class="text-[#5ee9a8] hover:underline font-medium">View all Ugreen products</a>.
+                                </p>
+                            @endif
+
+                            @if(!empty($brand['subcategories']))
+                                <div>
+                                    <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Popular categories</p>
+                                    <ul class="flex flex-wrap gap-2" role="list">
+                                        @foreach($brand['subcategories'] as $sub)
+                                            <li>
+                                                <a href="{{ $sub['url'] }}"
+                                                   class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-colors {{ $isBaseus ? 'bg-[#facc15]/15 text-[#fde68a] border border-[#facc15]/25 hover:bg-[#facc15]/25' : 'bg-[#00c65e]/15 text-emerald-200 border border-[#00c65e]/25 hover:bg-[#00c65e]/25' }}">
+                                                    {{ $sub['name'] }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </article>
+            @endforeach
+        </div>
+    </div>
+</section>
 
 @endsection
 
 @push('structured_data')
 @php
+    $coreListLd = [
+        '@context' => 'https://schema.org',
+        '@type' => 'ItemList',
+        'name' => 'Laptops and PC Builds — MSK Computers Sri Lanka',
+        'description' => 'Shop brand-new and used laptops and custom PC builds at MSK Computers in Sri Lanka.',
+        'numberOfItems' => count($coreShowcase),
+        'itemListElement' => [],
+    ];
+    foreach ($coreShowcase as $i => $c) {
+        $coreListLd['itemListElement'][] = [
+            '@type' => 'ListItem',
+            'position' => $i + 1,
+            'item' => [
+                '@type' => 'WebPage',
+                'name' => ($c['key'] === 'laptop' ? 'Laptops' : 'PC Builds') . ' — MSK Computers',
+                'url' => $c['url'],
+            ],
+        ];
+    }
+
     $brandListLd = [
         '@context' => 'https://schema.org',
         '@type' => 'ItemList',
@@ -512,6 +612,7 @@
         ];
     }
 @endphp
+<script type="application/ld+json">{!! json_encode($coreListLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 <script type="application/ld+json">{!! json_encode($brandListLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @endpush
 
