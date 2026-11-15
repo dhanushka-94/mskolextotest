@@ -148,12 +148,13 @@ class CategoryController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             // Transform products for JSON response
             $transformedProducts = $products->getCollection()->map(function ($product) {
+                // Do NOT append `slug`: append() passes null into getSlugAttribute and
+                // regenerates from name, breaking canonical DB slugs (404 + SEO mismatch).
                 $product->append([
                     'main_image',
                     'final_price',
                     'is_on_sale',
                     'stock_quantity',
-                    'slug',
                 ]);
 
                 // Ensure status is loaded and included in response
@@ -177,6 +178,9 @@ class CategoryController extends Controller
                 // Arrays: force stock_quantity from raw selected `quantity` only (LE + MSK; avoids accessor/cast/JSON quirks).
                 $payload = $product->toArray();
                 $payload['stock_quantity'] = SmaProduct::listingQuantityFromRaw($product->getAttributes()['quantity'] ?? null);
+                // Prefer stored DB slug for filter/AJAX links (same as Blade listing / sitemaps).
+                $storedSlug = $product->getAttributes()['slug'] ?? null;
+                $payload['slug'] = $storedSlug ?: $product->slug;
 
                 return $payload;
             });
