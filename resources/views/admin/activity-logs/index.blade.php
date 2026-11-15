@@ -133,6 +133,10 @@
                         <option value="">All Actions</option>
                         <option value="login" {{ request('action') == 'login' ? 'selected' : '' }}>Login</option>
                         <option value="logout" {{ request('action') == 'logout' ? 'selected' : '' }}>Logout</option>
+                        <option value="order_created" {{ request('action') == 'order_created' ? 'selected' : '' }}>Order Created</option>
+                        <option value="order_updated" {{ request('action') == 'order_updated' ? 'selected' : '' }}>Order Updated</option>
+                        <option value="order_cancelled" {{ request('action') == 'order_cancelled' ? 'selected' : '' }}>Order Cancelled</option>
+                        <option value="order_deleted" {{ request('action') == 'order_deleted' ? 'selected' : '' }}>Order Deleted</option>
                         <option value="create" {{ request('action') == 'create' ? 'selected' : '' }}>Create</option>
                         <option value="update" {{ request('action') == 'update' ? 'selected' : '' }}>Update</option>
                         <option value="delete" {{ request('action') == 'delete' ? 'selected' : '' }}>Delete</option>

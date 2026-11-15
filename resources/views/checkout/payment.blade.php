@@ -376,27 +376,25 @@
                                 <ul class="text-gray-300 space-y-1 ml-4">
                                     <li>• Transfer the exact amount to the above bank account</li>
                                     <li>• Use your order number as the reference</li>
-                                    <li>• Upload your transfer slip below for faster processing (optional)</li>
+                                    <li>• After order confirmation, send your slip via <strong>WhatsApp</strong> or <strong>email</strong> with your order number</li>
                                     <li>• We'll confirm your payment within 24 hours</li>
                                 </ul>
                             </div>
                             
-                            <!-- Transfer Slip Upload -->
+                            <!-- Transfer slip reminder (send via WhatsApp / email after order) -->
                             <div class="bg-[#1a1a1c] rounded-lg p-4 border border-gray-700">
-                                <label class="block text-sm font-medium text-gray-300 mb-3">
-                                    <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                                    </svg>
-                                    Upload Transfer Slip (Optional)
-                                </label>
+                                <p class="text-sm font-medium text-gray-200 mb-2">
+                                    Send Transfer Slip After Order Confirmation
+                                </p>
+                                <p class="text-xs text-gray-400 mb-3">
+                                    On the next page, you can send your slip via WhatsApp or email with the order number for faster verification.
+                                    Optional: attach a slip here now (JPG, PNG, PDF — max 2MB).
+                                </p>
                                 <input type="file" 
                                        name="transfer_slip" 
                                        id="transfer_slip"
                                        accept="image/*,application/pdf"
                                        class="w-full px-3 py-2 bg-[#0f0f0f] border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-green-600 file:text-white hover:file:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-                                <p class="text-xs text-gray-400 mt-2">
-                                    Supported formats: JPG, PNG, PDF (Max 2MB) • This helps us verify your payment faster
-                                </p>
                             </div>
                         </div>
                     </div>

@@ -55,6 +55,7 @@ class ActivityLog extends Model
     const ACTION_ORDER_CREATED = 'order_created';
     const ACTION_ORDER_UPDATED = 'order_updated';
     const ACTION_ORDER_CANCELLED = 'order_cancelled';
+    const ACTION_ORDER_DELETED = 'order_deleted';
     const ACTION_PRODUCT_VIEWED = 'product_viewed';
     const ACTION_PRODUCT_ADDED_TO_CART = 'product_added_to_cart';
     const ACTION_PRODUCT_REMOVED_FROM_CART = 'product_removed_from_cart';
@@ -267,6 +268,7 @@ class ActivityLog extends Model
             self::ACTION_ORDER_CREATED => '🛒',
             self::ACTION_ORDER_UPDATED => '📦',
             self::ACTION_ORDER_CANCELLED => '❌',
+            self::ACTION_ORDER_DELETED => '🗑️',
             self::ACTION_PRODUCT_VIEWED => '👀',
             self::ACTION_PRODUCT_ADDED_TO_CART => '➕',
             self::ACTION_PRODUCT_REMOVED_FROM_CART => '➖',

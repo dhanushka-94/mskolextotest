@@ -65,7 +65,7 @@ class GenerateProductSitemaps extends Command
             ['url' => $this->seoUrl('/promotions'), 'priority' => '0.8', 'changefreq' => 'weekly'],
             ['url' => $this->seoUrl('/about-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
             ['url' => $this->seoUrl('/contact-us'), 'priority' => '0.7', 'changefreq' => 'monthly'],
-            ['url' => $this->seoUrl('/services'), 'priority' => '0.7', 'changefreq' => 'monthly'],
+            ['url' => $this->seoUrl('/services'), 'priority' => '0.9', 'changefreq' => 'weekly'],
             ['url' => $this->seoUrl('/e-services'), 'priority' => '0.6', 'changefreq' => 'monthly'],
             ['url' => $this->seoUrl('/bank-details'), 'priority' => '0.6', 'changefreq' => 'monthly'],
             ['url' => $this->seoUrl('/warranty'), 'priority' => '0.6', 'changefreq' => 'monthly'],

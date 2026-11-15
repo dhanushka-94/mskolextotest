@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Traits\LogsActivity;
 use App\Models\ActivityLog;
@@ -76,6 +77,27 @@ class Order extends Model
         static::creating(function ($model) {
             if (!$model->order_number) {
                 $model->order_number = 'MSK-' . date('Y') . '-' . strtoupper(Str::random(8));
+            }
+        });
+    }
+
+    /**
+     * Use create/update auto-logging from trait, but skip generic delete
+     * (deletion is logged manually with full order + item snapshot).
+     */
+    protected static function bootLogsActivity()
+    {
+        static::created(function ($model) {
+            $model->logActivity('created', "New {$model->getModelName()} created");
+        });
+
+        static::updated(function ($model) {
+            $changes = $model->getChanges();
+            if (!empty($changes)) {
+                $model->logActivity('updated', "Updated {$model->getModelName()}", [
+                    'changes' => $changes,
+                    'original' => $model->getOriginal(),
+                ]);
             }
         });
     }
@@ -311,5 +333,127 @@ class Order extends Model
             'cancellation_reason' => $reason,
             'cancelled_amount' => $this->total_amount,
         ], ActivityLog::SEVERITY_HIGH);
+    }
+
+    /**
+     * Full order snapshot for activity logs (must be called before items are deleted).
+     */
+    public function getDeletionActivitySnapshot(): array
+    {
+        if (!$this->relationLoaded('orderItems')) {
+            $this->load('orderItems');
+        }
+
+        $items = $this->orderItems->map(function ($item) {
+            return [
+                'product_id' => $item->product_id,
+                'product_type' => $item->product_type,
+                'product_name' => $item->product_name,
+                'product_code' => $item->product_code,
+                'quantity' => (float) $item->quantity,
+                'unit_price' => (float) $item->unit_price,
+                'unit_price_formatted' => 'LKR ' . number_format((float) $item->unit_price, 2),
+                'total_price' => (float) $item->total_price,
+                'total_price_formatted' => 'LKR ' . number_format((float) $item->total_price, 2),
+                'product_attributes' => $item->product_attributes,
+            ];
+        })->values()->all();
+
+        $itemsTotal = collect($items)->sum('total_price');
+
+        return [
+            'order_id' => $this->id,
+            'order_number' => $this->order_number,
+            'customer' => [
+                'user_id' => $this->user_id,
+                'name' => $this->customer_name,
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'email' => $this->customer_email,
+                'phone' => $this->customer_phone,
+            ],
+            'billing_address' => [
+                'line_1' => $this->billing_address_line_1,
+                'line_2' => $this->billing_address_line_2,
+                'city' => $this->billing_city,
+                'state' => $this->billing_state,
+                'postal_code' => $this->billing_postal_code,
+                'country' => $this->billing_country,
+            ],
+            'shipping_address' => [
+                'line_1' => $this->shipping_address_line_1,
+                'line_2' => $this->shipping_address_line_2,
+                'city' => $this->shipping_city,
+                'state' => $this->shipping_state,
+                'postal_code' => $this->shipping_postal_code,
+                'country' => $this->shipping_country,
+            ],
+            'pricing' => [
+                'subtotal' => (float) $this->subtotal,
+                'subtotal_formatted' => 'LKR ' . number_format((float) $this->subtotal, 2),
+                'tax_amount' => (float) $this->tax_amount,
+                'tax_amount_formatted' => 'LKR ' . number_format((float) $this->tax_amount, 2),
+                'shipping_cost' => (float) $this->shipping_cost,
+                'shipping_cost_formatted' => 'LKR ' . number_format((float) $this->shipping_cost, 2),
+                'discount_amount' => (float) $this->discount_amount,
+                'discount_amount_formatted' => 'LKR ' . number_format((float) $this->discount_amount, 2),
+                'total_amount' => (float) $this->total_amount,
+                'total_amount_formatted' => 'LKR ' . number_format((float) $this->total_amount, 2),
+                'items_line_total' => (float) $itemsTotal,
+                'items_line_total_formatted' => 'LKR ' . number_format((float) $itemsTotal, 2),
+            ],
+            'status' => $this->status,
+            'payment_status' => $this->payment_status,
+            'payment_method' => $this->payment_method,
+            'payment_reference' => $this->payment_reference,
+            'notes' => $this->notes,
+            'admin_notes' => $this->admin_notes,
+            'items_count' => count($items),
+            'items' => $items,
+            'ordered_at' => optional($this->created_at)?->toDateTimeString(),
+            'deleted_at' => now()->toDateTimeString(),
+            'deleted_by' => Auth::user() ? [
+                'id' => Auth::id(),
+                'name' => Auth::user()->name,
+                'email' => Auth::user()->email,
+            ] : null,
+        ];
+    }
+
+    /**
+     * Log full order deletion details (items + prices) before the order is removed.
+     */
+    public function logOrderDeleted(?string $reason = null)
+    {
+        $snapshot = $this->getDeletionActivitySnapshot();
+        $itemSummary = collect($snapshot['items'])
+            ->map(fn ($item) => "{$item['quantity']} x {$item['product_name']} @ {$item['unit_price_formatted']} = {$item['total_price_formatted']}")
+            ->implode('; ');
+
+        $description = "Order {$this->order_number} deleted"
+            . " — customer: {$this->customer_name}"
+            . " — total: {$snapshot['pricing']['total_amount_formatted']}"
+            . " — {$snapshot['items_count']} item(s)"
+            . ($itemSummary !== '' ? " [{$itemSummary}]" : '');
+
+        if ($reason) {
+            $description .= " — reason: {$reason}";
+            $snapshot['deletion_reason'] = $reason;
+        }
+
+        $causer = Auth::user();
+
+        return ActivityLog::log([
+            'type' => $causer ? ActivityLog::TYPE_ADMIN : ActivityLog::TYPE_SYSTEM,
+            'action' => ActivityLog::ACTION_ORDER_DELETED,
+            'description' => $description,
+            'subject_type' => static::class,
+            'subject_id' => $this->id,
+            'causer_type' => $causer ? get_class($causer) : null,
+            'causer_id' => $causer?->id,
+            'properties' => $snapshot,
+            'severity' => ActivityLog::SEVERITY_HIGH,
+            'status' => ActivityLog::STATUS_SUCCESS,
+        ]);
     }
 }

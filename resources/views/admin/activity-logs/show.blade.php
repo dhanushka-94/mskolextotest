@@ -234,6 +234,72 @@
     </div>
     @endif
 
+    <!-- Deleted order snapshot (items + prices) -->
+    @if($activityLog->action === 'order_deleted' && !empty($activityLog->properties['items']))
+    <div class="bg-gray-800/50 border border-red-500/30 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-white mb-2">Deleted Order Details</h3>
+        <p class="text-sm text-gray-400 mb-4">
+            Order <span class="text-white font-mono">{{ $activityLog->properties['order_number'] ?? 'N/A' }}</span>
+            @if(!empty($activityLog->properties['customer']['name']))
+                · {{ $activityLog->properties['customer']['name'] }}
+            @endif
+            @if(!empty($activityLog->properties['pricing']['total_amount_formatted']))
+                · Total {{ $activityLog->properties['pricing']['total_amount_formatted'] }}
+            @endif
+        </p>
+
+        <div class="overflow-x-auto mb-4">
+            <table class="min-w-full divide-y divide-gray-700 text-sm">
+                <thead class="bg-gray-900/50">
+                    <tr>
+                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-400 uppercase">Product</th>
+                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-400 uppercase">Code</th>
+                        <th class="px-3 py-2 text-right text-xs font-medium text-gray-400 uppercase">Qty</th>
+                        <th class="px-3 py-2 text-right text-xs font-medium text-gray-400 uppercase">Unit Price</th>
+                        <th class="px-3 py-2 text-right text-xs font-medium text-gray-400 uppercase">Line Total</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700">
+                    @foreach($activityLog->properties['items'] as $item)
+                    <tr>
+                        <td class="px-3 py-2 text-white">{{ $item['product_name'] ?? 'Item' }}</td>
+                        <td class="px-3 py-2 text-gray-400 font-mono">{{ $item['product_code'] ?? '—' }}</td>
+                        <td class="px-3 py-2 text-right text-gray-300">{{ $item['quantity'] ?? 0 }}</td>
+                        <td class="px-3 py-2 text-right text-gray-300">{{ $item['unit_price_formatted'] ?? ('LKR ' . number_format($item['unit_price'] ?? 0, 2)) }}</td>
+                        <td class="px-3 py-2 text-right text-white font-medium">{{ $item['total_price_formatted'] ?? ('LKR ' . number_format($item['total_price'] ?? 0, 2)) }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        @if(!empty($activityLog->properties['pricing']))
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm mb-4">
+            <div class="bg-gray-900/40 rounded-lg p-3">
+                <p class="text-gray-400 text-xs">Subtotal</p>
+                <p class="text-white">{{ $activityLog->properties['pricing']['subtotal_formatted'] ?? '—' }}</p>
+            </div>
+            <div class="bg-gray-900/40 rounded-lg p-3">
+                <p class="text-gray-400 text-xs">Shipping</p>
+                <p class="text-white">{{ $activityLog->properties['pricing']['shipping_cost_formatted'] ?? '—' }}</p>
+            </div>
+            <div class="bg-gray-900/40 rounded-lg p-3">
+                <p class="text-gray-400 text-xs">Discount</p>
+                <p class="text-white">{{ $activityLog->properties['pricing']['discount_amount_formatted'] ?? '—' }}</p>
+            </div>
+            <div class="bg-gray-900/40 rounded-lg p-3">
+                <p class="text-gray-400 text-xs">Tax</p>
+                <p class="text-white">{{ $activityLog->properties['pricing']['tax_amount_formatted'] ?? '—' }}</p>
+            </div>
+            <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-3 sm:col-span-2">
+                <p class="text-red-300 text-xs">Order Total</p>
+                <p class="text-white font-semibold text-lg">{{ $activityLog->properties['pricing']['total_amount_formatted'] ?? '—' }}</p>
+            </div>
+        </div>
+        @endif
+    </div>
+    @endif
+
     <!-- Properties -->
     @if($activityLog->properties && count($activityLog->properties) > 0)
     <div class="bg-gray-800/50 border border-gray-700 rounded-xl p-6">

@@ -298,15 +298,16 @@ class AdminOrderController extends Controller
                     return redirect($redirectUrl)->with('success', count($orderIds) . ' orders updated successfully');
 
                 case 'delete':
-                    // First delete related transactions and order items, then delete orders in a transaction
-                    DB::transaction(function() use ($orderIds) {
-                        // Delete related transactions
+                    // Snapshot + activity log each order before removing related rows
+                    DB::transaction(function () use ($orderIds) {
+                        $orders = Order::with('orderItems')->whereIn('id', $orderIds)->get();
+
+                        foreach ($orders as $order) {
+                            $order->logOrderDeleted('Bulk delete from admin orders');
+                        }
+
                         $transactionsDeleted = \App\Models\Transaction::whereIn('order_id', $orderIds)->delete();
-
-                        // Delete order items
                         $itemsDeleted = OrderItem::whereIn('order_id', $orderIds)->delete();
-
-                        // Delete orders
                         $ordersDeleted = Order::whereIn('id', $orderIds)->delete();
 
                         Log::info("Bulk delete: {$transactionsDeleted} transactions, {$itemsDeleted} order items and {$ordersDeleted} orders deleted");
@@ -437,6 +438,10 @@ class AdminOrderController extends Controller
             if ($order->payment_status === 'paid') {
                 return redirect()->back()->with('error', 'Cannot delete orders with paid status. Refund first.');
             }
+
+            // Log full order details (items + prices) before removing related data
+            $order->loadMissing('orderItems');
+            $order->logOrderDeleted('Deleted from admin order detail');
 
             // Delete related transactions first to satisfy foreign key constraints
             if ($order->transactions()->exists()) {
