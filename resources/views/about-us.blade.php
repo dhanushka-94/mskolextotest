@@ -335,11 +335,11 @@
                 <div class="space-y-4">
                     <div class="flex justify-between items-center p-4 bg-gray-800/50 rounded-lg">
                         <span class="text-gray-300">First 1 kg:</span>
-                        <span class="text-green-400 font-bold">Rs. 350</span>
+                        <span class="text-green-400 font-bold">Rs. 430</span>
                     </div>
                     <div class="flex justify-between items-center p-4 bg-gray-800/50 rounded-lg">
                         <span class="text-gray-300">Additional per kg:</span>
-                        <span class="text-green-400 font-bold">Rs. 100</span>
+                        <span class="text-green-400 font-bold">Rs. 110</span>
                     </div>
                 </div>
             </div>
@@ -352,11 +352,11 @@
                 <div class="space-y-4">
                     <div class="flex justify-between items-center p-4 bg-gray-800/50 rounded-lg">
                         <span class="text-gray-300">First 1 kg:</span>
-                        <span class="text-orange-400 font-bold">Rs. 500</span>
+                        <span class="text-orange-400 font-bold">Rs. 580</span>
                     </div>
                     <div class="flex justify-between items-center p-4 bg-gray-800/50 rounded-lg">
                         <span class="text-gray-300">Additional per kg:</span>
-                        <span class="text-orange-400 font-bold">Rs. 170</span>
+                        <span class="text-orange-400 font-bold">Rs. 160</span>
                     </div>
                 </div>
             </div>

@@ -32,8 +32,8 @@ class ChristmasComposer
             return true;
         }
 
-        // Optional: Also activate in late November (Nov 25-30) for early Christmas
-        if ($currentMonth === 11 && $currentDay >= 25) {
+        // Early November activation for festive season (Nov 15–30)
+        if ($currentMonth === 11 && $currentDay >= 15) {
             return true;
         }
 

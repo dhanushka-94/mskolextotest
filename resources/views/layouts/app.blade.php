@@ -177,9 +177,10 @@
     </style>
 </head>
 <body class="bg-dark-900 text-gray-100 font-sans antialiased {{ isset($isChristmasActive) && $isChristmasActive ? 'christmas-active' : '' }}">
-    <!-- 🎄 Christmas Decorations -->
+    <!-- Christmas Decorations (CSS-only visuals; no SEO copy) -->
     @if(isset($isChristmasActive) && $isChristmasActive)
-        <div class="christmas-decorations">
+        <div class="christmas-garland" aria-hidden="true"></div>
+        <div class="christmas-decorations" aria-hidden="true">
             <span class="christmas-snowflake">❄</span>
             <span class="christmas-snowflake">❄</span>
             <span class="christmas-snowflake">❄</span>
@@ -189,10 +190,13 @@
             <span class="christmas-snowflake">❄</span>
             <span class="christmas-snowflake">❄</span>
             <span class="christmas-snowflake">❄</span>
+            <span class="christmas-snowflake christmas-snowflake--gold">✦</span>
+            <span class="christmas-snowflake christmas-snowflake--gold">✦</span>
+            <span class="christmas-snowflake christmas-snowflake--gold">✦</span>
         </div>
     @endif
     <!-- Top Contact Bar -->
-    <div class="bg-black border-b border-gray-800">
+    <div class="bg-black border-b border-gray-800 christmas-topbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col sm:flex-row justify-between items-center py-2 text-sm">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-gray-300 text-center sm:text-left">
