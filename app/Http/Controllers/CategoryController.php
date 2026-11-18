@@ -15,6 +15,8 @@ class CategoryController extends Controller
         $categories = \App\Services\PerformanceCacheService::getMainCategories();
 
         // Load all subcategories for listed main categories in one query
+        $categoriesById = $categories->keyBy('id');
+
         $subcategoriesByParent = SmaCategory::query()
             ->select(['id', 'name', 'slug', 'parent_id'])
             ->whereIn('parent_id', $categories->pluck('id'))
@@ -31,7 +33,11 @@ class CategoryController extends Controller
                 $subcategory->active_products_count = ($subcategory->total_products_count ?? 0) + ($subcategory->subcategory_products_count ?? 0);
                 return $subcategory;
             })
-            ->groupBy('parent_id');
+            ->groupBy('parent_id')
+            ->map(function ($subs, $parentId) use ($categoriesById) {
+                $parentName = $categoriesById->get($parentId)?->name ?? '';
+                return \App\Services\CategoryOrderingService::sortSubcategories($subs, $parentName);
+            });
 
         return view('categories.index', compact('categories', 'subcategoriesByParent'));
     }

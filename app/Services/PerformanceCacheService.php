@@ -186,11 +186,14 @@ class PerformanceCacheService
         Cache::forget('main_categories_with_counts_v5');
         Cache::forget('main_categories_with_counts_v6');
         Cache::forget('main_categories_with_counts_v7');
+        Cache::forget('main_categories_with_counts_v8');
         Cache::forget('navigation_categories');
         Cache::forget('navigation_categories_v4');
         Cache::forget('navigation_categories_v5');
         Cache::forget('navigation_categories_v6');
         Cache::forget('navigation_categories_v7');
+        Cache::forget('navigation_categories_v8');
+        CategoryOrderingService::clearOrderMapCache();
     }
 
     /**

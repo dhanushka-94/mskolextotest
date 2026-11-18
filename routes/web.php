@@ -79,6 +79,13 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->prefix
 
         // Slider Management
         Route::resource('sliders', App\Http\Controllers\Admin\SliderController::class);
+
+        // Category display order (drag-and-drop)
+        Route::get('/category-order', [App\Http\Controllers\Admin\CategoryOrderController::class, 'index'])->name('category-order.index');
+        Route::post('/category-order/reorder-main', [App\Http\Controllers\Admin\CategoryOrderController::class, 'reorderMain'])->name('category-order.reorder-main');
+        Route::post('/category-order/reorder-sub', [App\Http\Controllers\Admin\CategoryOrderController::class, 'reorderSub'])->name('category-order.reorder-sub');
+        Route::post('/category-order/reset-main', [App\Http\Controllers\Admin\CategoryOrderController::class, 'resetMain'])->name('category-order.reset-main');
+        Route::post('/category-order/reset-sub', [App\Http\Controllers\Admin\CategoryOrderController::class, 'resetSub'])->name('category-order.reset-sub');
 });
 
 // Home Route
